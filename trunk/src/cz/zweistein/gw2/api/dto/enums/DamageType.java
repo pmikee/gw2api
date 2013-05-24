@@ -2,7 +2,8 @@ package cz.zweistein.gw2.api.dto.enums;
 
 public enum DamageType {
 	
-	PHYSICAL("Physical");
+	PHYSICAL("Physical"),
+	ICE("Ice");
 	
 	private String techName;
 
