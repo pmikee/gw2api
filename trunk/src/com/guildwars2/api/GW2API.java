@@ -179,8 +179,6 @@ public class GW2API {
 		JSONObject obj = jsonDao.getWvWMatches();
 		JSONArray matchObjects = (JSONArray) obj.get("wvw_matches");
 
-		System.out.println(obj);
-
 		List<WvWMatch> matches = new ArrayList<WvWMatch>(matchObjects.size());
 
 		for (Object object : matchObjects) {
@@ -207,8 +205,6 @@ public class GW2API {
 
 			for (Object objectiveO : objectivesObj) {
 				JSONObject objectiveObj = (JSONObject) objectiveO;
-
-				System.out.println(objectiveO);
 
 				objectives.add(new WvWObjective(Long.toString((Long) objectiveObj.get("id")), (String) objectiveObj.get("owner_guild"), WvWSide.resolve((String) objectiveObj.get("owner"))));
 			}

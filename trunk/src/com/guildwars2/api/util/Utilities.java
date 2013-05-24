@@ -25,6 +25,7 @@ package com.guildwars2.api.util;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class Utilities {
 	
@@ -45,13 +46,13 @@ public class Utilities {
 				querry.append("?");
 			}
 			boolean first = true;
-			for (String param : params.keySet()) {
+			for (Entry<String, Object> param : params.entrySet()) {
 				if (first) {
 					first = false;
 				} else {
 					querry.append("&");
 				}
-				querry.append(param).append("=").append(params.get(param));
+				querry.append(param.getKey()).append("=").append(param.getValue());
 			}
 		}
 		return querry.toString();
