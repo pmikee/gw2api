@@ -36,8 +36,12 @@ public class Item {
 	private Weapon weapon;
 	
 	private Bag bag;
+	
+	private Container container;
+	
+	private Consumable consumable;
 
-	public Item(String itemId, String name, String description, String level, Rarity rarity, String vendorValue, List<GameType> gameTypes, List<ItemFlag> flags, Object restrictions, String suffixItemId, ItemClass itemType, Armor armor, Weapon weapon, Bag bag) {
+	public Item(String itemId, String name, String description, String level, Rarity rarity, String vendorValue, List<GameType> gameTypes, List<ItemFlag> flags, Object restrictions, String suffixItemId, ItemClass itemType, Armor armor, Weapon weapon, Bag bag, Container container, Consumable consumable) {
 		super();
 		this.itemId = itemId;
 		this.name = name;
@@ -53,6 +57,8 @@ public class Item {
 		this.armor = armor;
 		this.weapon = weapon;
 		this.bag = bag;
+		this.container = container;
+		this.consumable = consumable;
 	}
 
 	public Weapon getWeapon() {
@@ -99,6 +105,10 @@ public class Item {
 		return this.armor;
 	}
 
+	public Consumable getConsumable() {
+		return consumable;
+	}
+
 	public String getSuffixItemId() {
 		return this.suffixItemId;
 	}
@@ -111,9 +121,14 @@ public class Item {
 		return bag;
 	}
 
+	public Container getContainer() {
+		return container;
+	}
+
 	@Override
 	public String toString() {
-		return "Item [itemId=" + itemId + ", name=" + name + ", description=" + description + ", level=" + level + ", rarity=" + rarity + ", vendorValue=" + vendorValue + ", gameTypes=" + gameTypes + ", flags=" + flags + ", restrictions=" + restrictions + ", suffixItemId=" + suffixItemId + ", itemType=" + itemType + ", armor=" + armor + ", weapon=" + weapon + ", bag=" + bag + "]";
+		return "Item [itemId=" + itemId + ", name=" + name + ", description=" + description + ", level=" + level + ", rarity=" + rarity + ", vendorValue=" + vendorValue + ", gameTypes=" + gameTypes + ", flags=" + flags + ", restrictions=" + restrictions + ", suffixItemId=" + suffixItemId + ", itemType=" + itemType + ", armor=" + armor + ", weapon=" + weapon + ", bag=" + bag + ", container="
+				+ container + ", consumable=" + consumable + "]";
 	}
 
 }

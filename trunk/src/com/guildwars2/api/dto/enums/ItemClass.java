@@ -5,9 +5,9 @@ public enum ItemClass {
 	ARMOR("Armor"),
 	CRAFTING_MATERIAL("CraftingMaterial"),
 	WEAPON("Weapon"),
-	BAG("Bag"),
+	BAG("Bag"), //flags are not array
 	CONTAINER("Container"),
-	TROPHY("Trophy"),
+	TROPHY("Trophy"), //not bound information?
 	CONSUMABLE("Consumable"),
 	TRINKET("Trinket"),
 	GIZMO("Gizmo"),
