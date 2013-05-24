@@ -33,7 +33,6 @@ import org.json.simple.JSONObject;
 
 import com.guildwars2.api.dto.Event;
 import com.guildwars2.api.dto.Ingredient;
-import com.guildwars2.api.dto.Item;
 import com.guildwars2.api.dto.Recipe;
 import com.guildwars2.api.dto.Scores;
 import com.guildwars2.api.dto.WvWMap;
@@ -49,6 +48,7 @@ import com.guildwars2.api.dto.enums.Realm;
 import com.guildwars2.api.dto.enums.RecipeType;
 import com.guildwars2.api.dto.enums.WvWMapType;
 import com.guildwars2.api.dto.enums.WvWSide;
+import com.guildwars2.api.dto.items.Item;
 import com.guildwars2.api.util.GW2APIJSON;
 
 public class GW2API {

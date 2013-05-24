@@ -1,23 +1,23 @@
 package com.guildwars2.api.dto.enums;
 
-public enum ArmorType {
+public enum DamageType {
 	
-	COAT("Coat");
+	PHYSICAL("Physical");
 	
 	private String techName;
 
-	private ArmorType(String name) {
+	private DamageType(String name) {
 		this.techName = name;
 	}
 
-	public static ArmorType resolve(String name) {
+	public static DamageType resolve(String name) {
 
-		for (ArmorType state : ArmorType.values()) {
+		for (DamageType state : DamageType.values()) {
 			if (state.techName.equals(name)) {
 				return state;
 			}
 		}
-
+		
 		throw new IllegalArgumentException(name);
 	}
 

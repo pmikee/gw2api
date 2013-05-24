@@ -46,7 +46,6 @@ public enum RecipeType {
 	BAG("Bag"),
 	EARRING("Earring"),
 	TORCH("Torch"),
-	
 	COAT("Coat");
 	
 	private String techName;
