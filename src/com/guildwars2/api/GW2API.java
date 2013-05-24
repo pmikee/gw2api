@@ -46,6 +46,7 @@ import com.guildwars2.api.dto.enums.ContainerType;
 import com.guildwars2.api.dto.enums.DamageType;
 import com.guildwars2.api.dto.enums.EventState;
 import com.guildwars2.api.dto.enums.GameType;
+import com.guildwars2.api.dto.enums.GatheringType;
 import com.guildwars2.api.dto.enums.InfusionSlotFlag;
 import com.guildwars2.api.dto.enums.ItemFlag;
 import com.guildwars2.api.dto.enums.ItemClass;
@@ -65,6 +66,7 @@ import com.guildwars2.api.dto.items.Bag;
 import com.guildwars2.api.dto.items.Buff;
 import com.guildwars2.api.dto.items.Consumable;
 import com.guildwars2.api.dto.items.Container;
+import com.guildwars2.api.dto.items.Gathering;
 import com.guildwars2.api.dto.items.InfixUpgrade;
 import com.guildwars2.api.dto.items.InfusionSlot;
 import com.guildwars2.api.dto.items.Item;
@@ -386,7 +388,14 @@ public class GW2API {
 			back = new Back(infusionSlots, infixUpgrade, (String) backObj.get("suffix_item_id"));
 		}
 		
-		return new Item((String) obj.get("item_id"), (String) obj.get("name"), (String) obj.get("description"), (String) obj.get("level"), Rarity.resolve((String) obj.get("rarity")), (String) obj.get("vendor_value"), gameTypes, flags, null, (String) obj.get("suffix_item_id"), itemClass, armor, weapon, bag, container, consumable, trinket, upgradeComponent, back);
+		Gathering gathering = null;
+		if (ItemClass.GATHERING.equals(itemClass)) {
+			JSONObject gatheringObj = (JSONObject) obj.get("gathering");
+
+			gathering = new Gathering(GatheringType.resolve((String)gatheringObj.get("type")));
+		}
+		
+		return new Item((String) obj.get("item_id"), (String) obj.get("name"), (String) obj.get("description"), (String) obj.get("level"), Rarity.resolve((String) obj.get("rarity")), (String) obj.get("vendor_value"), gameTypes, flags, null, (String) obj.get("suffix_item_id"), itemClass, armor, weapon, bag, container, consumable, trinket, upgradeComponent, back, gathering);
 
 	}
 
