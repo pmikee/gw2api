@@ -47,12 +47,14 @@ import com.guildwars2.api.dto.enums.DamageType;
 import com.guildwars2.api.dto.enums.EventState;
 import com.guildwars2.api.dto.enums.GameType;
 import com.guildwars2.api.dto.enums.GatheringType;
+import com.guildwars2.api.dto.enums.GizmoType;
 import com.guildwars2.api.dto.enums.InfusionSlotFlag;
-import com.guildwars2.api.dto.enums.ItemFlag;
 import com.guildwars2.api.dto.enums.ItemClass;
+import com.guildwars2.api.dto.enums.ItemFlag;
+import com.guildwars2.api.dto.enums.ItemType;
 import com.guildwars2.api.dto.enums.Rarity;
 import com.guildwars2.api.dto.enums.Realm;
-import com.guildwars2.api.dto.enums.ItemType;
+import com.guildwars2.api.dto.enums.Restriction;
 import com.guildwars2.api.dto.enums.TrinketType;
 import com.guildwars2.api.dto.enums.UpgradeComponentFlag;
 import com.guildwars2.api.dto.enums.UpgradeComponentType;
@@ -67,6 +69,7 @@ import com.guildwars2.api.dto.items.Buff;
 import com.guildwars2.api.dto.items.Consumable;
 import com.guildwars2.api.dto.items.Container;
 import com.guildwars2.api.dto.items.Gathering;
+import com.guildwars2.api.dto.items.Gizmo;
 import com.guildwars2.api.dto.items.InfixUpgrade;
 import com.guildwars2.api.dto.items.InfusionSlot;
 import com.guildwars2.api.dto.items.Item;
@@ -300,7 +303,13 @@ public class GW2API {
 		for (Object flagO : flagsObj) {
 			flags.add(ItemFlag.resolve(((String) flagO)));
 		}
-
+		
+		JSONArray restrictionsObj = (JSONArray) obj.get("restrictions");
+		List<Restriction> restrictions = new ArrayList<Restriction>(restrictionsObj.size());
+		for (Object restrictionO : restrictionsObj) {
+			restrictions.add(Restriction.resolve((String)restrictionO));
+		}
+		
 		ItemClass itemClass = ItemClass.resolve((String) obj.get("type"));
 
 		Armor armor = null;
@@ -395,7 +404,15 @@ public class GW2API {
 			gathering = new Gathering(GatheringType.resolve((String)gatheringObj.get("type")));
 		}
 		
-		return new Item((String) obj.get("item_id"), (String) obj.get("name"), (String) obj.get("description"), (String) obj.get("level"), Rarity.resolve((String) obj.get("rarity")), (String) obj.get("vendor_value"), gameTypes, flags, null, (String) obj.get("suffix_item_id"), itemClass, armor, weapon, bag, container, consumable, trinket, upgradeComponent, back, gathering);
+		Gizmo gizmo = null;
+		if (ItemClass.GIZMO.equals(itemClass)) {
+			JSONObject gizmoObj = (JSONObject) obj.get("gizmo");
+
+			gizmo = new Gizmo(GizmoType.resolve((String)gizmoObj.get("type")));
+		}
+		
+		
+		return new Item((String) obj.get("item_id"), (String) obj.get("name"), (String) obj.get("description"), (String) obj.get("level"), Rarity.resolve((String) obj.get("rarity")), (String) obj.get("vendor_value"), gameTypes, flags, restrictions, (String) obj.get("suffix_item_id"), itemClass, armor, weapon, bag, container, consumable, trinket, upgradeComponent, back, gathering, gizmo);
 
 	}
 
