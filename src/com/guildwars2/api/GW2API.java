@@ -53,6 +53,8 @@ import com.guildwars2.api.dto.enums.Rarity;
 import com.guildwars2.api.dto.enums.Realm;
 import com.guildwars2.api.dto.enums.ItemType;
 import com.guildwars2.api.dto.enums.TrinketType;
+import com.guildwars2.api.dto.enums.UpgradeComponentFlag;
+import com.guildwars2.api.dto.enums.UpgradeComponentType;
 import com.guildwars2.api.dto.enums.WeightClass;
 import com.guildwars2.api.dto.enums.WvWMapType;
 import com.guildwars2.api.dto.enums.WvWSide;
@@ -66,6 +68,7 @@ import com.guildwars2.api.dto.items.InfixUpgrade;
 import com.guildwars2.api.dto.items.InfusionSlot;
 import com.guildwars2.api.dto.items.Item;
 import com.guildwars2.api.dto.items.Trinket;
+import com.guildwars2.api.dto.items.UpgradeComponent;
 import com.guildwars2.api.dto.items.Weapon;
 import com.guildwars2.api.util.GW2APIJSON;
 
@@ -357,7 +360,23 @@ public class GW2API {
 			consumable = new Consumable(ConsumableType.resolve((String) consumableObj.get("type")), (String) consumableObj.get("description"), (String) consumableObj.get("duration_ms"));
 		}
 
-		return new Item((String) obj.get("item_id"), (String) obj.get("name"), (String) obj.get("description"), (String) obj.get("level"), Rarity.resolve((String) obj.get("rarity")), (String) obj.get("vendor_value"), gameTypes, flags, null, (String) obj.get("suffix_item_id"), itemClass, armor, weapon, bag, container, consumable, trinket);
+		UpgradeComponent upgradeComponent = null;
+		if (ItemClass.UPGRADE_COMPONENT.equals(itemClass)) {
+			JSONObject upgradeComponentObj = (JSONObject) obj.get("upgrade_component");
+			
+			InfixUpgrade infixUpgrade = parseInfixUpgrade(upgradeComponentObj);
+
+			List<UpgradeComponentFlag> upgradeComponentFlags = new ArrayList<UpgradeComponentFlag>();
+			JSONArray upgradeComponentFlagsObj = (JSONArray) upgradeComponentObj.get("flags");;
+			for (Object flagO : upgradeComponentFlagsObj) {
+				upgradeComponentFlags.add(UpgradeComponentFlag.resolve(((String) flagO)));
+			}
+			
+			upgradeComponent = new UpgradeComponent(UpgradeComponentType.resolve((String) upgradeComponentObj.get("type")), upgradeComponentFlags, infixUpgrade, (String) upgradeComponentObj.get("suffix"), null);
+		}
+		
+		
+		return new Item((String) obj.get("item_id"), (String) obj.get("name"), (String) obj.get("description"), (String) obj.get("level"), Rarity.resolve((String) obj.get("rarity")), (String) obj.get("vendor_value"), gameTypes, flags, null, (String) obj.get("suffix_item_id"), itemClass, armor, weapon, bag, container, consumable, trinket, upgradeComponent);
 
 	}
 

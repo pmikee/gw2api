@@ -5,13 +5,13 @@ public enum ItemClass {
 	ARMOR("Armor"),
 	CRAFTING_MATERIAL("CraftingMaterial"),
 	WEAPON("Weapon"),
-	BAG("Bag"), //flags are not array
+	BAG("Bag"), //flags are not array FIXME, needs research
 	CONTAINER("Container"),
-	TROPHY("Trophy"), //not bound information?
+	TROPHY("Trophy"), //no bound information?
 	CONSUMABLE("Consumable"),
 	TRINKET("Trinket"),
 	GIZMO("Gizmo"), //FIXME
-	UPGRADE_COMPONENT("UpgradeComponent"), //FIXME
+	UPGRADE_COMPONENT("UpgradeComponent"),
 	MINIPET("MiniPet"); //FIXME
 	
 	private String techName;

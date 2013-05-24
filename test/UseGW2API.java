@@ -1,4 +1,5 @@
 import java.rmi.RemoteException;
+import java.util.Collections;
 import java.util.List;
 
 import com.guildwars2.api.GW2API;
@@ -20,6 +21,7 @@ public class UseGW2API {
 //		}
 
 		List<Long> items = api.getItems();
+		Collections.shuffle(items);
 		for (Long id : items) {
 			System.out.print(id + " ");
 			api.getItemDetails(id, null);
