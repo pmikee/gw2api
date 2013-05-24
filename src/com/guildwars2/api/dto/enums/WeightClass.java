@@ -4,7 +4,8 @@ public enum WeightClass {
 	
 	LIGHT("Light"),
 	MEDIUM("Medium"),
-	HEAVY("Heavy");
+	HEAVY("Heavy"),
+	CLOTHING("Clothing");
 	
 	private String techName;
 

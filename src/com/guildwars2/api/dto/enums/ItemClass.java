@@ -10,9 +10,9 @@ public enum ItemClass {
 	TROPHY("Trophy"), //not bound information?
 	CONSUMABLE("Consumable"),
 	TRINKET("Trinket"),
-	GIZMO("Gizmo"),
-	UPGRADE_COMPONENT("UpgradeComponent"),
-	MINIPET("MiniPet");
+	GIZMO("Gizmo"), //FIXME
+	UPGRADE_COMPONENT("UpgradeComponent"), //FIXME
+	MINIPET("MiniPet"); //FIXME
 	
 	private String techName;
 
