@@ -12,6 +12,7 @@ public enum ItemClass {
 	TRINKET("Trinket"),
 	GIZMO("Gizmo"), //FIXME
 	UPGRADE_COMPONENT("UpgradeComponent"),
+	BACK("Back"),
 	MINIPET("MiniPet"); //FIXME
 	
 	private String techName;

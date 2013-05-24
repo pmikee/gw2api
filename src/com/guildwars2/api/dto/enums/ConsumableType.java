@@ -5,7 +5,8 @@ public enum ConsumableType {
 	UNLOCK("Unlock"),
 	GENERIC("Generic"),
 	FOOD("Food"),
-	UTILITY("Utility");
+	UTILITY("Utility"),
+	TRANSMUTATION("Transmutation");
 	
 	private String techName;
 

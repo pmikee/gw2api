@@ -2,7 +2,8 @@ package com.guildwars2.api.dto.enums;
 
 public enum InfusionSlotFlag {
 	
-	DEFENSE("Defense");
+	DEFENSE("Defense"),
+	OFFENSE("Offense");
 	
 	private String techName;
 
