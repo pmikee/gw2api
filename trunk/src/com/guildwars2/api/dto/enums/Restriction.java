@@ -2,7 +2,11 @@ package com.guildwars2.api.dto.enums;
 
 public enum Restriction {
 
-	ASURA("Asura");
+	ASURA("Asura"),
+	HUMAN("Human"),
+	NORN("Norn"),
+	CHARR("Charr"),
+	SYLVARI("Sylvari");
 	
 	private String techName;
 

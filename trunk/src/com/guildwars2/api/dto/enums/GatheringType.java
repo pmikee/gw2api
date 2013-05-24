@@ -2,7 +2,8 @@ package com.guildwars2.api.dto.enums;
 
 public enum GatheringType {
 	
-	MINING("Mining");
+	MINING("Mining"),
+	LOGGING("Logging");
 	
 	private String techName;
 
