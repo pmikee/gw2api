@@ -41,6 +41,8 @@ import com.guildwars2.api.dto.WvWMatchDetail;
 import com.guildwars2.api.dto.WvWObjective;
 import com.guildwars2.api.dto.enums.AttributeType;
 import com.guildwars2.api.dto.enums.BagModifier;
+import com.guildwars2.api.dto.enums.ConsumableType;
+import com.guildwars2.api.dto.enums.ContainerType;
 import com.guildwars2.api.dto.enums.DamageType;
 import com.guildwars2.api.dto.enums.EventState;
 import com.guildwars2.api.dto.enums.GameType;
@@ -56,6 +58,8 @@ import com.guildwars2.api.dto.items.Armor;
 import com.guildwars2.api.dto.items.Attribute;
 import com.guildwars2.api.dto.items.Bag;
 import com.guildwars2.api.dto.items.Buff;
+import com.guildwars2.api.dto.items.Consumable;
+import com.guildwars2.api.dto.items.Container;
 import com.guildwars2.api.dto.items.InfixUpgrade;
 import com.guildwars2.api.dto.items.Item;
 import com.guildwars2.api.dto.items.Weapon;
@@ -317,8 +321,25 @@ public class GW2API {
 			bag = new Bag((String) bagObj.get("size"), bagModifiers);
 			
 		}
+		
+		Container container = null;
+		if (ItemClass.CONTAINER.equals(itemClass)) {
+			JSONObject containerObj = (JSONObject) obj.get("container");
+			
+			container = new Container(ContainerType.resolve((String)containerObj.get("type")));
+			
+		}
 
-		return new Item((String) obj.get("item_id"), (String) obj.get("name"), (String) obj.get("description"), (String) obj.get("level"), Rarity.resolve((String) obj.get("rarity")), (String) obj.get("vendor_value"), gameTypes, flags, null, (String) obj.get("suffix_item_id"), itemClass, armor, weapon, bag);
+		Consumable consumable = null;
+		if (ItemClass.CONSUMABLE.equals(itemClass)) {
+			JSONObject consumableObj = (JSONObject) obj.get("consumable");
+			
+			consumable = new Consumable(ConsumableType.resolve((String)consumableObj.get("type")), (String)consumableObj.get("description"), (String)consumableObj.get("duration_ms"));
+			
+		}
+		
+		
+		return new Item((String) obj.get("item_id"), (String) obj.get("name"), (String) obj.get("description"), (String) obj.get("level"), Rarity.resolve((String) obj.get("rarity")), (String) obj.get("vendor_value"), gameTypes, flags, null, (String) obj.get("suffix_item_id"), itemClass, armor, weapon, bag, container, consumable);
 
 	}
 
