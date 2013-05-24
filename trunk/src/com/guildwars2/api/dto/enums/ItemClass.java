@@ -13,7 +13,7 @@ public enum ItemClass {
 	GIZMO("Gizmo"), //FIXME
 	UPGRADE_COMPONENT("UpgradeComponent"),
 	BACK("Back"),
-	MINIPET("MiniPet"), //FIXME
+	MINIPET("MiniPet"), //no bound information
 	GATHERING("Gathering"); //FIXME "gathering":{"type":"Mining"}
 	
 	private String techName;

@@ -6,6 +6,7 @@ import com.guildwars2.api.dto.enums.GameType;
 import com.guildwars2.api.dto.enums.ItemFlag;
 import com.guildwars2.api.dto.enums.ItemClass;
 import com.guildwars2.api.dto.enums.Rarity;
+import com.guildwars2.api.dto.enums.Restriction;
 
 public class Item {
 
@@ -25,7 +26,7 @@ public class Item {
 
 	private List<ItemFlag> flags;
 
-	private Object restrictions;
+	private List<Restriction> restrictions;
 
 	private String suffixItemId;
 	
@@ -48,8 +49,11 @@ public class Item {
 	private Back back;
 	
 	private Gathering gathering;
+	
+	private Gizmo gizmo;
 
-	public Item(String itemId, String name, String description, String level, Rarity rarity, String vendorValue, List<GameType> gameTypes, List<ItemFlag> flags, Object restrictions, String suffixItemId, ItemClass itemType, Armor armor, Weapon weapon, Bag bag, Container container, Consumable consumable, Trinket trinket, UpgradeComponent upgradeComponent, Back back, Gathering gathering) {
+	public Item(String itemId, String name, String description, String level, Rarity rarity, String vendorValue, List<GameType> gameTypes, List<ItemFlag> flags, List<Restriction> restrictions, String suffixItemId, ItemClass itemType, Armor armor, Weapon weapon, Bag bag, Container container, Consumable consumable, Trinket trinket, UpgradeComponent upgradeComponent, Back back, Gathering gathering,
+			Gizmo gizmo) {
 		super();
 		this.itemId = itemId;
 		this.name = name;
@@ -71,6 +75,11 @@ public class Item {
 		this.upgradeComponent = upgradeComponent;
 		this.back = back;
 		this.gathering = gathering;
+		this.gizmo = gizmo;
+	}
+
+	public Gizmo getGizmo() {
+		return gizmo;
 	}
 
 	public Back getBack() {
@@ -113,7 +122,7 @@ public class Item {
 		return this.flags;
 	}
 
-	public Object getRestrictions() {
+	public List<Restriction> getRestrictions() {
 		return this.restrictions;
 	}
 
@@ -156,7 +165,7 @@ public class Item {
 	@Override
 	public String toString() {
 		return "Item [itemId=" + itemId + ", name=" + name + ", description=" + description + ", level=" + level + ", rarity=" + rarity + ", vendorValue=" + vendorValue + ", gameTypes=" + gameTypes + ", flags=" + flags + ", restrictions=" + restrictions + ", suffixItemId=" + suffixItemId + ", itemType=" + itemType + ", armor=" + armor + ", weapon=" + weapon + ", bag=" + bag + ", container="
-				+ container + ", consumable=" + consumable + ", trinket=" + trinket + ", upgradeComponent=" + upgradeComponent + ", back=" + back + ", gathering=" + gathering + "]";
+				+ container + ", consumable=" + consumable + ", trinket=" + trinket + ", upgradeComponent=" + upgradeComponent + ", back=" + back + ", gathering=" + gathering + ", gizmo=" + gizmo + "]";
 	}
 
 }
