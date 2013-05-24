@@ -1,5 +1,7 @@
 package com.guildwars2.api.dto.items;
 
+import java.util.List;
+
 import com.guildwars2.api.dto.enums.DamageType;
 import com.guildwars2.api.dto.enums.ItemType;
 
@@ -15,11 +17,11 @@ public class Weapon {
 	
 	private String defense;
 	
-	private Object infusionSlots;
+	private List<InfusionSlot> infusionSlots;
 	
 	private InfixUpgrade infixUpgrade;
 
-	public Weapon(ItemType weaponType, DamageType damageType, String minPower, String maxPower, String defense, Object infusionSlots, InfixUpgrade infixUpgrade) {
+	public Weapon(ItemType weaponType, DamageType damageType, String minPower, String maxPower, String defense, List<InfusionSlot> infusionSlots, InfixUpgrade infixUpgrade) {
 		super();
 		this.weaponType = weaponType;
 		this.damageType = damageType;
@@ -50,7 +52,7 @@ public class Weapon {
 		return defense;
 	}
 
-	public Object getInfusionSlots() {
+	public List<InfusionSlot> getInfusionSlots() {
 		return infusionSlots;
 	}
 
