@@ -60,6 +60,7 @@ import com.guildwars2.api.dto.enums.WvWMapType;
 import com.guildwars2.api.dto.enums.WvWSide;
 import com.guildwars2.api.dto.items.Armor;
 import com.guildwars2.api.dto.items.Attribute;
+import com.guildwars2.api.dto.items.Back;
 import com.guildwars2.api.dto.items.Bag;
 import com.guildwars2.api.dto.items.Buff;
 import com.guildwars2.api.dto.items.Consumable;
@@ -375,8 +376,17 @@ public class GW2API {
 			upgradeComponent = new UpgradeComponent(UpgradeComponentType.resolve((String) upgradeComponentObj.get("type")), upgradeComponentFlags, infixUpgrade, (String) upgradeComponentObj.get("suffix"), null);
 		}
 		
+		Back back = null;
+		if (ItemClass.BACK.equals(itemClass)) {
+			JSONObject backObj = (JSONObject) obj.get("back");
+
+			InfixUpgrade infixUpgrade = parseInfixUpgrade(backObj);
+			List<InfusionSlot> infusionSlots = parseInfusionSlots(backObj);
+
+			back = new Back(infusionSlots, infixUpgrade, (String) backObj.get("suffix_item_id"));
+		}
 		
-		return new Item((String) obj.get("item_id"), (String) obj.get("name"), (String) obj.get("description"), (String) obj.get("level"), Rarity.resolve((String) obj.get("rarity")), (String) obj.get("vendor_value"), gameTypes, flags, null, (String) obj.get("suffix_item_id"), itemClass, armor, weapon, bag, container, consumable, trinket, upgradeComponent);
+		return new Item((String) obj.get("item_id"), (String) obj.get("name"), (String) obj.get("description"), (String) obj.get("level"), Rarity.resolve((String) obj.get("rarity")), (String) obj.get("vendor_value"), gameTypes, flags, null, (String) obj.get("suffix_item_id"), itemClass, armor, weapon, bag, container, consumable, trinket, upgradeComponent, back);
 
 	}
 
