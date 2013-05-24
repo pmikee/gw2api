@@ -46,6 +46,7 @@ import com.guildwars2.api.dto.enums.ContainerType;
 import com.guildwars2.api.dto.enums.DamageType;
 import com.guildwars2.api.dto.enums.EventState;
 import com.guildwars2.api.dto.enums.GameType;
+import com.guildwars2.api.dto.enums.InfusionSlotFlag;
 import com.guildwars2.api.dto.enums.ItemFlag;
 import com.guildwars2.api.dto.enums.ItemClass;
 import com.guildwars2.api.dto.enums.Rarity;
@@ -61,6 +62,7 @@ import com.guildwars2.api.dto.items.Buff;
 import com.guildwars2.api.dto.items.Consumable;
 import com.guildwars2.api.dto.items.Container;
 import com.guildwars2.api.dto.items.InfixUpgrade;
+import com.guildwars2.api.dto.items.InfusionSlot;
 import com.guildwars2.api.dto.items.Item;
 import com.guildwars2.api.dto.items.Weapon;
 import com.guildwars2.api.util.GW2APIJSON;
@@ -268,7 +270,7 @@ public class GW2API {
 
 					attributes.add(new Attribute(AttributeType.resolve((String) attributeObj.get("attribute")), (String) attributeObj.get("modifier")));
 				}
-				
+
 				Buff buff = null;
 				if (!(infixObj.get("buff") instanceof String)) {
 					JSONObject buffObj = (JSONObject) infixObj.get("buff");
@@ -276,8 +278,26 @@ public class GW2API {
 				}
 				infixUpgrade = new InfixUpgrade(buff, attributes);
 			}
+			
 
-			armor = new Armor(ItemType.resolve((String) armorObj.get("type")), WeightClass.resolve((String) armorObj.get("weight_class")), (String) armorObj.get("defense"), null, infixUpgrade);
+			JSONArray infusionSlotsObj = (JSONArray) armorObj.get("infusion_slots");
+			List<InfusionSlot> infusionSlots = new ArrayList<InfusionSlot>(infusionSlotsObj.size());
+			for (Object infusionSlotO : infusionSlotsObj) {
+				JSONObject infusionSlotObj = (JSONObject) infusionSlotO;
+
+				JSONArray infusionFlagsObj = (JSONArray) infusionSlotObj.get("flags");
+				List<InfusionSlotFlag> infusionFlags = new ArrayList<InfusionSlotFlag>(infusionFlagsObj.size());
+				for (Object infusionFlagO : infusionFlagsObj) {
+					String infusionFlag = (String) infusionFlagO;
+
+					infusionFlags.add(InfusionSlotFlag.resolve(infusionFlag));
+				}
+
+				infusionSlots.add(new InfusionSlot(infusionFlags, null));
+
+			}
+
+			armor = new Armor(ItemType.resolve((String) armorObj.get("type")), WeightClass.resolve((String) armorObj.get("weight_class")), (String) armorObj.get("defense"), infusionSlots, infixUpgrade);
 		}
 
 		Weapon weapon = null;
@@ -294,7 +314,7 @@ public class GW2API {
 
 					attributes.add(new Attribute(AttributeType.resolve((String) attributeObj.get("attribute")), (String) attributeObj.get("modifier")));
 				}
-				
+
 				Buff buff = null;
 				if (!(infixObj.get("buff") instanceof String)) {
 					JSONObject buffObj = (JSONObject) infixObj.get("buff");
@@ -303,42 +323,58 @@ public class GW2API {
 				infixUpgrade = new InfixUpgrade(buff, attributes);
 			}
 
-			weapon = new Weapon(ItemType.resolve((String) weaponObj.get("type")), DamageType.resolve((String) weaponObj.get("damage_type")), (String) weaponObj.get("min_power"), (String) weaponObj.get("max_power"), (String) weaponObj.get("defense"), null, infixUpgrade);
+			JSONArray infusionSlotsObj = (JSONArray) weaponObj.get("infusion_slots");
+			List<InfusionSlot> infusionSlots = new ArrayList<InfusionSlot>(infusionSlotsObj.size());
+			for (Object infusionSlotO : infusionSlotsObj) {
+				JSONObject infusionSlotObj = (JSONObject) infusionSlotO;
+
+				JSONArray infusionFlagsObj = (JSONArray) infusionSlotObj.get("flags");
+				List<InfusionSlotFlag> infusionFlags = new ArrayList<InfusionSlotFlag>(infusionFlagsObj.size());
+				for (Object infusionFlagO : infusionFlagsObj) {
+					String infusionFlag = (String) infusionFlagO;
+
+					infusionFlags.add(InfusionSlotFlag.resolve(infusionFlag));
+				}
+
+				infusionSlots.add(new InfusionSlot(infusionFlags, null));
+
+			}
+
+			weapon = new Weapon(ItemType.resolve((String) weaponObj.get("type")), DamageType.resolve((String) weaponObj.get("damage_type")), (String) weaponObj.get("min_power"), (String) weaponObj.get("max_power"), (String) weaponObj.get("defense"), infusionSlots, infixUpgrade);
 		}
-		
+
 		Bag bag = null;
 		if (ItemClass.BAG.equals(itemClass)) {
 			JSONObject bagObj = (JSONObject) obj.get("bag");
-			
+
 			List<BagModifier> bagModifiers = new ArrayList<BagModifier>();
-			
+
 			for (BagModifier bagModifier : BagModifier.values()) {
 				if (bagObj.get(bagModifier.getTechName()) != null) {
 					bagModifiers.add(bagModifier);
 				}
 			}
-			
+
 			bag = new Bag((String) bagObj.get("size"), bagModifiers);
-			
+
 		}
-		
+
 		Container container = null;
 		if (ItemClass.CONTAINER.equals(itemClass)) {
 			JSONObject containerObj = (JSONObject) obj.get("container");
-			
-			container = new Container(ContainerType.resolve((String)containerObj.get("type")));
-			
+
+			container = new Container(ContainerType.resolve((String) containerObj.get("type")));
+
 		}
 
 		Consumable consumable = null;
 		if (ItemClass.CONSUMABLE.equals(itemClass)) {
 			JSONObject consumableObj = (JSONObject) obj.get("consumable");
-			
-			consumable = new Consumable(ConsumableType.resolve((String)consumableObj.get("type")), (String)consumableObj.get("description"), (String)consumableObj.get("duration_ms"));
-			
+
+			consumable = new Consumable(ConsumableType.resolve((String) consumableObj.get("type")), (String) consumableObj.get("description"), (String) consumableObj.get("duration_ms"));
+
 		}
-		
-		
+
 		return new Item((String) obj.get("item_id"), (String) obj.get("name"), (String) obj.get("description"), (String) obj.get("level"), Rarity.resolve((String) obj.get("rarity")), (String) obj.get("vendor_value"), gameTypes, flags, null, (String) obj.get("suffix_item_id"), itemClass, armor, weapon, bag, container, consumable);
 
 	}

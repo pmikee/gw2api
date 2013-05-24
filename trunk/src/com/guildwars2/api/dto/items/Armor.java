@@ -1,5 +1,7 @@
 package com.guildwars2.api.dto.items;
 
+import java.util.List;
+
 import com.guildwars2.api.dto.enums.ItemType;
 import com.guildwars2.api.dto.enums.WeightClass;
 
@@ -11,11 +13,11 @@ public class Armor {
 	
 	private String defense;
 	
-	private Object infusionSlots;
+	private List<InfusionSlot> infusionSlots;
 	
 	private InfixUpgrade infixUpgrade;
 
-	public Armor(ItemType armorType, WeightClass weightClass, String defense, Object infusionSlots, InfixUpgrade infixUpgrade) {
+	public Armor(ItemType armorType, WeightClass weightClass, String defense, List<InfusionSlot> infusionSlots, InfixUpgrade infixUpgrade) {
 		super();
 		this.armorType = armorType;
 		this.weightClass = weightClass;
@@ -36,7 +38,7 @@ public class Armor {
 		return defense;
 	}
 
-	public Object getInfusionSlots() {
+	public List<InfusionSlot> getInfusionSlots() {
 		return infusionSlots;
 	}
 
