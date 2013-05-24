@@ -1,11 +1,11 @@
-package com.guildwars2.api.dto;
+package com.guildwars2.api.dto.items;
 
-import com.guildwars2.api.dto.enums.ArmorType;
+import com.guildwars2.api.dto.enums.ItemType;
 import com.guildwars2.api.dto.enums.WeightClass;
 
 public class Armor {
 	
-	private ArmorType armorType;
+	private ItemType armorType;
 	
 	private WeightClass weightClass;
 	
@@ -14,6 +14,5 @@ public class Armor {
 	private Object infusionSlots;
 	
 	private InfixUpgrade infixUpgrade; 
-	
 
 }

@@ -54,7 +54,6 @@ public class Utilities {
 				querry.append(param).append("=").append(params.get(param));
 			}
 		}
-		System.out.println(querry);
 		return querry.toString();
 	}
 
