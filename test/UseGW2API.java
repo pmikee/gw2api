@@ -2,7 +2,7 @@ import java.rmi.RemoteException;
 import java.util.Collections;
 import java.util.List;
 
-import com.guildwars2.api.GW2API;
+import cz.zweistein.gw2.api.GW2API;
 
 
 public class UseGW2API {
