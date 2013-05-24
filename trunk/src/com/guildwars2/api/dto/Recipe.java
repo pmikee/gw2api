@@ -2,7 +2,7 @@ package com.guildwars2.api.dto;
 
 import java.util.List;
 
-import com.guildwars2.api.dto.enums.RecipeType;
+import com.guildwars2.api.dto.enums.ItemType;
 
 public class Recipe {
 
@@ -18,9 +18,9 @@ public class Recipe {
 
 	private String outputCount;
 
-	private RecipeType itemType;
+	private ItemType itemType;
 
-	public Recipe(String recipeId, List<Ingredient> ingredients, String rating, String timeToCraft, String outputItem, String outputCount, RecipeType itemType) {
+	public Recipe(String recipeId, List<Ingredient> ingredients, String rating, String timeToCraft, String outputItem, String outputCount, ItemType itemType) {
 		super();
 		this.recipeId = recipeId;
 		this.ingredients = ingredients;
@@ -55,7 +55,7 @@ public class Recipe {
 		return this.outputCount;
 	}
 
-	public RecipeType getItemType() {
+	public ItemType getItemType() {
 		return this.itemType;
 	}
 

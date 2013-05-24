@@ -2,7 +2,9 @@ package com.guildwars2.api.dto.enums;
 
 public enum WeightClass {
 	
-	LIGHT("Light");
+	LIGHT("Light"),
+	MEDIUM("Medium"),
+	HEAVY("Heavy");
 	
 	private String techName;
 

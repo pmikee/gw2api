@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.guildwars2.api.dto.enums.GameType;
 import com.guildwars2.api.dto.enums.ItemFlag;
-import com.guildwars2.api.dto.enums.ItemType;
+import com.guildwars2.api.dto.enums.ItemClass;
 import com.guildwars2.api.dto.enums.Rarity;
 
 public class Item {
@@ -27,18 +27,17 @@ public class Item {
 
 	private Object restrictions;
 
-	private Armor armor; //FIXME
-	
-	private Object weapon; //FIXME
-	
-	private Object craftingMaterial; //FIXME
-
 	private String suffixItemId;
 	
-	private ItemType itemType;
+	private ItemClass itemType;
 
-	public Item(String itemId, String name, String description, String level, Rarity rarity, String vendorValue, List<GameType> gameTypes, List<ItemFlag> flags,
-			Object restrictions, Armor armor, String suffixItemId, ItemType itemType) {
+	private Armor armor;
+	
+	private Weapon weapon;
+	
+	private Bag bag;
+
+	public Item(String itemId, String name, String description, String level, Rarity rarity, String vendorValue, List<GameType> gameTypes, List<ItemFlag> flags, Object restrictions, String suffixItemId, ItemClass itemType, Armor armor, Weapon weapon, Bag bag) {
 		super();
 		this.itemId = itemId;
 		this.name = name;
@@ -49,9 +48,15 @@ public class Item {
 		this.gameTypes = gameTypes;
 		this.flags = flags;
 		this.restrictions = restrictions;
-		this.armor = armor;
 		this.suffixItemId = suffixItemId;
 		this.itemType = itemType;
+		this.armor = armor;
+		this.weapon = weapon;
+		this.bag = bag;
+	}
+
+	public Weapon getWeapon() {
+		return weapon;
 	}
 
 	public String getItemId() {
@@ -98,17 +103,17 @@ public class Item {
 		return this.suffixItemId;
 	}
 	
-	public ItemType getItemType() {
+	public ItemClass getItemType() {
 		return this.itemType;
+	}
+
+	public Bag getBag() {
+		return bag;
 	}
 
 	@Override
 	public String toString() {
-		return "Item [itemId=" + this.itemId + ", name=" + this.name + ", description=" + this.description + ", level=" + this.level + ", rarity="
-				+ this.rarity + ", vendorValue=" + this.vendorValue + ", gameTypes=" + this.gameTypes + ", flags=" + this.flags + ", restrictions="
-				+ this.restrictions + ", armor=" + this.armor + ", suffixItemId=" + this.suffixItemId + ", itemType=" + this.itemType + "]";
+		return "Item [itemId=" + itemId + ", name=" + name + ", description=" + description + ", level=" + level + ", rarity=" + rarity + ", vendorValue=" + vendorValue + ", gameTypes=" + gameTypes + ", flags=" + flags + ", restrictions=" + restrictions + ", suffixItemId=" + suffixItemId + ", itemType=" + itemType + ", armor=" + armor + ", weapon=" + weapon + ", bag=" + bag + "]";
 	}
-
-
 
 }

@@ -9,10 +9,20 @@ public class UseGW2API {
 	public static void main(String[] args) throws RemoteException {
 		
 		GW2API api = new GW2API();
+		
+		// 904
+//		List<Long> items = api.getRecipes();
+//		System.err.println(items.size());
+//		int i = 0;
+//		for (Long id : items) {
+//			System.out.print(id + " ("+ i++ +") ");
+//			api.getRecipeDetails(id, null);
+//		}
 
-		List<Long> recipes = api.getItems();
-		for (Long id : recipes) {
-			System.out.println(api.getItemDetails(id, null));
+		List<Long> items = api.getItems();
+		for (Long id : items) {
+			System.out.print(id + " ");
+			api.getItemDetails(id, null);
 		}
 		
 	}

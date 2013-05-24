@@ -10,7 +10,8 @@ public enum ItemFlag {
 	SOULD_BIND_ON_ACQUIRE("SoulbindOnAcquire"),
 	NO_UNDERWATER("NoUnderwater"),
 	NO_MYSTIC_FORGE("NoMysticForge"),
-	NOT_UPGRADEABLE("NotUpgradeable");
+	NOT_UPGRADEABLE("NotUpgradeable"),
+	UNIQUE("Unique");
 	
 	private String techName;
 
