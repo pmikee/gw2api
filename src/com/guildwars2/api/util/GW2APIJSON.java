@@ -91,7 +91,7 @@ public class GW2APIJSON {
 			108, 56, 107, 103, 65, 119, 75, 81, 66, 50, 106, 56, 61, 13, 10, 45, 45, 45, 45, 45, 69, 78, 68, 32, 67, 69, 82, 84, 73, 70, 73, 67, 65, 84, 69, 45, 45, 45, 45, 45, 13, 10 };
 
 	public static final String STANDARD_URL = "https://api.guildwars2.com";
-	public static String API_VERSION = "/v1";
+	public static final String API_VERSION = "/v1";
 
 	/**
 	 * SSL context for calling https url
@@ -102,8 +102,7 @@ public class GW2APIJSON {
 		try {
 			CertificateFactory cf = CertificateFactory.getInstance("X.509");
 			Collection<? extends Certificate> c = cf.generateCertificates(certInputStream);
-			Certificate[] certs = new Certificate[c.toArray().length];
-			certs = c.toArray(new Certificate[c.size()]);
+			Certificate[] certs = c.toArray(new Certificate[c.size()]);
 			TrustManagerFactory tf = TrustManagerFactory.getInstance("X509");
 			KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
 			ks.load(null);
