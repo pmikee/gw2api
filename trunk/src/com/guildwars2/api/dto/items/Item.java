@@ -40,8 +40,10 @@ public class Item {
 	private Container container;
 	
 	private Consumable consumable;
+	
+	private Trinket trinket;
 
-	public Item(String itemId, String name, String description, String level, Rarity rarity, String vendorValue, List<GameType> gameTypes, List<ItemFlag> flags, Object restrictions, String suffixItemId, ItemClass itemType, Armor armor, Weapon weapon, Bag bag, Container container, Consumable consumable) {
+	public Item(String itemId, String name, String description, String level, Rarity rarity, String vendorValue, List<GameType> gameTypes, List<ItemFlag> flags, Object restrictions, String suffixItemId, ItemClass itemType, Armor armor, Weapon weapon, Bag bag, Container container, Consumable consumable, Trinket trinket) {
 		super();
 		this.itemId = itemId;
 		this.name = name;
@@ -59,6 +61,7 @@ public class Item {
 		this.bag = bag;
 		this.container = container;
 		this.consumable = consumable;
+		this.trinket = trinket;
 	}
 
 	public Weapon getWeapon() {
@@ -125,10 +128,14 @@ public class Item {
 		return container;
 	}
 
+	public Trinket getTrinket() {
+		return trinket;
+	}
+
 	@Override
 	public String toString() {
 		return "Item [itemId=" + itemId + ", name=" + name + ", description=" + description + ", level=" + level + ", rarity=" + rarity + ", vendorValue=" + vendorValue + ", gameTypes=" + gameTypes + ", flags=" + flags + ", restrictions=" + restrictions + ", suffixItemId=" + suffixItemId + ", itemType=" + itemType + ", armor=" + armor + ", weapon=" + weapon + ", bag=" + bag + ", container="
-				+ container + ", consumable=" + consumable + "]";
+				+ container + ", consumable=" + consumable + ", trinket=" + trinket + "]";
 	}
 
 }

@@ -7,7 +7,8 @@ public enum Rarity {
 	EXOTIC("Exotic"),
 	MASTERWORK("Masterwork"),
 	FINE("Fine"),
-	ASCENDED("Ascended");
+	ASCENDED("Ascended"),
+	JUNK("Junk");
 	
 	private String techName;
 
