@@ -6,7 +6,8 @@ public enum ConsumableType {
 	GENERIC("Generic"),
 	FOOD("Food"),
 	UTILITY("Utility"),
-	TRANSMUTATION("Transmutation");
+	TRANSMUTATION("Transmutation"),
+	APPEARANCE_CHANGE("AppearanceChange");
 	
 	private String techName;
 

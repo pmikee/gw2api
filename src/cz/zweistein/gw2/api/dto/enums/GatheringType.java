@@ -3,7 +3,8 @@ package cz.zweistein.gw2.api.dto.enums;
 public enum GatheringType {
 	
 	MINING("Mining"),
-	LOGGING("Logging");
+	LOGGING("Logging"),
+	FORAGING("Foraging");
 	
 	private String techName;
 
