@@ -13,6 +13,40 @@ public class Armor {
 	
 	private Object infusionSlots;
 	
-	private InfixUpgrade infixUpgrade; 
+	private InfixUpgrade infixUpgrade;
+
+	public Armor(ItemType armorType, WeightClass weightClass, String defense, Object infusionSlots, InfixUpgrade infixUpgrade) {
+		super();
+		this.armorType = armorType;
+		this.weightClass = weightClass;
+		this.defense = defense;
+		this.infusionSlots = infusionSlots;
+		this.infixUpgrade = infixUpgrade;
+	}
+
+	public ItemType getArmorType() {
+		return armorType;
+	}
+
+	public WeightClass getWeightClass() {
+		return weightClass;
+	}
+
+	public String getDefense() {
+		return defense;
+	}
+
+	public Object getInfusionSlots() {
+		return infusionSlots;
+	}
+
+	public InfixUpgrade getInfixUpgrade() {
+		return infixUpgrade;
+	}
+
+	@Override
+	public String toString() {
+		return "Armor [armorType=" + armorType + ", weightClass=" + weightClass + ", defense=" + defense + ", infusionSlots=" + infusionSlots + ", infixUpgrade=" + infixUpgrade + "]";
+	} 
 
 }

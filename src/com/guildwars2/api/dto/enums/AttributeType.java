@@ -3,7 +3,12 @@ package com.guildwars2.api.dto.enums;
 public enum AttributeType {
 	
 	POWER("Power"),
-	PRECISION("Precision");
+	PRECISION("Precision"),
+	CONDITION_DAMAGE("ConditionDamage"),
+	TOUGHNESS("Toughness"),
+	VITALITY("Vitality"),
+	CRITICAL_DAMAGE("CritDamage"),
+	HEALING_POWER("Healing");
 
 	private String techName;
 
