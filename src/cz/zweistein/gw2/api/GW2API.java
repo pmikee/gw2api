@@ -31,6 +31,8 @@ import java.util.Map;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import cz.zweistein.gw2.api.dao.JsonDao;
+import cz.zweistein.gw2.api.dao.OnlineJSONDAO;
 import cz.zweistein.gw2.api.dto.Event;
 import cz.zweistein.gw2.api.dto.Recipe;
 import cz.zweistein.gw2.api.dto.WvWMatch;
@@ -38,16 +40,15 @@ import cz.zweistein.gw2.api.dto.WvWMatchDetail;
 import cz.zweistein.gw2.api.dto.enums.EventState;
 import cz.zweistein.gw2.api.dto.items.Item;
 import cz.zweistein.gw2.api.transformer.JSONToJavaTransformer;
-import cz.zweistein.gw2.api.util.GW2APIJSON;
 import cz.zweistein.gw2.api.util.Realm;
 
 public class GW2API {
 
-	private GW2APIJSON dao;
+	private JsonDao dao;
 	private JSONToJavaTransformer transformer;
 
 	public GW2API() throws RemoteException {
-		this.dao = new GW2APIJSON();
+		this.dao = new OnlineJSONDAO();
 		this.transformer = new JSONToJavaTransformer();
 	}
 

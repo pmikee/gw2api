@@ -7,7 +7,7 @@ import cz.zweistein.gw2.api.GW2API;
 
 public class UseGW2API {
 	
-	public static void main(String[] args) throws RemoteException {
+	public static void main(String[] args) throws RemoteException, InterruptedException {
 		
 		GW2API api = new GW2API();
 		
@@ -23,6 +23,7 @@ public class UseGW2API {
 		List<Long> items = api.getItems();
 		Collections.shuffle(items);
 		for (Long id : items) {
+			Thread.sleep(500);
 			System.out.print(id + " ");
 			api.getItemDetails(id, null);
 		}

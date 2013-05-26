@@ -27,6 +27,8 @@ import java.net.URL;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import cz.zweistein.gw2.api.dao.OnlineJSONDAO;
+
 public class Utilities {
 	
 	/**
@@ -40,7 +42,7 @@ public class Utilities {
 	 */
 	private static String buildQuerryString(String action, Map<String, Object> params) {
 		StringBuffer querry = new StringBuffer();
-		querry.append(GW2APIJSON.STANDARD_URL).append(GW2APIJSON.API_VERSION).append("/").append(action);
+		querry.append(OnlineJSONDAO.STANDARD_URL).append(OnlineJSONDAO.API_VERSION).append("/").append(action);
 		if (params != null) {
 			if (!params.isEmpty()) {
 				querry.append("?");
@@ -67,7 +69,7 @@ public class Utilities {
 	 *            map of parameters
 	 * @return string describing URL of request
 	 */
-	static URL buildQuerryURL(String action, Map<String, Object> params) throws MalformedURLException {
+	public static URL buildQuerryURL(String action, Map<String, Object> params) throws MalformedURLException {
 		return new URL(buildQuerryString(action, params));
 	}
 
