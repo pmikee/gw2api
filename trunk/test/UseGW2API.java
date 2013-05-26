@@ -20,7 +20,11 @@ public class UseGW2API {
 //			Recipe detail = api.getRecipeDetails(id, null);
 //			System.out.println(detail);
 //		}
-
+		
+		String code = api.getItemChatCode(36868l);
+		System.out.println(code);
+		
+		
 		List<Long> items = api.getItems();
 		for (Long id : items) {
 			Thread.sleep(500);
