@@ -7,14 +7,15 @@ public enum ItemClass {
 	WEAPON("Weapon"),
 	BAG("Bag"), //flags are not array FIXME, needs research
 	CONTAINER("Container"),
-	TROPHY("Trophy"), //no bound information?
+	TROPHY("Trophy"), //no bound information
 	CONSUMABLE("Consumable"),
 	TRINKET("Trinket"),
-	GIZMO("Gizmo"), //FIXME
+	GIZMO("Gizmo"),
 	UPGRADE_COMPONENT("UpgradeComponent"),
 	BACK("Back"),
 	MINIPET("MiniPet"), //no bound information
-	GATHERING("Gathering"); //FIXME "gathering":{"type":"Mining"}
+	GATHERING("Gathering"),
+	TOOL("Tool");
 	
 	private String techName;
 
