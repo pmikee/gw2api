@@ -14,9 +14,8 @@ public class UseGW2API {
 		GW2API api = new GW2API();
 		
 //		api.setDao(new OfflineJsonDao());
+//		
 //		List<Long> items = api.getRecipes();
-//		System.err.println(items.size());
-//		int i = 0;
 //		for (Long id : items) {
 //			Recipe detail = api.getRecipeDetails(id, null);
 //			System.out.println(detail);
