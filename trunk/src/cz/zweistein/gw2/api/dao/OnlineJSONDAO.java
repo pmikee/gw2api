@@ -1,4 +1,4 @@
-package cz.zweistein.gw2.api.util;
+package cz.zweistein.gw2.api.dao;
 
 //The MIT License (MIT)
 //
@@ -53,7 +53,10 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-public class GW2APIJSON {
+import cz.zweistein.gw2.api.util.ParametersMap;
+import cz.zweistein.gw2.api.util.Utilities;
+
+public class OnlineJSONDAO implements JsonDao {
 
 	/**
 	 * Root certificate as bytearray
@@ -98,7 +101,7 @@ public class GW2APIJSON {
 	 */
 	private SSLContext sslCon;
 
-	public GW2APIJSON(InputStream certInputStream) throws RemoteException {
+	public OnlineJSONDAO(InputStream certInputStream) throws RemoteException {
 		try {
 			CertificateFactory cf = CertificateFactory.getInstance("X.509");
 			Collection<? extends Certificate> c = cf.generateCertificates(certInputStream);
@@ -120,11 +123,11 @@ public class GW2APIJSON {
 		}
 	}
 
-	public GW2APIJSON() throws RemoteException {
-		this(new ByteArrayInputStream(GW2APIJSON.StartCom_Root_Certificate));
+	public OnlineJSONDAO() throws RemoteException {
+		this(new ByteArrayInputStream(StartCom_Root_Certificate));
 	}
 
-	public GW2APIJSON(File certFile) throws RemoteException, FileNotFoundException {
+	public OnlineJSONDAO(File certFile) throws RemoteException, FileNotFoundException {
 		this(new FileInputStream(certFile));
 	}
 
@@ -168,6 +171,10 @@ public class GW2APIJSON {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see cz.zweistein.gw2.api.dao.JSONDAO#getItems()
+	 */
+	@Override
 	public JSONObject getItems() throws RemoteException {
 		try {
 			return getJSONObject(Utilities.buildQuerryURL("items.json", null));
@@ -176,104 +183,144 @@ public class GW2APIJSON {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see cz.zweistein.gw2.api.dao.JSONDAO#getItemDetails(java.lang.Long, java.lang.String)
+	 */
+	@Override
 	public JSONObject getItemDetails(Long id, String lang) throws RemoteException {
 		assert (id != null);
 		try {
 			ParametersMap params = new ParametersMap();
 			params.putIfNotNull("item_id", id);
 			params.putIfNotNull("lang", lang);
-			return new GW2APIJSON().getJSONObject(Utilities.buildQuerryURL("item_details.json", params));
+			return getJSONObject(Utilities.buildQuerryURL("item_details.json", params));
 		} catch (MalformedURLException e) {
 			throw new RemoteException(e.getMessage(), e);
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see cz.zweistein.gw2.api.dao.JSONDAO#getRecipes()
+	 */
+	@Override
 	public JSONObject getRecipes() throws RemoteException {
 		try {
-			return new GW2APIJSON().getJSONObject(Utilities.buildQuerryURL("recipes.json", null));
+			return getJSONObject(Utilities.buildQuerryURL("recipes.json", null));
 		} catch (MalformedURLException e) {
 			throw new RemoteException(e.getMessage(), e);
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see cz.zweistein.gw2.api.dao.JSONDAO#getRecipeDetails(java.lang.Long, java.lang.String)
+	 */
+	@Override
 	public JSONObject getRecipeDetails(Long id, String lang) throws RemoteException {
 		assert (id != null);
 		try {
 			ParametersMap params = new ParametersMap();
 			params.putIfNotNull("recipe_id", id);
 			params.putIfNotNull("lang", lang);
-			return new GW2APIJSON().getJSONObject(Utilities.buildQuerryURL("recipe_details.json", params));
+			return getJSONObject(Utilities.buildQuerryURL("recipe_details.json", params));
 		} catch (MalformedURLException e) {
 			throw new RemoteException(e.getMessage(), e);
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see cz.zweistein.gw2.api.dao.JSONDAO#getWvWMatches()
+	 */
+	@Override
 	public JSONObject getWvWMatches() throws RemoteException {
 		try {
-			return new GW2APIJSON().getJSONObject(Utilities.buildQuerryURL("wvw/matches.json", null));
+			return getJSONObject(Utilities.buildQuerryURL("wvw/matches.json", null));
 		} catch (MalformedURLException e) {
 			throw new RemoteException(e.getMessage(), e);
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see cz.zweistein.gw2.api.dao.JSONDAO#getWvWMatchDetails(java.lang.String)
+	 */
+	@Override
 	public JSONObject getWvWMatchDetails(String id) throws RemoteException {
 		assert (id != null);
 		try {
 			ParametersMap params = new ParametersMap();
 			params.putIfNotNull("match_id", id);
-			return new GW2APIJSON().getJSONObject(Utilities.buildQuerryURL("wvw/match_details.json", params));
+			return getJSONObject(Utilities.buildQuerryURL("wvw/match_details.json", params));
 		} catch (MalformedURLException e) {
 			throw new RemoteException(e.getMessage(), e);
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see cz.zweistein.gw2.api.dao.JSONDAO#getWvWObjectiveNames(java.lang.String)
+	 */
+	@Override
 	public JSONArray getWvWObjectiveNames(String lang) throws RemoteException {
 		try {
 			ParametersMap params = new ParametersMap();
 			params.putIfNotNull("lang", lang);
-			return new GW2APIJSON().getJSONArray(Utilities.buildQuerryURL("wvw/objective_names.json", params));
+			return getJSONArray(Utilities.buildQuerryURL("wvw/objective_names.json", params));
 		} catch (MalformedURLException e) {
 			throw new RemoteException(e.getMessage(), e);
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see cz.zweistein.gw2.api.dao.JSONDAO#getEvents(java.lang.String, java.lang.String, java.lang.String)
+	 */
+	@Override
 	public JSONObject getEvents(String eventId, String mapId, String worldId) throws RemoteException {
 		try {
 			ParametersMap params = new ParametersMap();
 			params.putIfNotNull("world_id", worldId);
 			params.putIfNotNull("event_id", eventId);
 			params.putIfNotNull("map_id", mapId);
-			return new GW2APIJSON().getJSONObject(Utilities.buildQuerryURL("events.json", params));
+			return getJSONObject(Utilities.buildQuerryURL("events.json", params));
 		} catch (MalformedURLException e) {
 			throw new RemoteException(e.getMessage(), e);
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see cz.zweistein.gw2.api.dao.JSONDAO#getEventNames(java.lang.String)
+	 */
+	@Override
 	public JSONArray getEventNames(String lang) throws RemoteException {
 		try {
 			ParametersMap params = new ParametersMap();
 			params.putIfNotNull("lang", lang);
-			return new GW2APIJSON().getJSONArray(Utilities.buildQuerryURL("event_names.json", params));
+			return getJSONArray(Utilities.buildQuerryURL("event_names.json", params));
 		} catch (MalformedURLException e) {
 			throw new RemoteException(e.getMessage(), e);
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see cz.zweistein.gw2.api.dao.JSONDAO#getWorldName(java.lang.String)
+	 */
+	@Override
 	public JSONArray getWorldName(String lang) throws RemoteException {
 		try {
 			ParametersMap params = new ParametersMap();
 			params.putIfNotNull("lang", lang);
-			return new GW2APIJSON().getJSONArray(Utilities.buildQuerryURL("world_names.json", params));
+			return getJSONArray(Utilities.buildQuerryURL("world_names.json", params));
 		} catch (MalformedURLException e) {
 			throw new RemoteException(e.getMessage(), e);
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see cz.zweistein.gw2.api.dao.JSONDAO#getMapNames(java.lang.String)
+	 */
+	@Override
 	public JSONArray getMapNames(String lang) throws RemoteException {
 		try {
 			ParametersMap params = new ParametersMap();
 			params.putIfNotNull("lang", lang);
-			return new GW2APIJSON().getJSONArray(Utilities.buildQuerryURL("map_names.json", params));
+			return getJSONArray(Utilities.buildQuerryURL("map_names.json", params));
 		} catch (MalformedURLException e) {
 			throw new RemoteException(e.getMessage(), e);
 		}
