@@ -7,7 +7,8 @@ public enum ConsumableType {
 	FOOD("Food"),
 	UTILITY("Utility"),
 	TRANSMUTATION("Transmutation"),
-	APPEARANCE_CHANGE("AppearanceChange");
+	APPEARANCE_CHANGE("AppearanceChange"),
+	CONTRACT_NPC("ContractNpc");
 	
 	private String techName;
 

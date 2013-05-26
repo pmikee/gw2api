@@ -1,19 +1,18 @@
 package cz.zweistein.gw2.api.dto.enums;
 
-public enum GizmoType {
+public enum ToolType {
 	
-	DEFAULT("Default"),
-	RENTABLE_CONTRACT_NPC("RentableContractNpc");
+	SALVAGE("Salvage");
 	
 	private String techName;
 
-	private GizmoType(String name) {
+	private ToolType(String name) {
 		this.techName = name;
 	}
 
-	public static GizmoType resolve(String name) {
+	public static ToolType resolve(String name) {
 
-		for (GizmoType state : GizmoType.values()) {
+		for (ToolType state : ToolType.values()) {
 			if (state.techName.equals(name)) {
 				return state;
 			}

@@ -29,31 +29,35 @@ public class Item {
 	private List<Restriction> restrictions;
 
 	private String suffixItemId;
-	
+
 	private ItemClass itemType;
 
 	private Armor armor;
-	
+
 	private Weapon weapon;
-	
+
 	private Bag bag;
-	
+
 	private Container container;
-	
+
 	private Consumable consumable;
-	
+
 	private Trinket trinket;
-	
+
 	private UpgradeComponent upgradeComponent;
-	
+
 	private Back back;
-	
+
 	private Gathering gathering;
-	
+
 	private Gizmo gizmo;
 
-	public Item(String itemId, String name, String description, String level, Rarity rarity, String vendorValue, List<GameType> gameTypes, List<ItemFlag> flags, List<Restriction> restrictions, String suffixItemId, ItemClass itemType, Armor armor, Weapon weapon, Bag bag, Container container, Consumable consumable, Trinket trinket, UpgradeComponent upgradeComponent, Back back, Gathering gathering,
-			Gizmo gizmo) {
+	private Tool tool;
+
+	public Item(String itemId, String name, String description, String level, Rarity rarity, String vendorValue, List<GameType> gameTypes,
+			List<ItemFlag> flags, List<Restriction> restrictions, String suffixItemId, ItemClass itemType, Armor armor, Weapon weapon, Bag bag,
+			Container container, Consumable consumable, Trinket trinket, UpgradeComponent upgradeComponent, Back back, Gathering gathering, Gizmo gizmo,
+			Tool tool) {
 		super();
 		this.itemId = itemId;
 		this.name = name;
@@ -76,6 +80,7 @@ public class Item {
 		this.back = back;
 		this.gathering = gathering;
 		this.gizmo = gizmo;
+		this.tool = tool;
 	}
 
 	public Gizmo getGizmo() {
@@ -137,7 +142,7 @@ public class Item {
 	public String getSuffixItemId() {
 		return this.suffixItemId;
 	}
-	
+
 	public UpgradeComponent getUpgradeComponent() {
 		return upgradeComponent;
 	}
@@ -162,10 +167,18 @@ public class Item {
 		return gathering;
 	}
 
+	public Tool getTool() {
+		return this.tool;
+	}
+
 	@Override
 	public String toString() {
-		return "Item [itemId=" + itemId + ", name=" + name + ", description=" + description + ", level=" + level + ", rarity=" + rarity + ", vendorValue=" + vendorValue + ", gameTypes=" + gameTypes + ", flags=" + flags + ", restrictions=" + restrictions + ", suffixItemId=" + suffixItemId + ", itemType=" + itemType + ", armor=" + armor + ", weapon=" + weapon + ", bag=" + bag + ", container="
-				+ container + ", consumable=" + consumable + ", trinket=" + trinket + ", upgradeComponent=" + upgradeComponent + ", back=" + back + ", gathering=" + gathering + ", gizmo=" + gizmo + "]";
+		return "Item [itemId=" + this.itemId + ", name=" + this.name + ", description=" + this.description + ", level=" + this.level + ", rarity="
+				+ this.rarity + ", vendorValue=" + this.vendorValue + ", gameTypes=" + this.gameTypes + ", flags=" + this.flags + ", restrictions="
+				+ this.restrictions + ", suffixItemId=" + this.suffixItemId + ", itemType=" + this.itemType + ", armor=" + this.armor + ", weapon="
+				+ this.weapon + ", bag=" + this.bag + ", container=" + this.container + ", consumable=" + this.consumable + ", trinket=" + this.trinket
+				+ ", upgradeComponent=" + this.upgradeComponent + ", back=" + this.back + ", gathering=" + this.gathering + ", gizmo=" + this.gizmo + ", tool="
+				+ this.tool + "]";
 	}
 
 }

@@ -26,6 +26,7 @@ import cz.zweistein.gw2.api.dto.enums.ItemFlag;
 import cz.zweistein.gw2.api.dto.enums.ItemType;
 import cz.zweistein.gw2.api.dto.enums.Rarity;
 import cz.zweistein.gw2.api.dto.enums.Restriction;
+import cz.zweistein.gw2.api.dto.enums.ToolType;
 import cz.zweistein.gw2.api.dto.enums.TrinketType;
 import cz.zweistein.gw2.api.dto.enums.UpgradeComponentFlag;
 import cz.zweistein.gw2.api.dto.enums.UpgradeComponentType;
@@ -44,6 +45,7 @@ import cz.zweistein.gw2.api.dto.items.Gizmo;
 import cz.zweistein.gw2.api.dto.items.InfixUpgrade;
 import cz.zweistein.gw2.api.dto.items.InfusionSlot;
 import cz.zweistein.gw2.api.dto.items.Item;
+import cz.zweistein.gw2.api.dto.items.Tool;
 import cz.zweistein.gw2.api.dto.items.Trinket;
 import cz.zweistein.gw2.api.dto.items.UpgradeComponent;
 import cz.zweistein.gw2.api.dto.items.Weapon;
@@ -214,7 +216,14 @@ public class JSONToJavaTransformer {
 			gizmo = new Gizmo(GizmoType.resolve((String) gizmoObj.get("type")));
 		}
 
-		return new Item((String) obj.get("item_id"), (String) obj.get("name"), (String) obj.get("description"), (String) obj.get("level"), Rarity.resolve((String) obj.get("rarity")), (String) obj.get("vendor_value"), gameTypes, flags, restrictions, (String) obj.get("suffix_item_id"), itemClass, armor, weapon, bag, container, consumable, trinket, upgradeComponent, back, gathering, gizmo);
+		Tool tool = null;
+		if (ItemClass.TOOL.equals(itemClass)) {
+			JSONObject toolObj = (JSONObject) obj.get("tool");
+
+			tool = new Tool(ToolType.resolve((String) toolObj.get("type")), (String) toolObj.get("charges"));
+		}
+		
+		return new Item((String) obj.get("item_id"), (String) obj.get("name"), (String) obj.get("description"), (String) obj.get("level"), Rarity.resolve((String) obj.get("rarity")), (String) obj.get("vendor_value"), gameTypes, flags, restrictions, (String) obj.get("suffix_item_id"), itemClass, armor, weapon, bag, container, consumable, trinket, upgradeComponent, back, gathering, gizmo, tool);
 
 	}
 
