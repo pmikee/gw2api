@@ -28,6 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.codec.binary.Base64;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -78,7 +79,13 @@ public class GW2API {
 		return (List<Long>) obj.get("recipes");
 	}
 
-	public static Realm getRealm(String worldId) {
+	/**
+	 * Return realm of giver world of wvw match
+	 * 
+	 * @param worldId
+	 * @return
+	 */
+	public Realm getRealm(String worldId) {
 		assert (worldId != null);
 		if (worldId.startsWith("1")) {
 			return Realm.NA;
@@ -87,6 +94,25 @@ public class GW2API {
 		} else {
 			return Realm.UNKNOWN;
 		}
+	}
+	
+	public String getItemChatCode(Long itemId) {
+		StringBuilder result = new StringBuilder();
+
+		result.append("[&");
+
+		byte[] bytes = new byte[6];
+
+		bytes[0] = 2;
+		bytes[1] = 1;
+		bytes[2] = (byte) (itemId % 256);
+		bytes[3] = (byte) (itemId / 256);
+
+		result.append(Base64.encodeBase64String(bytes));
+
+		result.append("]");
+
+		return result.toString();
 	}
 
 	public Map<String, String> getEventNames(String lang) throws RemoteException {
@@ -190,8 +216,6 @@ public class GW2API {
 
 	public Item getItemDetails(Long id, String lang) throws RemoteException {
 		JSONObject obj = dao.getItemDetails(id, lang);
-		
-		System.out.println(obj);
 		
 		return transformer.transfromItem(obj);
 	}
