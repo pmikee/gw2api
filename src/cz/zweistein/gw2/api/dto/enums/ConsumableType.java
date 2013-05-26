@@ -8,7 +8,8 @@ public enum ConsumableType {
 	UTILITY("Utility"),
 	TRANSMUTATION("Transmutation"),
 	APPEARANCE_CHANGE("AppearanceChange"),
-	CONTRACT_NPC("ContractNpc");
+	CONTRACT_NPC("ContractNpc"),
+	HALLOWEEN("Halloween");
 	
 	private String techName;
 
