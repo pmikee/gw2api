@@ -1,27 +1,28 @@
-import java.rmi.RemoteException;
-import java.util.Collections;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
+
+import org.json.simple.parser.ParseException;
 
 import cz.zweistein.gw2.api.GW2API;
 
 
 public class UseGW2API {
 	
-	public static void main(String[] args) throws RemoteException, InterruptedException {
+	public static void main(String[] args) throws InterruptedException, FileNotFoundException, IOException, ParseException {
 		
 		GW2API api = new GW2API();
 		
-		// 904
+//		api.setDao(new OfflineJsonDao());
 //		List<Long> items = api.getRecipes();
 //		System.err.println(items.size());
 //		int i = 0;
 //		for (Long id : items) {
-//			System.out.print(id + " ("+ i++ +") ");
-//			api.getRecipeDetails(id, null);
+//			Recipe detail = api.getRecipeDetails(id, null);
+//			System.out.println(detail);
 //		}
 
 		List<Long> items = api.getItems();
-		Collections.shuffle(items);
 		for (Long id : items) {
 			Thread.sleep(500);
 			System.out.print(id + " ");

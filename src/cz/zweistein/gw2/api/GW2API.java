@@ -51,6 +51,14 @@ public class GW2API {
 		this.dao = new OnlineJSONDAO();
 		this.transformer = new JSONToJavaTransformer();
 	}
+	
+	public void setDao(JsonDao dao) {
+		this.dao = dao;
+	}
+
+	public void setTransformer(JSONToJavaTransformer transformer) {
+		this.transformer = transformer;
+	}
 
 	/**
 	 * Return list of discovered item_ids
