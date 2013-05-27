@@ -25,9 +25,10 @@ public class UseGW2API {
 		
 		List<Long> items = api.getItems();
 		for (Long id : items) {
-			Thread.sleep(500);
-			System.out.print(id + " ");
-			api.getItemDetails(id, SupportedLanguage.FRENCH.getCode());
+			for (SupportedLanguage lang: SupportedLanguage.values()) {
+				Thread.sleep(500);
+				System.out.println(id + " " + api.getItemDetails(id, lang.getCode()));
+			}
 		}
 		
 	}
