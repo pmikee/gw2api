@@ -33,7 +33,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import cz.zweistein.gw2.api.dao.JsonDao;
-import cz.zweistein.gw2.api.dao.OnlineJSONDAO;
+import cz.zweistein.gw2.api.dao.OnlineJsonDao;
 import cz.zweistein.gw2.api.dto.Event;
 import cz.zweistein.gw2.api.dto.Recipe;
 import cz.zweistein.gw2.api.dto.WvWMatch;
@@ -49,7 +49,7 @@ public class GW2API {
 	private JSONToJavaTransformer transformer;
 
 	public GW2API() throws RemoteException {
-		this.dao = new OnlineJSONDAO();
+		this.dao = new OnlineJsonDao();
 		this.transformer = new JSONToJavaTransformer();
 	}
 	
@@ -86,8 +86,9 @@ public class GW2API {
 	 * @return
 	 */
 	public Realm getRealm(String worldId) {
-		assert (worldId != null);
-		if (worldId.startsWith("1")) {
+		if (worldId == null) {
+			return Realm.UNKNOWN;
+		} else if (worldId.startsWith("1")) {
 			return Realm.NA;
 		} else if (worldId.startsWith("2")) {
 			return Realm.EU;
@@ -103,10 +104,16 @@ public class GW2API {
 
 		byte[] bytes = new byte[6];
 
-		bytes[0] = 2;
-		bytes[1] = 1;
-		bytes[2] = (byte) (itemId % 256);
-		bytes[3] = (byte) (itemId / 256);
+		bytes[0] = 0x02;
+		bytes[1] = 0x01;
+
+		if (itemId != null) {
+			bytes[2] = (byte) (itemId % 256);
+			bytes[3] = (byte) (itemId / 256);
+		}
+
+		bytes[4] = 0x00;
+		bytes[5] = 0x00;
 
 		result.append(Base64.encodeBase64String(bytes));
 

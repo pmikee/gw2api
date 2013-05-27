@@ -26,23 +26,31 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import cz.zweistein.gw2.api.dao.OnlineJSONDAO;
+import cz.zweistein.gw2.api.dao.OnlineJsonDao;
 
 public class Utilities {
-	
+	private static Logger LOGGER = Logger.getLogger(Utilities.class.getName());
+
 	/**
 	 * Build query string for API
 	 * 
-	 * @param action
-	 *            json action
-	 * @param params
-	 *            map of parameters
+	 * @param action json action
+	 * @param params map of parameters
 	 * @return string describing URL of request
 	 */
-	private static String buildQuerryString(String action, Map<String, Object> params) {
+	static String buildQuerryString(String action, Map<String, Object> params) {
+		if (action == null) {
+			throw new NullPointerException("action");
+		}
+
 		StringBuffer querry = new StringBuffer();
-		querry.append(OnlineJSONDAO.STANDARD_URL).append(OnlineJSONDAO.API_VERSION).append("/").append(action);
+
+		LOGGER.log(Level.FINE, "Building querry " + action + " with params " + params);
+
+		querry.append(OnlineJsonDao.STANDARD_URL).append(OnlineJsonDao.API_VERSION).append("/").append(action);
 		if (params != null) {
 			if (!params.isEmpty()) {
 				querry.append("?");
@@ -54,7 +62,10 @@ public class Utilities {
 				} else {
 					querry.append("&");
 				}
-				querry.append(param.getKey()).append("=").append(param.getValue());
+				querry.append(param.getKey());
+				if (param.getValue() != null) {
+					querry.append("=").append(param.getValue());
+				}
 			}
 		}
 		return querry.toString();
@@ -63,14 +74,14 @@ public class Utilities {
 	/**
 	 * Build query string for API
 	 * 
-	 * @param action
-	 *            json action
-	 * @param params
-	 *            map of parameters
+	 * @param action json action
+	 * @param params map of parameters
 	 * @return string describing URL of request
 	 */
 	public static URL buildQuerryURL(String action, Map<String, Object> params) throws MalformedURLException {
-		return new URL(buildQuerryString(action, params));
+		String querry = buildQuerryString(action, params);
+		LOGGER.log(Level.FINE, "Built querry " + querry);
+		return new URL(querry);
 	}
 
 }
