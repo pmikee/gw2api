@@ -35,6 +35,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.rmi.RemoteException;
 import java.security.GeneralSecurityException;
 import java.security.KeyStore;
@@ -137,7 +138,7 @@ public class OnlineJsonDao implements JsonDao {
 	private Reader getContentFromURL(URL url) throws IOException {
 		HttpsURLConnection httpConnection = (HttpsURLConnection) url.openConnection();
 		httpConnection.setSSLSocketFactory(sslCon.getSocketFactory());
-		return new BufferedReader(new InputStreamReader(httpConnection.getInputStream()));
+		return new BufferedReader(new InputStreamReader(httpConnection.getInputStream(), Charset.forName("UTF-8")));
 	}
 
 	/**
