@@ -58,8 +58,8 @@ import org.json.simple.parser.ParseException;
 import cz.zweistein.gw2.api.util.ParametersMap;
 import cz.zweistein.gw2.api.util.Utilities;
 
-public class OnlineJsonDao implements JsonDao {
-	private static Logger LOGGER = Logger.getLogger(OnlineJsonDao.class.getName());
+public class xOnlineJsonDao implements JsonDao {
+	private static Logger LOGGER = Logger.getLogger(xOnlineJsonDao.class.getName());
 
 	/**
 	 * Root certificate as bytearray
@@ -104,7 +104,7 @@ public class OnlineJsonDao implements JsonDao {
 	 */
 	private SSLContext sslCon;
 
-	public OnlineJsonDao(InputStream certInputStream) throws RemoteException {
+	public xOnlineJsonDao(InputStream certInputStream) throws RemoteException {
 		try {
 			CertificateFactory cf = CertificateFactory.getInstance("X.509");
 			Collection<? extends Certificate> c = cf.generateCertificates(certInputStream);
@@ -126,11 +126,11 @@ public class OnlineJsonDao implements JsonDao {
 		}
 	}
 
-	public OnlineJsonDao() throws RemoteException {
+	public xOnlineJsonDao() throws RemoteException {
 		this(new ByteArrayInputStream(StartCom_Root_Certificate));
 	}
 
-	public OnlineJsonDao(File certFile) throws RemoteException, FileNotFoundException {
+	public xOnlineJsonDao(File certFile) throws RemoteException, FileNotFoundException {
 		this(new FileInputStream(certFile));
 	}
 
