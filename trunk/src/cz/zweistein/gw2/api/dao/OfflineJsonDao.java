@@ -1,9 +1,7 @@
 package cz.zweistein.gw2.api.dao;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,16 +10,19 @@ import java.util.Set;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 public class OfflineJsonDao implements JsonDao {
 	
 	private JSONObject recipeDetails;
 	private JSONObject items;
 
-	public OfflineJsonDao() throws FileNotFoundException, IOException, ParseException {
-		recipeDetails = (JSONObject) new JSONParser().parse(new FileReader(new File("recipe_details.json")));
-		items = (JSONObject) new JSONParser().parse(new FileReader(new File("recipe_created_items.json")));
+	public OfflineJsonDao() throws RemoteException {
+		try {
+			recipeDetails = (JSONObject) new JSONParser().parse(new FileReader(new File("recipe_details.json")));
+			items = (JSONObject) new JSONParser().parse(new FileReader(new File("recipe_created_items.json")));
+		} catch (Exception e) {
+			throw new RemoteException(e.toString());
+		}
 	}
 
 	@SuppressWarnings("unchecked")

@@ -5,6 +5,7 @@ import java.util.List;
 import org.json.simple.parser.ParseException;
 
 import cz.zweistein.gw2.api.GW2API;
+import cz.zweistein.gw2.api.util.SupportedLanguage;
 
 
 public class UseGW2API {
@@ -21,15 +22,12 @@ public class UseGW2API {
 //			System.out.println(detail);
 //		}
 		
-		String code = api.getItemChatCode(36868l);
-		System.out.println(code);
-		
 		
 		List<Long> items = api.getItems();
 		for (Long id : items) {
 			Thread.sleep(500);
 			System.out.print(id + " ");
-			api.getItemDetails(id, null);
+			api.getItemDetails(id, SupportedLanguage.FRENCH.getCode());
 		}
 		
 	}
