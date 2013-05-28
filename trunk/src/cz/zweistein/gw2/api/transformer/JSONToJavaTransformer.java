@@ -275,7 +275,7 @@ public class JSONToJavaTransformer {
 			for (Object objectiveO : objectivesObj) {
 				JSONObject objectiveObj = (JSONObject) objectiveO;
 
-				objectives.add(new WvWObjective(Long.toString((Long) objectiveObj.get("id")), (String) objectiveObj.get("owner_guild"), WvWSide.resolve((String) objectiveObj.get("owner"))));
+				objectives.add(new WvWObjective((Long) objectiveObj.get("id"), (String) objectiveObj.get("owner_guild"), WvWSide.resolve((String) objectiveObj.get("owner"))));
 			}
 
 			JSONArray scores = (JSONArray) mapObj.get("scores");

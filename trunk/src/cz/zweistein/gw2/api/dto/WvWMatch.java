@@ -4,13 +4,13 @@ public class WvWMatch {
 	
 	private String matchId;
 
-	private String blueWorldId;
+	private Long blueWorldId;
 	
-	private String redWorldId;
+	private Long redWorldId;
 	
-	private String greenWorldId;
+	private Long greenWorldId;
 
-	public WvWMatch(String matchId, String blueWorldId, String redWorldId, String greenWorldId) {
+	public WvWMatch(String matchId, Long blueWorldId, Long redWorldId, Long greenWorldId) {
 		super();
 		this.matchId = matchId;
 		this.blueWorldId = blueWorldId;
@@ -18,15 +18,15 @@ public class WvWMatch {
 		this.greenWorldId = greenWorldId;
 	}
 
-	public String getBlueWorldId() {
+	public Long getBlueWorldId() {
 		return this.blueWorldId;
 	}
 
-	public String getRedWorldId() {
+	public Long getRedWorldId() {
 		return this.redWorldId;
 	}
 
-	public String getGreenWorldId() {
+	public Long getGreenWorldId() {
 		return this.greenWorldId;
 	}
 

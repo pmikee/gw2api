@@ -4,20 +4,20 @@ import cz.zweistein.gw2.api.dto.enums.WvWSide;
 
 public class WvWObjective {
 
-	private String objectiveId;
+	private Long objectiveId;
 
 	private String ownerGuild;
 
 	private WvWSide owner;
 
-	public WvWObjective(String objectiveId, String ownerGuild, WvWSide owner) {
+	public WvWObjective(Long objectiveId, String ownerGuild, WvWSide owner) {
 		super();
 		this.objectiveId = objectiveId;
 		this.ownerGuild = ownerGuild;
 		this.owner = owner;
 	}
 
-	public String getObjectiveId() {
+	public Long getObjectiveId() {
 		return this.objectiveId;
 	}
 

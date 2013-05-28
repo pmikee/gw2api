@@ -2,7 +2,7 @@ package cz.zweistein.gw2.api.dto.enums;
 
 public enum EventState {
 
-	WARMUP("Warmup"), SUCCESS("Success"), FAIL("Fail"), INVALID("Invalid"), ACTIVE("Active");
+	WARMUP("Warmup"), SUCCESS("Success"), FAIL("Fail"), INVALID("Invalid"), ACTIVE("Active"), PREPARATION("Preparation");
 
 	private String techName;
 

@@ -35,13 +35,13 @@ public class GW2APITest {
 		try {
 			GW2API api = new GW2API();
 
-			Assert.assertEquals(Realm.EU, api.getRealm("2001"));
+			Assert.assertEquals(Realm.EU, api.getRealm(2001L));
 
-			Assert.assertEquals(Realm.NA, api.getRealm("1013"));
+			Assert.assertEquals(Realm.NA, api.getRealm(1013L));
 
-			Assert.assertEquals(Realm.UNKNOWN, api.getRealm("0013"));
+			Assert.assertEquals(Realm.UNKNOWN, api.getRealm(9013L));
 
-			Assert.assertEquals(Realm.UNKNOWN, api.getRealm(""));
+			Assert.assertEquals(Realm.UNKNOWN, api.getRealm(0L));
 
 			Assert.assertEquals(Realm.UNKNOWN, api.getRealm(null));
 

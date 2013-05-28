@@ -5,6 +5,7 @@ import java.util.List;
 import org.json.simple.parser.ParseException;
 
 import cz.zweistein.gw2.api.GW2API;
+import cz.zweistein.gw2.api.dto.WvWMatch;
 
 
 public class UseGW2API {
@@ -12,6 +13,13 @@ public class UseGW2API {
 	public static void main(String[] args) throws InterruptedException, FileNotFoundException, IOException, ParseException {
 		
 		GW2API api = new GW2API();
+		
+		List<WvWMatch> matches = api.getWvWMatches();
+		for (WvWMatch wvWMatch : matches) {
+			System.out.println(
+			api.getWvWMatchDetails(wvWMatch.getMatchId()));
+		}
+		
 		
 //		api.setDao(new OfflineJsonDao());
 		
@@ -22,11 +30,11 @@ public class UseGW2API {
 //		}
 	
 		
-		List<Long> items = api.getItems();
-		for (Long id : items) {
-			api.getItemDetails(id, null);
-			System.out.println(id + " " + api.getItemDetails(id, null));
-		}
+//		List<Long> items = api.getItems();
+//		for (Long id : items) {
+//			api.getItemDetails(id, null);
+//			System.out.println(id + " " + api.getItemDetails(id, null));
+//		}
 		
 	}
 

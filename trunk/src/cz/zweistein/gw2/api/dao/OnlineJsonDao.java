@@ -104,6 +104,8 @@ public class OnlineJsonDao implements JsonDao {
 	 * SSL context for calling https url
 	 */
 	private SSLContext sslCon;
+	
+	private String oAuth2Key; 
 
 	public OnlineJsonDao(InputStream certInputStream) throws RemoteException {
 		try {
@@ -137,6 +139,9 @@ public class OnlineJsonDao implements JsonDao {
 
 	private Reader getContentFromURL(URL url) throws IOException {
 		HttpsURLConnection httpConnection = (HttpsURLConnection) url.openConnection();
+		if (oAuth2Key != null) {
+			httpConnection.addRequestProperty("Authorization", "Bearer " + oAuth2Key);
+		}
 		httpConnection.setSSLSocketFactory(sslCon.getSocketFactory());
 		return new BufferedReader(new InputStreamReader(httpConnection.getInputStream(), Charset.forName("UTF-8")));
 	}
@@ -284,7 +289,7 @@ public class OnlineJsonDao implements JsonDao {
 	 * @see cz.zweistein.gw2.api.dao.JSONDAO#getEvents(java.lang.String, java.lang.String, java.lang.String)
 	 */
 	@Override
-	public JSONObject getEvents(String eventId, String mapId, String worldId) throws RemoteException {
+	public JSONObject getEvents(String eventId, Long mapId, Long worldId) throws RemoteException {
 		try {
 			ParametersMap params = new ParametersMap();
 			params.putIfNotNull("world_id", worldId);

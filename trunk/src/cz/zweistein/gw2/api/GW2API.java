@@ -52,7 +52,7 @@ public class GW2API {
 		this.dao = new OnlineJsonDao();
 		this.transformer = new JSONToJavaTransformer();
 	}
-	
+
 	public void setDao(JsonDao dao) {
 		this.dao = dao;
 	}
@@ -85,18 +85,21 @@ public class GW2API {
 	 * @param worldId
 	 * @return
 	 */
-	public Realm getRealm(String worldId) {
+	public Realm getRealm(Long worldId) {
 		if (worldId == null) {
 			return Realm.UNKNOWN;
-		} else if (worldId.startsWith("1")) {
-			return Realm.NA;
-		} else if (worldId.startsWith("2")) {
-			return Realm.EU;
 		} else {
-			return Realm.UNKNOWN;
+			String worldString = Long.toString(worldId);
+			if (worldString.startsWith("1")) {
+				return Realm.NA;
+			} else if (worldString.startsWith("2")) {
+				return Realm.EU;
+			} else {
+				return Realm.UNKNOWN;
+			}
 		}
 	}
-	
+
 	public String getItemChatCode(Long itemId) {
 		StringBuilder result = new StringBuilder();
 
@@ -152,7 +155,7 @@ public class GW2API {
 
 	public Map<String, String> getMapNames(String lang) throws RemoteException {
 		JSONArray obj = dao.getMapNames(lang);
-		
+
 		Map<String, String> mapNames = new HashMap<String, String>();
 
 		for (Object object : obj) {
@@ -167,7 +170,6 @@ public class GW2API {
 	public Map<String, String> getWvWObjectiveNames(String lang) throws RemoteException {
 		JSONArray obj = dao.getWvWObjectiveNames(lang);
 
-		System.out.println(obj);
 		Map<String, String> mapNames = new HashMap<String, String>();
 
 		for (Object object : obj) {
@@ -179,7 +181,7 @@ public class GW2API {
 		return mapNames;
 	}
 
-	public List<Event> getEvents(String eventId, String mapId, String worldId) throws RemoteException {
+	public List<Event> getEvents(String eventId, Long mapId, Long worldId) throws RemoteException {
 		JSONObject obj = dao.getEvents(eventId, mapId, worldId);
 		JSONArray eventObjects = (JSONArray) obj.get("events");
 
@@ -203,7 +205,7 @@ public class GW2API {
 		for (Object object : matchObjects) {
 			JSONObject matchObject = (JSONObject) object;
 
-			matches.add(new WvWMatch((String) matchObject.get("wvw_match_id"), Long.toString((Long) matchObject.get("blue_world_id")), Long.toString((Long) matchObject.get("red_world_id")), Long.toString((Long) matchObject.get("green_world_id"))));
+			matches.add(new WvWMatch((String) matchObject.get("wvw_match_id"), (Long) matchObject.get("blue_world_id"), (Long) matchObject.get("red_world_id"), (Long) matchObject.get("green_world_id")));
 
 		}
 
@@ -218,13 +220,13 @@ public class GW2API {
 
 	public Recipe getRecipeDetails(Long id, String lang) throws RemoteException {
 		JSONObject obj = dao.getRecipeDetails(id, lang);
-		
+
 		return transformer.transfromRecipe(obj);
 	}
 
 	public Item getItemDetails(Long id, String lang) throws RemoteException {
 		JSONObject obj = dao.getItemDetails(id, lang);
-		
+
 		return transformer.transfromItem(obj);
 	}
 
