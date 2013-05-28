@@ -64,7 +64,7 @@ public class OfflineJsonDao implements JsonDao {
 		Set<Long> ids = items.keySet();
 		List<Long> result = new ArrayList<Long>(ids.size());
 		for (Long object : ids) {
-			result.add(new Long(object));
+			result.add(Long.valueOf(object));
 		}
 		obj.put("items", result);
 		return obj;
@@ -82,7 +82,7 @@ public class OfflineJsonDao implements JsonDao {
 		Set<Long> ids = recipes.keySet();
 		List<Long> result = new ArrayList<Long>(ids.size());
 		for (Long object : ids) {
-			result.add(new Long(object));
+			result.add(Long.valueOf(object));
 		}
 		obj.put("recipes", result);
 		return obj;
@@ -109,7 +109,7 @@ public class OfflineJsonDao implements JsonDao {
 	}
 
 	@Override
-	public JSONObject getEvents(String eventId, String mapId, String worldId) throws RemoteException {
+	public JSONObject getEvents(String eventId, Long mapId, Long worldId) throws RemoteException {
 		throw new UnsupportedOperationException();
 	}
 
