@@ -22,21 +22,33 @@ public class OfflineJsonDao implements JsonDao {
 
 	private Map<Long, JSONObject> recipes;
 	private Map<Long, JSONObject> items;
+	private JSONArray events;
+	private JSONArray maps;
+	private JSONArray worlds;
+	private JSONArray wvwObjectives;
 
 	public OfflineJsonDao() throws RemoteException {
 		try {
 			recipes = parseJSONFile("recipes.json", "recipe_id");
 			items = parseJSONFile("items.json", "item_id");
+			events = loadJsonFile("events.json");
+			maps = loadJsonFile("maps.json");
+			worlds = loadJsonFile("worlds.json");
+			wvwObjectives = loadJsonFile("wvwobjectives.json");
 		} catch (Exception e) {
-			throw new RemoteException(e.toString());
+			throw new RemoteException(e.toString(), e);
 		}
+	}
+	
+	private JSONArray loadJsonFile(String fileName) throws FileNotFoundException, IOException, ParseException {
+		return (JSONArray) new JSONParser().parse(new InputStreamReader(new FileInputStream(new File(fileName)), Charset.forName("UTF16")));
 	}
 
 	private Map<Long, JSONObject> parseJSONFile(String fileName, String idKey) throws FileNotFoundException, IOException, ParseException {
 
 		Map<Long, JSONObject> result = new HashMap<Long, JSONObject>();
 
-		JSONArray entries = (JSONArray) new JSONParser().parse(new InputStreamReader(new FileInputStream(new File(fileName)), Charset.forName("UTF16")));
+		JSONArray entries = loadJsonFile(fileName);
 		for (Object object : entries) {
 			JSONObject obj = (JSONObject) object;
 			result.put(Long.parseLong((String) obj.get(idKey)), obj);
@@ -93,7 +105,7 @@ public class OfflineJsonDao implements JsonDao {
 
 	@Override
 	public JSONArray getWvWObjectiveNames(String lang) throws RemoteException {
-		throw new UnsupportedOperationException();
+		return wvwObjectives;
 	}
 
 	@Override
@@ -103,17 +115,17 @@ public class OfflineJsonDao implements JsonDao {
 
 	@Override
 	public JSONArray getEventNames(String lang) throws RemoteException {
-		throw new UnsupportedOperationException();
+		return events;
 	}
 
 	@Override
-	public JSONArray getWorldName(String lang) throws RemoteException {
-		throw new UnsupportedOperationException();
+	public JSONArray getWorldNames(String lang) throws RemoteException {
+		return worlds;
 	}
 
 	@Override
 	public JSONArray getMapNames(String lang) throws RemoteException {
-		throw new UnsupportedOperationException();
+		return maps;
 	}
 
 }

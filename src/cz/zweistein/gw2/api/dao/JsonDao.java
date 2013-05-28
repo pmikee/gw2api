@@ -25,7 +25,7 @@ public interface JsonDao {
 
 	public abstract JSONArray getEventNames(String lang) throws RemoteException;
 
-	public abstract JSONArray getWorldName(String lang) throws RemoteException;
+	public abstract JSONArray getWorldNames(String lang) throws RemoteException;
 
 	public abstract JSONArray getMapNames(String lang) throws RemoteException;
 
