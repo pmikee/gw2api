@@ -49,7 +49,8 @@ public enum ItemType {
 	COAT("Coat"),
 	ACCESSORY("Accessory"),
 	HELM_AQUATIC("HelmAquatic"),
-	TOY("Toy");
+	TOY("Toy"),
+	TWO_HANDED_TOY("TwoHandedToy");
 	
 	private String techName;
 

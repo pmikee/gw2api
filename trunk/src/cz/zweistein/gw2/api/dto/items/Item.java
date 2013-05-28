@@ -10,17 +10,17 @@ import cz.zweistein.gw2.api.dto.enums.Restriction;
 
 public class Item {
 
-	private String itemId;
+	private Long itemId;
 
 	private String name;
 
 	private String description;
 
-	private String level;
+	private Long level;
 
 	private Rarity rarity;
 
-	private String vendorValue;
+	private Long vendorValue;
 
 	private List<GameType> gameTypes;
 
@@ -28,7 +28,7 @@ public class Item {
 
 	private List<Restriction> restrictions;
 
-	private String suffixItemId;
+	private Long suffixItemId;
 
 	private ItemClass itemType;
 
@@ -54,8 +54,8 @@ public class Item {
 
 	private Tool tool;
 
-	public Item(String itemId, String name, String description, String level, Rarity rarity, String vendorValue, List<GameType> gameTypes,
-			List<ItemFlag> flags, List<Restriction> restrictions, String suffixItemId, ItemClass itemType, Armor armor, Weapon weapon, Bag bag,
+	public Item(Long itemId, String name, String description, Long level, Rarity rarity, Long vendorValue, List<GameType> gameTypes,
+			List<ItemFlag> flags, List<Restriction> restrictions, Long suffixItemId, ItemClass itemType, Armor armor, Weapon weapon, Bag bag,
 			Container container, Consumable consumable, Trinket trinket, UpgradeComponent upgradeComponent, Back back, Gathering gathering, Gizmo gizmo,
 			Tool tool) {
 		super();
@@ -95,7 +95,7 @@ public class Item {
 		return weapon;
 	}
 
-	public String getItemId() {
+	public Long getItemId() {
 		return this.itemId;
 	}
 
@@ -107,7 +107,7 @@ public class Item {
 		return this.description;
 	}
 
-	public String getLevel() {
+	public Long getLevel() {
 		return this.level;
 	}
 
@@ -115,7 +115,7 @@ public class Item {
 		return this.rarity;
 	}
 
-	public String getVendorValue() {
+	public Long getVendorValue() {
 		return this.vendorValue;
 	}
 
@@ -139,7 +139,7 @@ public class Item {
 		return consumable;
 	}
 
-	public String getSuffixItemId() {
+	public Long getSuffixItemId() {
 		return this.suffixItemId;
 	}
 

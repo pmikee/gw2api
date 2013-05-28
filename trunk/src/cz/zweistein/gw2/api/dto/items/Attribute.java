@@ -6,9 +6,9 @@ public class Attribute {
 	
 	private AttributeType attribute;
 	
-	private String modifier;
+	private Long modifier;
 
-	public Attribute(AttributeType attribute, String modifier) {
+	public Attribute(AttributeType attribute, Long modifier) {
 		super();
 		this.attribute = attribute;
 		this.modifier = modifier;
@@ -18,7 +18,7 @@ public class Attribute {
 		return attribute;
 	}
 
-	public String getModifier() {
+	public Long getModifier() {
 		return modifier;
 	}
 

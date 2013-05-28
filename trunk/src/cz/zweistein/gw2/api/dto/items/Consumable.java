@@ -8,9 +8,9 @@ public class Consumable {
 
 	private String description;
 	
-	private String duration;
+	private Long duration;
 
-	public Consumable(ConsumableType type, String description, String duration) {
+	public Consumable(ConsumableType type, String description, Long duration) {
 		super();
 		this.type = type;
 		this.description = description;
@@ -21,7 +21,7 @@ public class Consumable {
 		return description;
 	}
 
-	public String getDuration() {
+	public Long getDuration() {
 		return duration;
 	}
 

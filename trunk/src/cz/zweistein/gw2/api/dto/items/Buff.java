@@ -2,18 +2,18 @@ package cz.zweistein.gw2.api.dto.items;
 
 public class Buff {
 	
-	private String skill_id;
+	private String skillId;
 	
 	private String description;
 
 	public Buff(String skill_id, String description) {
 		super();
-		this.skill_id = skill_id;
+		this.skillId = skill_id;
 		this.description = description;
 	}
 
-	public String getSkill_id() {
-		return skill_id;
+	public String getSkillId() {
+		return skillId;
 	}
 
 	public String getDescription() {
@@ -22,7 +22,7 @@ public class Buff {
 
 	@Override
 	public String toString() {
-		return "Buff [skill_id=" + skill_id + ", description=" + description + "]";
+		return "Buff [skill_id=" + skillId + ", description=" + description + "]";
 	}
 
 }

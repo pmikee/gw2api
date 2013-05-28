@@ -8,7 +8,7 @@ public class InfusionSlot {
 	
 	private List<InfusionSlotFlag> flag;
 	
-	private Object item; //FIXME
+	private Object item; //FIXME, not in API yet
 
 	public InfusionSlot(List<InfusionSlotFlag> flag, Object item) {
 		super();

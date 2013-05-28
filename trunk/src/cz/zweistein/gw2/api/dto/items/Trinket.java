@@ -12,9 +12,9 @@ public class Trinket {
 	
 	private InfixUpgrade infixUpgrade;
 	
-	private String suffixItemId;
+	private Long suffixItemId;
 
-	public Trinket(TrinketType type, List<InfusionSlot> infusionSlots, InfixUpgrade infixUpgrade, String suffixItemId) {
+	public Trinket(TrinketType type, List<InfusionSlot> infusionSlots, InfixUpgrade infixUpgrade, Long suffixItemId) {
 		super();
 		this.type = type;
 		this.infusionSlots = infusionSlots;
@@ -30,7 +30,7 @@ public class Trinket {
 		return infixUpgrade;
 	}
 
-	public String getSuffixItemId() {
+	public Long getSuffixItemId() {
 		return suffixItemId;
 	}
 

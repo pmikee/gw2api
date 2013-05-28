@@ -2,21 +2,21 @@ package cz.zweistein.gw2.api.dto;
 
 public class Ingredient {
 
-	private String count;
+	private Long count;
 
-	private String itemId;
+	private Long itemId;
 
-	public Ingredient(String count, String itemId) {
+	public Ingredient(Long count, Long itemId) {
 		super();
 		this.count = count;
 		this.itemId = itemId;
 	}
 
-	public String getCount() {
+	public Long getCount() {
 		return this.count;
 	}
 
-	public String getItemId() {
+	public Long getItemId() {
 		return this.itemId;
 	}
 

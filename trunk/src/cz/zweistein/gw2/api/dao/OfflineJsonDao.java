@@ -1,12 +1,16 @@
 package cz.zweistein.gw2.api.dao;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.json.simple.JSONArray;
@@ -15,30 +19,39 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 public class OfflineJsonDao implements JsonDao {
-	
-	private JSONObject recipeDetails;
-	private JSONObject items;
+
+	private Map<Long, JSONObject> recipes;
+	private Map<Long, JSONObject> items;
 
 	public OfflineJsonDao() throws RemoteException {
 		try {
-			recipeDetails = parseJSONFile("recipe_details.json");
-			items = parseJSONFile("recipe_created_items.json");
+			recipes = parseJSONFile("recipes.json", "recipe_id");
+			items = parseJSONFile("items.json", "item_id");
 		} catch (Exception e) {
 			throw new RemoteException(e.toString());
 		}
 	}
 
-	private JSONObject parseJSONFile(String fileName) throws FileNotFoundException, IOException, ParseException {
-		return (JSONObject) new JSONParser().parse(new FileReader(new File(fileName)));
+	private Map<Long, JSONObject> parseJSONFile(String fileName, String idKey) throws FileNotFoundException, IOException, ParseException {
+
+		Map<Long, JSONObject> result = new HashMap<Long, JSONObject>();
+
+		JSONArray entries = (JSONArray) new JSONParser().parse(new InputStreamReader(new FileInputStream(new File(fileName)), Charset.forName("UTF16")));
+		for (Object object : entries) {
+			JSONObject obj = (JSONObject) object;
+			result.put(Long.parseLong((String) obj.get(idKey)), obj);
+		}
+
+		return result;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public JSONObject getItems() throws RemoteException {
 		JSONObject obj = new JSONObject();
-		Set<String> ids = items.keySet();
+		Set<Long> ids = items.keySet();
 		List<Long> result = new ArrayList<Long>(ids.size());
-		for (String object : ids) {
+		for (Long object : ids) {
 			result.add(new Long(object));
 		}
 		obj.put("items", result);
@@ -47,16 +60,16 @@ public class OfflineJsonDao implements JsonDao {
 
 	@Override
 	public JSONObject getItemDetails(Long id, String lang) throws RemoteException {
-		return (JSONObject) items.get(id.toString());
+		return items.get(id);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public JSONObject getRecipes() throws RemoteException {
 		JSONObject obj = new JSONObject();
-		Set<String> ids = recipeDetails.keySet();
+		Set<Long> ids = recipes.keySet();
 		List<Long> result = new ArrayList<Long>(ids.size());
-		for (String object : ids) {
+		for (Long object : ids) {
 			result.add(new Long(object));
 		}
 		obj.put("recipes", result);
@@ -65,7 +78,7 @@ public class OfflineJsonDao implements JsonDao {
 
 	@Override
 	public JSONObject getRecipeDetails(Long id, String lang) throws RemoteException {
-		return (JSONObject) recipeDetails.get(id.toString());
+		return recipes.get(id);
 	}
 
 	@Override

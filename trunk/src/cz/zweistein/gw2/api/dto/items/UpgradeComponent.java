@@ -2,6 +2,7 @@ package cz.zweistein.gw2.api.dto.items;
 
 import java.util.List;
 
+import cz.zweistein.gw2.api.dto.enums.InfusionSlotFlag;
 import cz.zweistein.gw2.api.dto.enums.UpgradeComponentFlag;
 import cz.zweistein.gw2.api.dto.enums.UpgradeComponentType;
 
@@ -15,9 +16,9 @@ public class UpgradeComponent {
 	
 	private String suffix;
 
-	private Object infusionUpgradeFlags; //FIXME
+	private List<InfusionSlotFlag> infusionUpgradeFlags; //FIXME
 
-	public UpgradeComponent(UpgradeComponentType type, List<UpgradeComponentFlag> flags, InfixUpgrade infixUpgrade, String suffix, Object infusionUpgradeFlags) {
+	public UpgradeComponent(UpgradeComponentType type, List<UpgradeComponentFlag> flags, InfixUpgrade infixUpgrade, String suffix, List<InfusionSlotFlag> infusionUpgradeFlags) {
 		super();
 		this.type = type;
 		this.flags = flags;
@@ -42,7 +43,7 @@ public class UpgradeComponent {
 		return suffix;
 	}
 
-	public Object getInfusionUpgradeFlags() {
+	public List<InfusionSlotFlag> getInfusionUpgradeFlags() {
 		return infusionUpgradeFlags;
 	}
 
