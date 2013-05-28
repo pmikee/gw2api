@@ -139,42 +139,42 @@ public class GW2API {
 		return eventNames;
 	}
 
-	public Map<String, String> getWorldNames(String lang) throws RemoteException {
+	public Map<Long, String> getWorldNames(String lang) throws RemoteException {
 		JSONArray obj = dao.getWorldNames(lang);
 
-		Map<String, String> worldNames = new HashMap<String, String>();
+		Map<Long, String> worldNames = new HashMap<Long, String>();
 
 		for (Object object : obj) {
 			JSONObject worldName = (JSONObject) object;
-			worldNames.put((String) worldName.get("id"), (String) worldName.get("name"));
+			worldNames.put(Long.parseLong((String) worldName.get("id")), (String) worldName.get("name"));
 
 		}
 
 		return worldNames;
 	}
 
-	public Map<String, String> getMapNames(String lang) throws RemoteException {
+	public Map<Long, String> getMapNames(String lang) throws RemoteException {
 		JSONArray obj = dao.getMapNames(lang);
 
-		Map<String, String> mapNames = new HashMap<String, String>();
+		Map<Long, String> mapNames = new HashMap<Long, String>();
 
 		for (Object object : obj) {
 			JSONObject mapName = (JSONObject) object;
-			mapNames.put((String) mapName.get("id"), (String) mapName.get("name"));
+			mapNames.put(Long.parseLong((String) mapName.get("id")), (String) mapName.get("name"));
 
 		}
 
 		return mapNames;
 	}
 
-	public Map<String, String> getWvWObjectiveNames(String lang) throws RemoteException {
+	public Map<Long, String> getWvWObjectiveNames(String lang) throws RemoteException {
 		JSONArray obj = dao.getWvWObjectiveNames(lang);
 
-		Map<String, String> mapNames = new HashMap<String, String>();
+		Map<Long, String> mapNames = new HashMap<Long, String>();
 
 		for (Object object : obj) {
 			JSONObject mapName = (JSONObject) object;
-			mapNames.put((String) mapName.get("id"), (String) mapName.get("name"));
+			mapNames.put(Long.parseLong((String) mapName.get("id")), (String) mapName.get("name"));
 
 		}
 

@@ -6,6 +6,7 @@ import org.json.simple.parser.ParseException;
 
 import cz.zweistein.gw2.api.GW2API;
 import cz.zweistein.gw2.api.dto.WvWMatch;
+import cz.zweistein.gw2.api.util.SupportedLanguage;
 
 
 public class UseGW2API {
@@ -14,12 +15,15 @@ public class UseGW2API {
 		
 		GW2API api = new GW2API();
 		
-		List<WvWMatch> matches = api.getWvWMatches();
-		for (WvWMatch wvWMatch : matches) {
-			System.out.println(
-			api.getWvWMatchDetails(wvWMatch.getMatchId()));
-		}
-		
+//		List<WvWMatch> matches = api.getWvWMatches();
+//		for (WvWMatch wvWMatch : matches) {
+//			System.out.println(
+//			api.getWvWMatchDetails(wvWMatch.getMatchId()));
+//		}
+
+		System.out.println(api.getWorldNames(SupportedLanguage.FRENCH.getCode()));
+		System.out.println(api.getMapNames(SupportedLanguage.SPANNISH.getCode()));
+		System.out.println(api.getWvWObjectiveNames(null));
 		
 //		api.setDao(new OfflineJsonDao());
 		
