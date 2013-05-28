@@ -314,7 +314,7 @@ public class OnlineJsonDao implements JsonDao {
 	 * @see cz.zweistein.gw2.api.dao.JSONDAO#getWorldName(java.lang.String)
 	 */
 	@Override
-	public JSONArray getWorldName(String lang) throws RemoteException {
+	public JSONArray getWorldNames(String lang) throws RemoteException {
 		try {
 			ParametersMap params = new ParametersMap();
 			params.putIfNotNull("lang", lang);

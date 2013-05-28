@@ -137,7 +137,7 @@ public class GW2API {
 	}
 
 	public Map<String, String> getWorldNames(String lang) throws RemoteException {
-		JSONArray obj = dao.getWorldName(lang);
+		JSONArray obj = dao.getWorldNames(lang);
 
 		Map<String, String> worldNames = new HashMap<String, String>();
 
@@ -152,7 +152,7 @@ public class GW2API {
 
 	public Map<String, String> getMapNames(String lang) throws RemoteException {
 		JSONArray obj = dao.getMapNames(lang);
-
+		
 		Map<String, String> mapNames = new HashMap<String, String>();
 
 		for (Object object : obj) {
@@ -167,6 +167,7 @@ public class GW2API {
 	public Map<String, String> getWvWObjectiveNames(String lang) throws RemoteException {
 		JSONArray obj = dao.getWvWObjectiveNames(lang);
 
+		System.out.println(obj);
 		Map<String, String> mapNames = new HashMap<String, String>();
 
 		for (Object object : obj) {
