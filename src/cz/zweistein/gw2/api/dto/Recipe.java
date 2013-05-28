@@ -6,21 +6,21 @@ import cz.zweistein.gw2.api.dto.enums.ItemType;
 
 public class Recipe {
 
-	private String recipeId;
+	private Long recipeId;
 
 	private List<Ingredient> ingredients;
 
-	private String rating;
+	private Long rating;
 
-	private String timeToCraft;
+	private Long timeToCraft;
 
-	private String outputItem;
+	private Long outputItem;
 
-	private String outputCount;
+	private Long outputCount;
 
 	private ItemType itemType;
 
-	public Recipe(String recipeId, List<Ingredient> ingredients, String rating, String timeToCraft, String outputItem, String outputCount, ItemType itemType) {
+	public Recipe(Long recipeId, List<Ingredient> ingredients, Long rating, Long timeToCraft, Long outputItem, Long outputCount, ItemType itemType) {
 		super();
 		this.recipeId = recipeId;
 		this.ingredients = ingredients;
@@ -31,7 +31,7 @@ public class Recipe {
 		this.itemType = itemType;
 	}
 
-	public String getRecipeId() {
+	public Long getRecipeId() {
 		return this.recipeId;
 	}
 
@@ -39,19 +39,19 @@ public class Recipe {
 		return this.ingredients;
 	}
 
-	public String getRating() {
+	public Long getRating() {
 		return this.rating;
 	}
 
-	public String getTimeToCraft() {
+	public Long getTimeToCraft() {
 		return this.timeToCraft;
 	}
 
-	public String getOutputItem() {
+	public Long getOutputItem() {
 		return this.outputItem;
 	}
 
-	public String getOutputCount() {
+	public Long getOutputCount() {
 		return this.outputCount;
 	}
 

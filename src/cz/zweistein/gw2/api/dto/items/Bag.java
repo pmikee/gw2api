@@ -6,17 +6,17 @@ import cz.zweistein.gw2.api.dto.enums.BagModifier;
 
 public class Bag {
 	
-	private String size;
+	private Long size;
 	
 	private List<BagModifier> bagModifiers;
 	
-	public Bag(String size, List<BagModifier> bagModifiers) {
+	public Bag(Long size, List<BagModifier> bagModifiers) {
 		super();
 		this.size = size;
 		this.bagModifiers = bagModifiers;
 	}
 
-	public String getSize() {
+	public Long getSize() {
 		return size;
 	}
 

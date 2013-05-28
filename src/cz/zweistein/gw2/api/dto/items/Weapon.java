@@ -11,17 +11,17 @@ public class Weapon {
 	
 	private DamageType damageType;
 	
-	private String minPower;
+	private Long minPower;
 	
-	private String maxPower;
+	private Long maxPower;
 	
-	private String defense;
+	private Long defense;
 	
 	private List<InfusionSlot> infusionSlots;
 	
 	private InfixUpgrade infixUpgrade;
 
-	public Weapon(ItemType weaponType, DamageType damageType, String minPower, String maxPower, String defense, List<InfusionSlot> infusionSlots, InfixUpgrade infixUpgrade) {
+	public Weapon(ItemType weaponType, DamageType damageType, Long minPower, Long maxPower, Long defense, List<InfusionSlot> infusionSlots, InfixUpgrade infixUpgrade) {
 		super();
 		this.weaponType = weaponType;
 		this.damageType = damageType;
@@ -40,15 +40,15 @@ public class Weapon {
 		return damageType;
 	}
 
-	public String getMinPower() {
+	public Long getMinPower() {
 		return minPower;
 	}
 
-	public String getMaxPower() {
+	public Long getMaxPower() {
 		return maxPower;
 	}
 
-	public String getDefense() {
+	public Long getDefense() {
 		return defense;
 	}
 

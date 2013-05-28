@@ -3,7 +3,8 @@ package cz.zweistein.gw2.api.dto.enums;
 public enum GizmoType {
 	
 	DEFAULT("Default"),
-	RENTABLE_CONTRACT_NPC("RentableContractNpc");
+	RENTABLE_CONTRACT_NPC("RentableContractNpc"),
+	UNLIMITED_CONSUMABLE("UnlimitedConsumable");
 	
 	private String techName;
 

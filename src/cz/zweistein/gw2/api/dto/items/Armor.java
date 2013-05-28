@@ -11,13 +11,13 @@ public class Armor {
 	
 	private WeightClass weightClass;
 	
-	private String defense;
+	private Long defense;
 	
 	private List<InfusionSlot> infusionSlots;
 	
 	private InfixUpgrade infixUpgrade;
 
-	public Armor(ItemType armorType, WeightClass weightClass, String defense, List<InfusionSlot> infusionSlots, InfixUpgrade infixUpgrade) {
+	public Armor(ItemType armorType, WeightClass weightClass, Long defense, List<InfusionSlot> infusionSlots, InfixUpgrade infixUpgrade) {
 		super();
 		this.armorType = armorType;
 		this.weightClass = weightClass;
@@ -34,7 +34,7 @@ public class Armor {
 		return weightClass;
 	}
 
-	public String getDefense() {
+	public Long getDefense() {
 		return defense;
 	}
 

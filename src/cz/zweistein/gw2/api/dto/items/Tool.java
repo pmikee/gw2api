@@ -6,9 +6,9 @@ public class Tool {
 	
 	private ToolType type;
 	
-	private String charges;
+	private Long charges;
 
-	public Tool(ToolType type, String charges) {
+	public Tool(ToolType type, Long charges) {
 		super();
 		this.type = type;
 		this.charges = charges;
@@ -18,7 +18,7 @@ public class Tool {
 		return this.type;
 	}
 
-	public String getCharges() {
+	public Long getCharges() {
 		return this.charges;
 	}
 
