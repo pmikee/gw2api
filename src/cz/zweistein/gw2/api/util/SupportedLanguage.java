@@ -1,5 +1,6 @@
 package cz.zweistein.gw2.api.util;
 
+
 public enum SupportedLanguage {
 
 	ENGLISH("en"), DEUTCH("de"), FRENCH("fr"), SPANNISH("es");
@@ -12,6 +13,17 @@ public enum SupportedLanguage {
 
 	public String getCode() {
 		return code;
+	}
+	
+	public static SupportedLanguage resolve(String code) {
+
+		for (SupportedLanguage state : SupportedLanguage.values()) {
+			if (state.code.equals(code)) {
+				return state;
+			}
+		}
+		
+		return ENGLISH;
 	}
 
 }

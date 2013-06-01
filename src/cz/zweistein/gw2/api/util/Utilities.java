@@ -34,6 +34,26 @@ import cz.zweistein.gw2.api.dao.OnlineJsonDao;
 public class Utilities {
 	private static Logger LOGGER = Logger.getLogger(Utilities.class.getName());
 
+	public static void buildQuerryParams(StringBuffer sb, Map<String, Object> params) {
+		if (params != null) {
+			if (!params.isEmpty()) {
+				sb.append("?");
+			}
+			boolean first = true;
+			for (Entry<String, Object> param : params.entrySet()) {
+				if (first) {
+					first = false;
+				} else {
+					sb.append("&");
+				}
+				sb.append(param.getKey());
+				if (param.getValue() != null) {
+					sb.append("=").append(param.getValue());
+				}
+			}
+		}
+	}
+
 	/**
 	 * Build query string for API
 	 * 
@@ -51,23 +71,9 @@ public class Utilities {
 		LOGGER.log(Level.FINE, "Building querry " + action + " with params " + params);
 
 		querry.append(OnlineJsonDao.STANDARD_URL).append(OnlineJsonDao.API_VERSION).append("/").append(action);
-		if (params != null) {
-			if (!params.isEmpty()) {
-				querry.append("?");
-			}
-			boolean first = true;
-			for (Entry<String, Object> param : params.entrySet()) {
-				if (first) {
-					first = false;
-				} else {
-					querry.append("&");
-				}
-				querry.append(param.getKey());
-				if (param.getValue() != null) {
-					querry.append("=").append(param.getValue());
-				}
-			}
-		}
+
+		buildQuerryParams(querry, params);
+
 		return querry.toString();
 	}
 
