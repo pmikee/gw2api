@@ -1,6 +1,7 @@
 package cz.zweistein.gw2.api.util;
 
 import java.net.MalformedURLException;
+import java.rmi.RemoteException;
 import java.util.HashMap;
 
 import org.junit.Test;
@@ -44,7 +45,7 @@ public class UtilitiesTest {
 	}
 
 	@Test
-	public void buildQuerryURL() throws MalformedURLException {
+	public void buildQuerryURL() throws RemoteException {
 
 		Assert.assertEquals("https://api.guildwars2.com/v1/test.json", Utilities.buildQuerryURL("test.json", new HashMap<String, Object>()).toExternalForm());
 

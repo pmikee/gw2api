@@ -2,6 +2,8 @@ package cz.zweistein.gw2.api.dto;
 
 import java.util.List;
 
+import cz.zweistein.gw2.api.dto.enums.CraftingDiscipline;
+import cz.zweistein.gw2.api.dto.enums.CraftingFlag;
 import cz.zweistein.gw2.api.dto.enums.ItemType;
 
 public class Recipe {
@@ -19,8 +21,21 @@ public class Recipe {
 	private Long outputCount;
 
 	private ItemType itemType;
+	
+	private List<CraftingDiscipline> craftingDisciplines;
+	
+	private List<CraftingFlag> flags;
+	
+	public List<CraftingDiscipline> getCraftingDisciplines() {
+		return this.craftingDisciplines;
+	}
 
-	public Recipe(Long recipeId, List<Ingredient> ingredients, Long rating, Long timeToCraft, Long outputItem, Long outputCount, ItemType itemType) {
+	public List<CraftingFlag> getFlags() {
+		return this.flags;
+	}
+
+	public Recipe(Long recipeId, List<Ingredient> ingredients, Long rating, Long timeToCraft, Long outputItem, Long outputCount, ItemType itemType,
+			List<CraftingDiscipline> craftingDisciplines, List<CraftingFlag> flags) {
 		super();
 		this.recipeId = recipeId;
 		this.ingredients = ingredients;
@@ -29,6 +44,8 @@ public class Recipe {
 		this.outputItem = outputItem;
 		this.outputCount = outputCount;
 		this.itemType = itemType;
+		this.craftingDisciplines = craftingDisciplines;
+		this.flags = flags;
 	}
 
 	public Long getRecipeId() {
@@ -62,7 +79,8 @@ public class Recipe {
 	@Override
 	public String toString() {
 		return "Recipe [recipeId=" + this.recipeId + ", ingredients=" + this.ingredients + ", rating=" + this.rating + ", timeToCraft=" + this.timeToCraft
-				+ ", outputItem=" + this.outputItem + ", outputCount=" + this.outputCount + ", itemType=" + this.itemType + "]";
+				+ ", outputItem=" + this.outputItem + ", outputCount=" + this.outputCount + ", itemType=" + this.itemType + ", craftingDisciplines="
+				+ this.craftingDisciplines + ", flags=" + this.flags + "]";
 	}
 
 }

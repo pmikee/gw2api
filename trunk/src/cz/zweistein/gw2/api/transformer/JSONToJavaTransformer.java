@@ -6,6 +6,8 @@ import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import cz.zweistein.gw2.api.dto.Color;
+import cz.zweistein.gw2.api.dto.ColorHue;
 import cz.zweistein.gw2.api.dto.Ingredient;
 import cz.zweistein.gw2.api.dto.Recipe;
 import cz.zweistein.gw2.api.dto.Scores;
@@ -16,6 +18,8 @@ import cz.zweistein.gw2.api.dto.enums.AttributeType;
 import cz.zweistein.gw2.api.dto.enums.BagModifier;
 import cz.zweistein.gw2.api.dto.enums.ConsumableType;
 import cz.zweistein.gw2.api.dto.enums.ContainerType;
+import cz.zweistein.gw2.api.dto.enums.CraftingDiscipline;
+import cz.zweistein.gw2.api.dto.enums.CraftingFlag;
 import cz.zweistein.gw2.api.dto.enums.DamageType;
 import cz.zweistein.gw2.api.dto.enums.GameType;
 import cz.zweistein.gw2.api.dto.enums.GatheringType;
@@ -66,18 +70,19 @@ public class JSONToJavaTransformer {
 
 	private InfixUpgrade parseInfixUpgrade(JSONObject obj) {
 		InfixUpgrade infixUpgrade = null;
-		if (!(obj.get("infix_upgrade") instanceof String)) {
+		if (obj.get("infix_upgrade") != null) {
 			JSONObject infixObj = (JSONObject) obj.get("infix_upgrade");
 			JSONArray attributesObj = (JSONArray) infixObj.get("attributes");
 			List<Attribute> attributes = new ArrayList<Attribute>(attributesObj.size());
 			for (Object attributeO : attributesObj) {
 				JSONObject attributeObj = (JSONObject) attributeO;
 
-				attributes.add(new Attribute(AttributeType.resolve((String) attributeObj.get("attribute")), Long.parseLong((String) attributeObj.get("modifier"))));
+				attributes.add(new Attribute(AttributeType.resolve((String) attributeObj.get("attribute")), Long.parseLong((String) attributeObj
+						.get("modifier"))));
 			}
 
 			Buff buff = null;
-			if (!(infixObj.get("buff") instanceof String)) {
+			if (infixObj.get("buff") != null) {
 				JSONObject buffObj = (JSONObject) infixObj.get("buff");
 				buff = new Buff((String) buffObj.get("skill_id"), (String) buffObj.get("description"));
 			}
@@ -102,7 +107,7 @@ public class JSONToJavaTransformer {
 				infusionFlags.add(InfusionSlotFlag.resolve(infusionFlag));
 			}
 
-			infusionSlots.add(new InfusionSlot(infusionFlags, null));
+			infusionSlots.add(new InfusionSlot(infusionFlags, parseGracefullyLong(infusionSlotObj, "item_id")));
 
 		}
 		return infusionSlots;
@@ -137,7 +142,8 @@ public class JSONToJavaTransformer {
 			InfixUpgrade infixUpgrade = parseInfixUpgrade(armorObj);
 			List<InfusionSlot> infusionSlots = parseInfusionSlots(armorObj);
 
-			armor = new Armor(ItemType.resolve((String) armorObj.get("type")), WeightClass.resolve((String) armorObj.get("weight_class")), Long.parseLong((String) armorObj.get("defense")), infusionSlots, infixUpgrade);
+			armor = new Armor(ItemType.resolve((String) armorObj.get("type")), WeightClass.resolve((String) armorObj.get("weight_class")),
+					Long.parseLong((String) armorObj.get("defense")), infusionSlots, infixUpgrade);
 		}
 
 		Weapon weapon = null;
@@ -147,7 +153,9 @@ public class JSONToJavaTransformer {
 			InfixUpgrade infixUpgrade = parseInfixUpgrade(weaponObj);
 			List<InfusionSlot> infusionSlots = parseInfusionSlots(weaponObj);
 
-			weapon = new Weapon(ItemType.resolve((String) weaponObj.get("type")), DamageType.resolve((String) weaponObj.get("damage_type")), Long.parseLong((String) weaponObj.get("min_power")), Long.parseLong((String) weaponObj.get("max_power")), Long.parseLong((String) weaponObj.get("defense")), infusionSlots, infixUpgrade);
+			weapon = new Weapon(ItemType.resolve((String) weaponObj.get("type")), DamageType.resolve((String) weaponObj.get("damage_type")),
+					Long.parseLong((String) weaponObj.get("min_power")), Long.parseLong((String) weaponObj.get("max_power")), Long.parseLong((String) weaponObj
+							.get("defense")), infusionSlots, infixUpgrade);
 		}
 
 		Trinket trinket = null;
@@ -157,7 +165,8 @@ public class JSONToJavaTransformer {
 			InfixUpgrade infixUpgrade = parseInfixUpgrade(trinketObj);
 			List<InfusionSlot> infusionSlots = parseInfusionSlots(trinketObj);
 
-			trinket = new Trinket(TrinketType.resolve((String) trinketObj.get("type")), infusionSlots, infixUpgrade, parseGracefullyLong(trinketObj, "suffix_item_id"));
+			trinket = new Trinket(TrinketType.resolve((String) trinketObj.get("type")), infusionSlots, infixUpgrade, parseGracefullyLong(trinketObj,
+					"suffix_item_id"));
 		}
 
 		Bag bag = null;
@@ -186,7 +195,8 @@ public class JSONToJavaTransformer {
 		if (ItemClass.CONSUMABLE.equals(itemClass)) {
 			JSONObject consumableObj = (JSONObject) obj.get("consumable");
 
-			consumable = new Consumable(ConsumableType.resolve((String) consumableObj.get("type")), (String) consumableObj.get("description"), parseGracefullyLong(consumableObj, "duration_ms"));
+			consumable = new Consumable(ConsumableType.resolve((String) consumableObj.get("type")), (String) consumableObj.get("description"),
+					parseGracefullyLong(consumableObj, "duration_ms"));
 		}
 
 		UpgradeComponent upgradeComponent = null;
@@ -208,7 +218,8 @@ public class JSONToJavaTransformer {
 				infusionSlotFlags.add(InfusionSlotFlag.resolve(((String) infusionSlotFlagO)));
 			}
 
-			upgradeComponent = new UpgradeComponent(UpgradeComponentType.resolve((String) upgradeComponentObj.get("type")), upgradeComponentFlags, infixUpgrade, (String) upgradeComponentObj.get("suffix"), infusionSlotFlags);
+			upgradeComponent = new UpgradeComponent(UpgradeComponentType.resolve((String) upgradeComponentObj.get("type")), upgradeComponentFlags,
+					infixUpgrade, (String) upgradeComponentObj.get("suffix"), infusionSlotFlags);
 		}
 
 		Back back = null;
@@ -242,8 +253,10 @@ public class JSONToJavaTransformer {
 			tool = new Tool(ToolType.resolve((String) toolObj.get("type")), Long.parseLong((String) toolObj.get("charges")));
 		}
 
-		return new Item(Long.parseLong((String) obj.get("item_id")), (String) obj.get("name"), (String) obj.get("description"), Long.parseLong((String) obj.get("level")), Rarity.resolve((String) obj.get("rarity")), Long.parseLong((String) obj.get("vendor_value")), gameTypes, flags, restrictions, parseGracefullyLong(obj, "suffix_item_id"), itemClass, armor, weapon, bag, container, consumable,
-				trinket, upgradeComponent, back, gathering, gizmo, tool);
+		return new Item(Long.parseLong((String) obj.get("item_id")), (String) obj.get("name"), (String) obj.get("description"), Long.parseLong((String) obj
+				.get("level")), Rarity.resolve((String) obj.get("rarity")), Long.parseLong((String) obj.get("vendor_value")), gameTypes, flags, restrictions,
+				parseGracefullyLong(obj, "suffix_item_id"), itemClass, armor, weapon, bag, container, consumable, trinket, upgradeComponent, back, gathering,
+				gizmo, tool);
 
 	}
 
@@ -258,7 +271,21 @@ public class JSONToJavaTransformer {
 			ingredients.add(new Ingredient(Long.parseLong((String) ingredientObj.get("count")), (Long.parseLong((String) ingredientObj.get("item_id")))));
 		}
 
-		return new Recipe(Long.parseLong((String) obj.get("recipe_id")), ingredients, Long.parseLong((String) obj.get("min_rating")), Long.parseLong((String) obj.get("time_to_craft_ms")), Long.parseLong((String) obj.get("output_item_id")), Long.parseLong((String) obj.get("output_item_count")), ItemType.resolve((String) obj.get("type")));
+		JSONArray flagsObj = (JSONArray) obj.get("flags");
+		List<CraftingFlag> flags = new ArrayList<CraftingFlag>(flagsObj.size());
+		for (Object flagO : flagsObj) {
+			flags.add(CraftingFlag.resolve((String) flagO));
+		}
+
+		JSONArray disciplinesObj = (JSONArray) obj.get("disciplines");
+		List<CraftingDiscipline> craftingDisciplines = new ArrayList<CraftingDiscipline>(disciplinesObj.size());
+		for (Object disciplineO : disciplinesObj) {
+			craftingDisciplines.add(CraftingDiscipline.resolve((String) disciplineO));
+		}
+
+		return new Recipe(Long.parseLong((String) obj.get("recipe_id")), ingredients, Long.parseLong((String) obj.get("min_rating")),
+				Long.parseLong((String) obj.get("time_to_craft_ms")), Long.parseLong((String) obj.get("output_item_id")), Long.parseLong((String) obj
+						.get("output_item_count")), ItemType.resolve((String) obj.get("type")), craftingDisciplines, flags);
 	}
 
 	public WvWMatchDetail transformWvWMatchDetails(JSONObject obj) {
@@ -275,15 +302,31 @@ public class JSONToJavaTransformer {
 			for (Object objectiveO : objectivesObj) {
 				JSONObject objectiveObj = (JSONObject) objectiveO;
 
-				objectives.add(new WvWObjective((Long) objectiveObj.get("id"), (String) objectiveObj.get("owner_guild"), WvWSide.resolve((String) objectiveObj.get("owner"))));
+				objectives.add(new WvWObjective((Long) objectiveObj.get("id"), (String) objectiveObj.get("owner_guild"), WvWSide.resolve((String) objectiveObj
+						.get("owner"))));
 			}
 
 			JSONArray scores = (JSONArray) mapObj.get("scores");
-			wvwMaps.add(new WvWMap(new Scores((Long) scores.get(0), (Long) scores.get(1), (Long) scores.get(2)), WvWMapType.resolve((String) mapObj.get("type")), objectives));
+			wvwMaps.add(new WvWMap(new Scores((Long) scores.get(0), (Long) scores.get(1), (Long) scores.get(2)),
+					WvWMapType.resolve((String) mapObj.get("type")), objectives));
 		}
 
 		JSONArray scores = (JSONArray) obj.get("scores");
 		return new WvWMatchDetail(new Scores((Long) scores.get(0), (Long) scores.get(1), (Long) scores.get(2)), (String) obj.get("match_id"), wvwMaps);
+	}
+
+	public Color transformColor(JSONObject colorsObj) {
+		ColorHue defaultColor = transfromColorHue((JSONObject) colorsObj.get("default"));
+		ColorHue metalColor = transfromColorHue((JSONObject) colorsObj.get("metal"));
+		ColorHue clothColor = transfromColorHue((JSONObject) colorsObj.get("cloth"));
+		ColorHue leatherColor = transfromColorHue((JSONObject) colorsObj.get("leather"));
+		return new Color(defaultColor, metalColor, clothColor, leatherColor);
+	}
+
+	private ColorHue transfromColorHue(JSONObject colorHueObj) {
+		return new ColorHue(Double.valueOf((String) colorHueObj.get("brightness")), Double.valueOf((String) colorHueObj.get("contrast")),
+				Double.valueOf((String) colorHueObj.get("hue")), Double.valueOf((String) colorHueObj.get("saturation")), Double.valueOf((String) colorHueObj
+						.get("lightness")));
 	}
 
 }
