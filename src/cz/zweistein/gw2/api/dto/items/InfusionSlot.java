@@ -8,25 +8,25 @@ public class InfusionSlot {
 	
 	private List<InfusionSlotFlag> flag;
 	
-	private Object item; //FIXME, not in API yet
+	private Long itemId;
 
-	public InfusionSlot(List<InfusionSlotFlag> flag, Object item) {
+	public InfusionSlot(List<InfusionSlotFlag> flag, Long itemId) {
 		super();
 		this.flag = flag;
-		this.item = item;
+		this.itemId = itemId;
 	}
 
 	public List<InfusionSlotFlag> getFlag() {
 		return flag;
 	}
 
-	public Object getItem() {
-		return item;
+	public Long getItemId() {
+		return itemId;
 	}
 
 	@Override
 	public String toString() {
-		return "InfusionSlot [flag=" + flag + ", item=" + item + "]";
+		return "InfusionSlot [flag=" + flag + ", item=" + itemId + "]";
 	}
 
 }

@@ -29,4 +29,10 @@ public interface JsonDao {
 
 	public abstract JSONArray getMapNames(String lang) throws RemoteException;
 
+	public abstract JSONObject getGuildDetails(String guildID, String guildName) throws RemoteException;
+
+	public abstract JSONObject getBuild() throws RemoteException;
+
+	public abstract JSONObject getColors() throws RemoteException;
+
 }

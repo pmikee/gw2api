@@ -22,8 +22,11 @@ package cz.zweistein.gw2.api.util;
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //THE SOFTWARE.
 
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.rmi.RemoteException;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Level;
@@ -48,7 +51,13 @@ public class Utilities {
 				}
 				sb.append(param.getKey());
 				if (param.getValue() != null) {
-					sb.append("=").append(param.getValue());
+					sb.append("=");
+					try {
+						sb.append(URLEncoder.encode(param.getValue().toString(), "UTF8"));
+					} catch (UnsupportedEncodingException e) {
+						LOGGER.info(e.toString());
+						sb.append(param.getValue().toString());
+					}
 				}
 			}
 		}
@@ -57,8 +66,10 @@ public class Utilities {
 	/**
 	 * Build query string for API
 	 * 
-	 * @param action json action
-	 * @param params map of parameters
+	 * @param action
+	 *            json action
+	 * @param params
+	 *            map of parameters
 	 * @return string describing URL of request
 	 */
 	static String buildQuerryString(String action, Map<String, Object> params) {
@@ -80,14 +91,21 @@ public class Utilities {
 	/**
 	 * Build query string for API
 	 * 
-	 * @param action json action
-	 * @param params map of parameters
+	 * @param action
+	 *            json action
+	 * @param params
+	 *            map of parameters
 	 * @return string describing URL of request
+	 * @throws RemoteException
 	 */
-	public static URL buildQuerryURL(String action, Map<String, Object> params) throws MalformedURLException {
+	public static URL buildQuerryURL(String action, Map<String, Object> params) throws RemoteException {
 		String querry = buildQuerryString(action, params);
 		LOGGER.log(Level.FINE, "Built querry " + querry);
-		return new URL(querry);
+		try {
+			return new URL(querry);
+		} catch (MalformedURLException e) {
+			throw new RemoteException(e.getMessage(), e);
+		}
 	}
 
 }

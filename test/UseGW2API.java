@@ -6,6 +6,7 @@ import org.json.simple.parser.ParseException;
 
 import cz.zweistein.gw2.api.GW2API;
 import cz.zweistein.gw2.api.auth.OAuth2Client;
+import cz.zweistein.gw2.api.dto.Recipe;
 import cz.zweistein.gw2.api.dto.WvWMatch;
 import cz.zweistein.gw2.api.util.SupportedLanguage;
 
@@ -14,11 +15,17 @@ public class UseGW2API {
 	
 	public static void main(String[] args) throws InterruptedException, FileNotFoundException, IOException, ParseException {
 		
-//		GW2API api = new GW2API();
+		GW2API api = new GW2API();
 		
-		OAuth2Client auth = new OAuth2Client();
+		System.out.println(api.getWvWMatches());
 		
-		System.out.println(auth.getOAuth2Token());
+//		System.out.println(api.getColors());
+		
+//		System.out.println( api.getBuild());
+		
+//		OAuth2Client auth = new OAuth2Client();
+//		
+//		System.out.println(auth.getOAuth2Token());
 		
 //		List<WvWMatch> matches = api.getWvWMatches();
 //		for (WvWMatch wvWMatch : matches) {

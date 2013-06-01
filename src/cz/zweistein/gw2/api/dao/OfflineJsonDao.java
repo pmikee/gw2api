@@ -128,4 +128,19 @@ public class OfflineJsonDao implements JsonDao {
 		return maps;
 	}
 
+	@Override
+	public JSONObject getGuildDetails(String guildID, String guildName) throws RemoteException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public JSONObject getBuild() throws RemoteException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public JSONObject getColors() throws RemoteException {
+		throw new UnsupportedOperationException();
+	}
+
 }
