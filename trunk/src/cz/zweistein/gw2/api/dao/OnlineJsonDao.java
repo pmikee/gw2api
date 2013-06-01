@@ -105,7 +105,7 @@ public class OnlineJsonDao implements JsonDao {
 	 */
 	private SSLContext sslCon;
 	
-	private String oAuth2Key; 
+	private String oAuth2Token; 
 
 	public OnlineJsonDao(InputStream certInputStream) throws RemoteException {
 		try {
@@ -139,8 +139,8 @@ public class OnlineJsonDao implements JsonDao {
 
 	private Reader getContentFromURL(URL url) throws IOException {
 		HttpsURLConnection httpConnection = (HttpsURLConnection) url.openConnection();
-		if (oAuth2Key != null) {
-			httpConnection.addRequestProperty("Authorization", "Bearer " + oAuth2Key);
+		if (oAuth2Token != null) {
+			httpConnection.addRequestProperty("Authorization", "Bearer " + oAuth2Token);
 		}
 		httpConnection.setSSLSocketFactory(sslCon.getSocketFactory());
 		return new BufferedReader(new InputStreamReader(httpConnection.getInputStream(), Charset.forName("UTF-8")));
@@ -341,6 +341,10 @@ public class OnlineJsonDao implements JsonDao {
 		} catch (MalformedURLException e) {
 			throw new RemoteException(e.getMessage(), e);
 		}
+	}
+
+	public void setoAuth2Token(String oAuth2Token) {
+		this.oAuth2Token = oAuth2Token;
 	}
 
 }
