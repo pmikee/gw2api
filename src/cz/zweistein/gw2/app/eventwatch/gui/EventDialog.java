@@ -1,6 +1,9 @@
 package cz.zweistein.gw2.app.eventwatch.gui;
 
 import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -38,19 +41,16 @@ public class EventDialog extends JFrame implements ActionListener {
 		this.eventNames = eventNames;
 		this.worldNames = worldNames;
 
-		this.selectedEvent = eventNames.keySet().iterator().next();
-		this.selectedWorld = worldNames.keySet().iterator().next();
-
 		this.eventState = EventState.INVALID;
 
-		updateTitle();
-
 		JPanel content = new JPanel();
+		
+		content.setLayout(new GridBagLayout());
 
 		add(content);
 
 		eventStatusLabel = new JLabel();
-		content.add(eventStatusLabel);
+		content.add(eventStatusLabel, new GridBagConstraints(0, 0, 1, 1, 2, 2, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 		eventStatusLabel.setOpaque(true);
 		updateEventState();
 
@@ -64,7 +64,7 @@ public class EventDialog extends JFrame implements ActionListener {
 		eventNamesComboBox = new JComboBox<CodeTableItem>(eventNamesEntries.toArray(new CodeTableItem[eventNamesEntries.size()]));
 		eventNamesComboBox.setRenderer(new CodeTableRenderer());
 		eventNamesComboBox.addActionListener(this);
-		content.add(eventNamesComboBox);
+		content.add(eventNamesComboBox, new GridBagConstraints(0, 1, 2, 1, 1, 1, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
 		
 		List<CodeTableItem> worldNamesEntries = new ArrayList<CodeTableItem>();
 		for (Entry<Long, String> item : worldNames.entrySet()) {
@@ -75,14 +75,18 @@ public class EventDialog extends JFrame implements ActionListener {
 		worldNamesComboBox = new JComboBox<CodeTableItem>(worldNamesEntries.toArray(new CodeTableItem[worldNamesEntries.size()]));
 		worldNamesComboBox.setRenderer(new CodeTableRenderer());
 		worldNamesComboBox.addActionListener(this);
-		content.add(worldNamesComboBox);
+		content.add(worldNamesComboBox, new GridBagConstraints(0, 2, 2, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
 		
 		JButton toggleButton = new JButton("-");
-		content.add(toggleButton);
+		content.add(toggleButton, new GridBagConstraints(1, 0, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.VERTICAL, new Insets(0, 0, 0, 0), 0, 0));
 		toggleButton.addActionListener(this);
 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
+		selectedEvent = (String) eventNamesEntries.get(0).getItem().getKey();
+		selectedWorld = (Long) worldNamesEntries.get(0).getItem().getKey();
+		updateTitle();
+		
 		setAlwaysOnTop(true);
 		pack();
 		setVisible(true);
