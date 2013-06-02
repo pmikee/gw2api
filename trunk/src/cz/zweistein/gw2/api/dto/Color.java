@@ -2,6 +2,8 @@ package cz.zweistein.gw2.api.dto;
 
 public class Color {
 	
+	private String name;
+
 	private ColorHue defaultColor;
 	
 	private ColorHue metalColor;
@@ -10,12 +12,17 @@ public class Color {
 	
 	private ColorHue leatherColor;
 	
-	public Color(ColorHue defaultColor, ColorHue metalColor, ColorHue clothColor, ColorHue leatherColor) {
+	public Color(String name, ColorHue defaultColor, ColorHue metalColor, ColorHue clothColor, ColorHue leatherColor) {
 		super();
+		this.name = name;
 		this.defaultColor = defaultColor;
 		this.metalColor = metalColor;
 		this.clothColor = clothColor;
 		this.leatherColor = leatherColor;
+	}
+
+	public String getName() {
+		return this.name;
 	}
 
 	public ColorHue getDefaultColor() {
@@ -36,8 +43,8 @@ public class Color {
 
 	@Override
 	public String toString() {
-		return "Color [defaultColor=" + this.defaultColor + ", metalColor=" + this.metalColor + ", clothColor=" + this.clothColor + ", leatherColor="
-				+ this.leatherColor + "]";
+		return "Color [name=" + this.name + ", defaultColor=" + this.defaultColor + ", metalColor=" + this.metalColor + ", clothColor=" + this.clothColor
+				+ ", leatherColor=" + this.leatherColor + "]";
 	}
 
 }

@@ -1,5 +1,9 @@
 package cz.zweistein.gw2.api.dto;
 
+import java.util.List;
+
+import cz.zweistein.gw2.api.dto.enums.GuildEmblemFlag;
+
 
 public class GuildEmblem {
 	
@@ -7,22 +11,26 @@ public class GuildEmblem {
 	
 	private Long foregroundId;
 	
-	private Long flags;
+	private List<GuildEmblemFlag> flags;
 	
-	private Long color1;
+	private Long foregroundPrimaryColorId;
 	
-	private Long color2;
+	private Long foregroundSecondaryColorId;
 	
-	private Long color3;
+	private Long backgroundColorId;
 	
-	public GuildEmblem(Long backgroundId, Long foregroundId, Long flags, Long color1, Long color2, Long color3) {
+	public GuildEmblem(Long backgroundId, Long foregroundId, List<GuildEmblemFlag> flags, Long foregroundPrimaryColorId, Long foregroundSecondaryColorId, Long backgroundColorId) {
 		super();
 		this.backgroundId = backgroundId;
 		this.foregroundId = foregroundId;
 		this.flags = flags;
-		this.color1 = color1;
-		this.color2 = color2;
-		this.color3 = color3;
+		this.foregroundPrimaryColorId = foregroundPrimaryColorId;
+		this.foregroundSecondaryColorId = foregroundSecondaryColorId;
+		this.backgroundColorId = backgroundColorId;
+	}
+
+	public List<GuildEmblemFlag> getFlags() {
+		return this.flags;
 	}
 
 	public Long getBackgroundId() {
@@ -33,26 +41,23 @@ public class GuildEmblem {
 		return this.foregroundId;
 	}
 
-	public Long getFlags() {
-		return this.flags;
+	public Long getForegroundPrimaryColorId() {
+		return this.foregroundPrimaryColorId;
 	}
 
-	public Long getColor1() {
-		return this.color1;
+	public Long getForegroundSecondaryColorId() {
+		return this.foregroundSecondaryColorId;
 	}
 
-	public Long getColor2() {
-		return this.color2;
-	}
-
-	public Long getColor3() {
-		return this.color3;
+	public Long getBackgroundColorId() {
+		return this.backgroundColorId;
 	}
 
 	@Override
 	public String toString() {
-		return "GuildEmblem [backgroundId=" + this.backgroundId + ", foregroundId=" + this.foregroundId + ", flags=" + this.flags + ", color1=" + this.color1
-				+ ", color2=" + this.color2 + ", color3=" + this.color3 + "]";
+		return "GuildEmblem [backgroundId=" + this.backgroundId + ", foregroundId=" + this.foregroundId + ", flags=" + this.flags
+				+ ", foregroundPrimaryColorId=" + this.foregroundPrimaryColorId + ", foregroundSecondaryColorId=" + this.foregroundSecondaryColorId
+				+ ", backgroundColorId=" + this.backgroundColorId + "]";
 	}
 
 }

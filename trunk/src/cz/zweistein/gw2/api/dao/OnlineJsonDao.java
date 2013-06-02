@@ -58,7 +58,7 @@ import cz.zweistein.gw2.api.util.ParametersMap;
 import cz.zweistein.gw2.api.util.Utilities;
 
 public class OnlineJsonDao implements JsonDao {
-	private static Logger LOGGER = Logger.getLogger(OnlineJsonDao.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(OnlineJsonDao.class.getName());
 
 	/**
 	 * Root certificate as bytearray

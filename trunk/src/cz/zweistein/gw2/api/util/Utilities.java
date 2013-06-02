@@ -35,7 +35,7 @@ import java.util.logging.Logger;
 import cz.zweistein.gw2.api.dao.OnlineJsonDao;
 
 public class Utilities {
-	private static Logger LOGGER = Logger.getLogger(Utilities.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(Utilities.class.getName());
 
 	public static void buildQuerryParams(StringBuffer sb, Map<String, Object> params) {
 		if (params != null) {

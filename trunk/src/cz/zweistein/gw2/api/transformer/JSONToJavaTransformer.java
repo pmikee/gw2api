@@ -8,6 +8,8 @@ import org.json.simple.JSONObject;
 
 import cz.zweistein.gw2.api.dto.Color;
 import cz.zweistein.gw2.api.dto.ColorHue;
+import cz.zweistein.gw2.api.dto.Guild;
+import cz.zweistein.gw2.api.dto.GuildEmblem;
 import cz.zweistein.gw2.api.dto.Ingredient;
 import cz.zweistein.gw2.api.dto.Recipe;
 import cz.zweistein.gw2.api.dto.Scores;
@@ -24,6 +26,7 @@ import cz.zweistein.gw2.api.dto.enums.DamageType;
 import cz.zweistein.gw2.api.dto.enums.GameType;
 import cz.zweistein.gw2.api.dto.enums.GatheringType;
 import cz.zweistein.gw2.api.dto.enums.GizmoType;
+import cz.zweistein.gw2.api.dto.enums.GuildEmblemFlag;
 import cz.zweistein.gw2.api.dto.enums.InfusionSlotFlag;
 import cz.zweistein.gw2.api.dto.enums.ItemClass;
 import cz.zweistein.gw2.api.dto.enums.ItemFlag;
@@ -320,13 +323,32 @@ public class JSONToJavaTransformer {
 		ColorHue metalColor = transfromColorHue((JSONObject) colorsObj.get("metal"));
 		ColorHue clothColor = transfromColorHue((JSONObject) colorsObj.get("cloth"));
 		ColorHue leatherColor = transfromColorHue((JSONObject) colorsObj.get("leather"));
-		return new Color(defaultColor, metalColor, clothColor, leatherColor);
+		return new Color((String) colorsObj.get("name"), defaultColor, metalColor, clothColor, leatherColor);
 	}
 
 	private ColorHue transfromColorHue(JSONObject colorHueObj) {
-		return new ColorHue(Double.valueOf((String) colorHueObj.get("brightness")), Double.valueOf((String) colorHueObj.get("contrast")),
-				Double.valueOf((String) colorHueObj.get("hue")), Double.valueOf((String) colorHueObj.get("saturation")), Double.valueOf((String) colorHueObj
+		return new ColorHue(Long.valueOf((String) colorHueObj.get("brightness")), Long.valueOf((String) colorHueObj.get("contrast")),
+				Long.valueOf((String) colorHueObj.get("hue")), Long.valueOf((String) colorHueObj.get("saturation")), Long.valueOf((String) colorHueObj
 						.get("lightness")));
+	}
+
+	public Guild transfromGuildDetail(JSONObject obj) {
+		JSONObject emblemObj = (JSONObject) obj.get("emblem");
+
+		GuildEmblem emblem = null;
+		if (emblemObj != null) {
+			JSONArray flagsObj = (JSONArray) emblemObj.get("flags");
+			List<GuildEmblemFlag> flags = new ArrayList<GuildEmblemFlag>(flagsObj.size());
+			for (Object flagO : flagsObj) {
+				flags.add(GuildEmblemFlag.resolve((String) flagO));
+			}
+
+			emblem = new GuildEmblem((Long) emblemObj.get("background_id"), (Long) emblemObj.get("foreground_id"), flags,
+					(Long) emblemObj.get("foreground_primary_color_id"), (Long) emblemObj.get("foreground_secondary_color_id"),
+					(Long) emblemObj.get("background_color_id"));
+		}
+
+		return new Guild((String) obj.get("guild_id"), (String) obj.get("tag"), (String) obj.get("guild_name"), emblem);
 	}
 
 }

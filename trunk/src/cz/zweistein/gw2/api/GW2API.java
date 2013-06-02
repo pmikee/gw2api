@@ -40,7 +40,6 @@ import cz.zweistein.gw2.api.dao.OnlineJsonDao;
 import cz.zweistein.gw2.api.dto.Color;
 import cz.zweistein.gw2.api.dto.Event;
 import cz.zweistein.gw2.api.dto.Guild;
-import cz.zweistein.gw2.api.dto.GuildEmblem;
 import cz.zweistein.gw2.api.dto.Recipe;
 import cz.zweistein.gw2.api.dto.WvWMatch;
 import cz.zweistein.gw2.api.dto.WvWMatchDetail;
@@ -196,7 +195,8 @@ public class GW2API {
 		for (Object object : eventObjects) {
 			JSONObject eventObject = (JSONObject) object;
 
-			events.add(new Event((String) eventObject.get("event_id"), (Long) eventObject.get("map_id"), (Long) eventObject.get("world_id"), EventState.resolve((String) eventObject.get("state"))));
+			events.add(new Event((String) eventObject.get("event_id"), (Long) eventObject.get("map_id"), (Long) eventObject.get("world_id"), EventState
+					.resolve((String) eventObject.get("state"))));
 		}
 
 		return events;
@@ -204,18 +204,17 @@ public class GW2API {
 
 	public List<WvWMatch> getWvWMatches() throws RemoteException {
 		JSONObject obj = dao.getWvWMatches();
-		
-	System.out.println(obj);	
-		
+
 		JSONArray matchObjects = (JSONArray) obj.get("wvw_matches");
 
 		List<WvWMatch> matches = new ArrayList<WvWMatch>(matchObjects.size());
 
 		for (Object object : matchObjects) {
 			JSONObject matchObject = (JSONObject) object;
-			Date startDate = DatatypeConverter.parseDateTime((String)matchObject.get("start_time")).getTime();
-			Date endDate = DatatypeConverter.parseDateTime((String)matchObject.get("end_time")).getTime();;
-			matches.add(new WvWMatch((String) matchObject.get("wvw_match_id"), (Long) matchObject.get("blue_world_id"), (Long) matchObject.get("red_world_id"), (Long) matchObject.get("green_world_id"), startDate, endDate));
+			Date startDate = DatatypeConverter.parseDateTime((String) matchObject.get("start_time")).getTime();
+			Date endDate = DatatypeConverter.parseDateTime((String) matchObject.get("end_time")).getTime();
+			matches.add(new WvWMatch((String) matchObject.get("wvw_match_id"), (Long) matchObject.get("blue_world_id"), (Long) matchObject.get("red_world_id"),
+					(Long) matchObject.get("green_world_id"), startDate, endDate));
 
 		}
 
@@ -239,31 +238,27 @@ public class GW2API {
 
 		return transformer.transfromItem(obj);
 	}
-	
+
 	public Guild getGuildDetails(String guildID, String guildName) throws RemoteException {
 		JSONObject obj = dao.getGuildDetails(guildID, guildName);
-		
-		String emblemString = (String)obj.get("emblem");
-		String[] emblemStringArray = emblemString.split(",");
-		
-		GuildEmblem emblem = new GuildEmblem(Long.valueOf(emblemStringArray[0]), Long.valueOf(emblemStringArray[1]), Long.valueOf(emblemStringArray[2]), Long.valueOf(emblemStringArray[3]), Long.valueOf(emblemStringArray[4]), Long.valueOf(emblemStringArray[5]));
-		return new Guild((String)obj.get("guild_id"), (String)obj.get("tag"), (String)obj.get("guild_name"), emblem);
+
+		return transformer.transfromGuildDetail(obj);
 	}
-	
+
 	public Long getBuild() throws RemoteException {
 		JSONObject obj = dao.getBuild();
-		
-		return (Long)obj.get("build_id");
+
+		return (Long) obj.get("build_id");
 	}
-	
+
 	public Map<Long, Color> getColors() throws RemoteException {
 		JSONObject obj = dao.getColors();
-		
+
 		JSONObject colorsObj = (JSONObject) obj.get("colors");
-		
-		Map<Long, Color> colors= new HashMap<Long, Color>();
+
+		Map<Long, Color> colors = new HashMap<Long, Color>();
 		for (Object key : colorsObj.keySet()) {
-			colors.put(Long.valueOf((String) key), transformer.transformColor((JSONObject)colorsObj.get(key)));
+			colors.put(Long.valueOf((String) key), transformer.transformColor((JSONObject) colorsObj.get(key)));
 		}
 
 		return colors;

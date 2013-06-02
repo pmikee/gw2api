@@ -7,7 +7,10 @@ import org.json.simple.parser.ParseException;
 import cz.zweistein.gw2.api.GW2API;
 import cz.zweistein.gw2.api.auth.OAuth2Client;
 import cz.zweistein.gw2.api.dto.Recipe;
+import cz.zweistein.gw2.api.dto.WvWMap;
 import cz.zweistein.gw2.api.dto.WvWMatch;
+import cz.zweistein.gw2.api.dto.WvWMatchDetail;
+import cz.zweistein.gw2.api.dto.WvWObjective;
 import cz.zweistein.gw2.api.util.SupportedLanguage;
 
 
@@ -17,7 +20,9 @@ public class UseGW2API {
 		
 		GW2API api = new GW2API();
 		
-		System.out.println(api.getWvWMatches());
+		System.out.println(api.getGuildDetails("B8DE9611-67DC-4A07-87AD-366F9A63C3EC", null));
+		
+//		System.out.println(api.getWvWMatches());
 		
 //		System.out.println(api.getColors());
 		
@@ -29,8 +34,17 @@ public class UseGW2API {
 		
 //		List<WvWMatch> matches = api.getWvWMatches();
 //		for (WvWMatch wvWMatch : matches) {
-//			System.out.println(
-//			api.getWvWMatchDetails(wvWMatch.getMatchId()));
+//			WvWMatchDetail matchDetail = api.getWvWMatchDetails(wvWMatch.getMatchId());
+//
+//			List<WvWMap> maps = matchDetail.getMaps();
+//			for (WvWMap wvWMap : maps) {
+//				List<WvWObjective> objectives = wvWMap.getObjectives();
+//				for (WvWObjective wvWObjective : objectives) {
+//					if (wvWObjective.getOwnerGuild() != null) {
+//						System.out.println(api.getGuildDetails(wvWObjective.getOwnerGuild(), null));
+//					}
+//				}
+//			}
 //		}
 
 //		System.out.println(api.getWorldNames(SupportedLanguage.FRENCH.getCode()));
