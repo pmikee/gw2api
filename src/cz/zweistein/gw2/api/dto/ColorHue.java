@@ -2,17 +2,17 @@ package cz.zweistein.gw2.api.dto;
 
 public class ColorHue {
 
-	private Double brightness;
+	private Long brightness;
 	
-	private Double contrast;
+	private Long contrast;
 	
-	private Double hue;
+	private Long hue;
 	
-	private Double saturation;
+	private Long saturation;
 	
-	private Double lightness;
+	private Long lightness;
 
-	public ColorHue(Double brightness, Double contrast, Double hue, Double saturation, Double lightness) {
+	public ColorHue(Long brightness, Long contrast, Long hue, Long saturation, Long lightness) {
 		super();
 		this.brightness = brightness;
 		this.contrast = contrast;
@@ -21,23 +21,23 @@ public class ColorHue {
 		this.lightness = lightness;
 	}
 
-	public Double getBrightness() {
+	public Long getBrightness() {
 		return this.brightness;
 	}
 
-	public Double getContrast() {
+	public Long getContrast() {
 		return this.contrast;
 	}
 
-	public Double getHue() {
+	public Long getHue() {
 		return this.hue;
 	}
 
-	public Double getSaturation() {
+	public Long getSaturation() {
 		return this.saturation;
 	}
 
-	public Double getLightness() {
+	public Long getLightness() {
 		return this.lightness;
 	}
 
