@@ -24,7 +24,7 @@ public class ColorConversion {
 		float[] hsl = Color.RGBtoHSB(baseRgb[0], baseRgb[1], baseRgb[2], null);
 
 		// 4) Apply HSL shift
-		hsl[0] = (float) (hsl[0] * 360 + color.getHue()) / 360;
+		hsl[0] = (float) (color.getHue() / 360);
 		hsl[1] = (float) (hsl[1] * color.getSaturation());
 		hsl[2] = (float) (hsl[2] * color.getLightness());
 
