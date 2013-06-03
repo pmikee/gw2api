@@ -6,6 +6,7 @@ import org.json.simple.parser.ParseException;
 
 import cz.zweistein.gw2.api.GW2API;
 import cz.zweistein.gw2.api.auth.OAuth2Client;
+import cz.zweistein.gw2.api.dao.OfflineJsonDao;
 import cz.zweistein.gw2.api.dto.Recipe;
 import cz.zweistein.gw2.api.dto.WvWMap;
 import cz.zweistein.gw2.api.dto.WvWMatch;
@@ -19,12 +20,13 @@ public class UseGW2API {
 	public static void main(String[] args) throws InterruptedException, FileNotFoundException, IOException, ParseException {
 		
 		GW2API api = new GW2API();
+		api.setDao(new OfflineJsonDao());
 		
-		System.out.println(api.getGuildDetails("B8DE9611-67DC-4A07-87AD-366F9A63C3EC", null));
+//		System.out.println(api.getGuildDetails("B8DE9611-67DC-4A07-87AD-366F9A63C3EC", null));
 		
 //		System.out.println(api.getWvWMatches());
 		
-//		System.out.println(api.getColors());
+		System.out.println(api.getColors());
 		
 //		System.out.println( api.getBuild());
 		
@@ -51,7 +53,6 @@ public class UseGW2API {
 //		System.out.println(api.getMapNames(SupportedLanguage.SPANNISH.getCode()));
 //		System.out.println(api.getWvWObjectiveNames(null));
 		
-//		api.setDao(new OfflineJsonDao());
 		
 //		List<Long> items = api.getRecipes();
 //		for (Long id : items) {

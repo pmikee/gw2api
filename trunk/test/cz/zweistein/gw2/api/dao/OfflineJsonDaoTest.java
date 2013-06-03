@@ -99,5 +99,12 @@ public class OfflineJsonDaoTest {
 		Assert.assertTrue(dao.getMapNames(null).size() > 0);
 
 	}
+	
+	@Test
+	public void getColors() throws RemoteException {
+		
+		Assert.assertNotNull(dao.getColors());
+		
+	}
 
 }

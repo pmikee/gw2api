@@ -8,9 +8,7 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.json.simple.JSONArray;
@@ -20,8 +18,9 @@ import org.json.simple.parser.ParseException;
 
 public class OfflineJsonDao implements JsonDao {
 
-	private Map<Long, JSONObject> recipes;
-	private Map<Long, JSONObject> items;
+	private JSONObject recipes;
+	private JSONObject items;
+	private JSONObject colors;
 	private JSONArray events;
 	private JSONArray maps;
 	private JSONArray worlds;
@@ -29,41 +28,33 @@ public class OfflineJsonDao implements JsonDao {
 
 	public OfflineJsonDao() throws RemoteException {
 		try {
-			recipes = parseJSONFile("recipes.json", "recipe_id");
-			items = parseJSONFile("items.json", "item_id");
-			events = loadJsonFile("events.json");
-			maps = loadJsonFile("maps.json");
-			worlds = loadJsonFile("worlds.json");
-			wvwObjectives = loadJsonFile("wvwobjectives.json");
+			recipes = loadJSONObjectFile("recipes.json");
+			items = loadJSONObjectFile("items.json");
+			colors = loadJSONObjectFile("colors.json");
+			events = loadJsonArrayFile("events.json");
+			maps = loadJsonArrayFile("maps.json");
+			worlds = loadJsonArrayFile("worlds.json");
+			wvwObjectives = loadJsonArrayFile("wvwobjectives.json");
 		} catch (Exception e) {
 			throw new RemoteException(e.toString(), e);
 		}
 	}
-	
-	private JSONArray loadJsonFile(String fileName) throws FileNotFoundException, IOException, ParseException {
+
+	private JSONArray loadJsonArrayFile(String fileName) throws FileNotFoundException, IOException, ParseException {
 		return (JSONArray) new JSONParser().parse(new InputStreamReader(new FileInputStream(new File(fileName)), Charset.forName("UTF16")));
 	}
 
-	private Map<Long, JSONObject> parseJSONFile(String fileName, String idKey) throws FileNotFoundException, IOException, ParseException {
-
-		Map<Long, JSONObject> result = new HashMap<Long, JSONObject>();
-
-		JSONArray entries = loadJsonFile(fileName);
-		for (Object object : entries) {
-			JSONObject obj = (JSONObject) object;
-			result.put(Long.parseLong((String) obj.get(idKey)), obj);
-		}
-
-		return result;
+	private JSONObject loadJSONObjectFile(String fileName) throws FileNotFoundException, IOException, ParseException {
+		return (JSONObject) new JSONParser().parse(new InputStreamReader(new FileInputStream(new File(fileName)), Charset.forName("UTF16")));
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public JSONObject getItems() throws RemoteException {
 		JSONObject obj = new JSONObject();
-		Set<Long> ids = items.keySet();
+		Set<String> ids = items.keySet();
 		List<Long> result = new ArrayList<Long>(ids.size());
-		for (Long object : ids) {
+		for (String object : ids) {
 			result.add(Long.valueOf(object));
 		}
 		obj.put("items", result);
@@ -72,16 +63,16 @@ public class OfflineJsonDao implements JsonDao {
 
 	@Override
 	public JSONObject getItemDetails(Long id, String lang) throws RemoteException {
-		return items.get(id);
+		return (JSONObject) items.get(id.toString());
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public JSONObject getRecipes() throws RemoteException {
 		JSONObject obj = new JSONObject();
-		Set<Long> ids = recipes.keySet();
+		Set<String> ids = recipes.keySet();
 		List<Long> result = new ArrayList<Long>(ids.size());
-		for (Long object : ids) {
+		for (String object : ids) {
 			result.add(Long.valueOf(object));
 		}
 		obj.put("recipes", result);
@@ -90,7 +81,7 @@ public class OfflineJsonDao implements JsonDao {
 
 	@Override
 	public JSONObject getRecipeDetails(Long id, String lang) throws RemoteException {
-		return recipes.get(id);
+		return (JSONObject) recipes.get(id.toString());
 	}
 
 	@Override
@@ -140,7 +131,7 @@ public class OfflineJsonDao implements JsonDao {
 
 	@Override
 	public JSONObject getColors() throws RemoteException {
-		throw new UnsupportedOperationException();
+		return colors;
 	}
 
 }

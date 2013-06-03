@@ -6,11 +6,11 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
-public class CodeTableRenderer extends JLabel implements ListCellRenderer<CodeTableItem> {
+public class CodeTableRenderer extends JLabel implements ListCellRenderer {
 	private static final long serialVersionUID = 3801116579846646911L;
 
 	@Override
-	public Component getListCellRendererComponent(JList<? extends CodeTableItem> list, CodeTableItem value, int index, boolean isSelected, boolean cellHasFocus) {
+	public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
 		setOpaque(true);
 		
 		if (cellHasFocus || isSelected) {
