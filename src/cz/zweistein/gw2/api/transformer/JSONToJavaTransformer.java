@@ -56,9 +56,18 @@ import cz.zweistein.gw2.api.dto.items.Tool;
 import cz.zweistein.gw2.api.dto.items.Trinket;
 import cz.zweistein.gw2.api.dto.items.UpgradeComponent;
 import cz.zweistein.gw2.api.dto.items.Weapon;
+import cz.zweistein.gw2.api.util.SupportedLanguage;
 
 public class JSONToJavaTransformer {
 
+	public String translateLang(SupportedLanguage lang) {
+		if (lang == null) {
+			return null;
+		} else {
+			return lang.getCode();
+		}
+	}
+	
 	private Long parseGracefullyLong(JSONObject obj, String key) {
 		Long result = null;
 

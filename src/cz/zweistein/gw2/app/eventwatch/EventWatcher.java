@@ -18,8 +18,8 @@ public class EventWatcher {
 
 		SupportedLanguage language = SupportedLanguage.resolve(Locale.getDefault().getLanguage());
 
-		Map<String, String> eventNames = api.getEventNames(language.getCode());
-		Map<Long, String> worldNames = api.getWorldNames(language.getCode());
+		Map<String, String> eventNames = api.getEventNames(language);
+		Map<Long, String> worldNames = api.getWorldNames(language);
 
 		EventDialog ed = new EventDialog(eventNames, worldNames);
 

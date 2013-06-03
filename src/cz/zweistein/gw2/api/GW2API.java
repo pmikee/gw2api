@@ -47,6 +47,7 @@ import cz.zweistein.gw2.api.dto.enums.EventState;
 import cz.zweistein.gw2.api.dto.items.Item;
 import cz.zweistein.gw2.api.transformer.JSONToJavaTransformer;
 import cz.zweistein.gw2.api.util.Realm;
+import cz.zweistein.gw2.api.util.SupportedLanguage;
 
 public class GW2API {
 
@@ -130,8 +131,8 @@ public class GW2API {
 		return result.toString();
 	}
 
-	public Map<String, String> getEventNames(String lang) throws RemoteException {
-		JSONArray obj = dao.getEventNames(lang);
+	public Map<String, String> getEventNames(SupportedLanguage lang) throws RemoteException {
+		JSONArray obj = dao.getEventNames(transformer.translateLang(lang));
 
 		Map<String, String> eventNames = new HashMap<String, String>();
 
@@ -144,8 +145,8 @@ public class GW2API {
 		return eventNames;
 	}
 
-	public Map<Long, String> getWorldNames(String lang) throws RemoteException {
-		JSONArray obj = dao.getWorldNames(lang);
+	public Map<Long, String> getWorldNames(SupportedLanguage lang) throws RemoteException {
+		JSONArray obj = dao.getWorldNames(transformer.translateLang(lang));
 
 		Map<Long, String> worldNames = new HashMap<Long, String>();
 
@@ -158,8 +159,8 @@ public class GW2API {
 		return worldNames;
 	}
 
-	public Map<Long, String> getMapNames(String lang) throws RemoteException {
-		JSONArray obj = dao.getMapNames(lang);
+	public Map<Long, String> getMapNames(SupportedLanguage lang) throws RemoteException {
+		JSONArray obj = dao.getMapNames(transformer.translateLang(lang));
 
 		Map<Long, String> mapNames = new HashMap<Long, String>();
 
@@ -172,8 +173,8 @@ public class GW2API {
 		return mapNames;
 	}
 
-	public Map<Long, String> getWvWObjectiveNames(String lang) throws RemoteException {
-		JSONArray obj = dao.getWvWObjectiveNames(lang);
+	public Map<Long, String> getWvWObjectiveNames(SupportedLanguage lang) throws RemoteException {
+		JSONArray obj = dao.getWvWObjectiveNames(transformer.translateLang(lang));
 
 		Map<Long, String> mapNames = new HashMap<Long, String>();
 
@@ -227,14 +228,14 @@ public class GW2API {
 		return transformer.transformWvWMatchDetails(obj);
 	}
 
-	public Recipe getRecipeDetails(Long id, String lang) throws RemoteException {
-		JSONObject obj = dao.getRecipeDetails(id, lang);
+	public Recipe getRecipeDetails(Long id, SupportedLanguage lang) throws RemoteException {
+		JSONObject obj = dao.getRecipeDetails(id, transformer.translateLang(lang));
 
 		return transformer.transfromRecipe(obj);
 	}
 
-	public Item getItemDetails(Long id, String lang) throws RemoteException {
-		JSONObject obj = dao.getItemDetails(id, lang);
+	public Item getItemDetails(Long id, SupportedLanguage lang) throws RemoteException {
+		JSONObject obj = dao.getItemDetails(id, transformer.translateLang(lang));
 
 		return transformer.transfromItem(obj);
 	}
