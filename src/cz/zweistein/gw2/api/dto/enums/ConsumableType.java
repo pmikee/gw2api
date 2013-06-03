@@ -10,7 +10,8 @@ public enum ConsumableType {
 	APPEARANCE_CHANGE("AppearanceChange"),
 	CONTRACT_NPC("ContractNpc"),
 	HALLOWEEN("Halloween"),
-	IMMEDIATE("Immediate");
+	IMMEDIATE("Immediate"),
+	BOOZE("Booze");
 	
 	private String techName;
 

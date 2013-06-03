@@ -33,8 +33,8 @@ public class EventDialog extends JFrame implements ActionListener {
 
 	private JLabel eventStatusLabel;
 
-	JComboBox<CodeTableItem> eventNamesComboBox;
-	JComboBox<CodeTableItem> worldNamesComboBox;
+	JComboBox eventNamesComboBox;
+	JComboBox worldNamesComboBox;
 
 	public EventDialog(Map<String, String> eventNames, Map<Long, String> worldNames) {
 
@@ -55,24 +55,24 @@ public class EventDialog extends JFrame implements ActionListener {
 		updateEventState();
 
 		
-		List<CodeTableItem> eventNamesEntries = new ArrayList<CodeTableItem>();
+		List eventNamesEntries = new ArrayList();
 		for (Entry<String, String> item : eventNames.entrySet()) {
 			eventNamesEntries.add(new CodeTableItem(item));
 		}
 		Collections.sort(eventNamesEntries, new CodeTableEntryComparator());
 		
-		eventNamesComboBox = new JComboBox<CodeTableItem>(eventNamesEntries.toArray(new CodeTableItem[eventNamesEntries.size()]));
+		eventNamesComboBox = new JComboBox(eventNamesEntries.toArray(new CodeTableItem[eventNamesEntries.size()]));
 		eventNamesComboBox.setRenderer(new CodeTableRenderer());
 		eventNamesComboBox.addActionListener(this);
 		content.add(eventNamesComboBox, new GridBagConstraints(0, 1, 2, 1, 1, 1, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
 		
-		List<CodeTableItem> worldNamesEntries = new ArrayList<CodeTableItem>();
+		List worldNamesEntries = new ArrayList();
 		for (Entry<Long, String> item : worldNames.entrySet()) {
 			worldNamesEntries.add(new CodeTableItem(item));
 		}
 		Collections.sort(worldNamesEntries, new CodeTableEntryComparator());
 
-		worldNamesComboBox = new JComboBox<CodeTableItem>(worldNamesEntries.toArray(new CodeTableItem[worldNamesEntries.size()]));
+		worldNamesComboBox = new JComboBox(worldNamesEntries.toArray(new CodeTableItem[worldNamesEntries.size()]));
 		worldNamesComboBox.setRenderer(new CodeTableRenderer());
 		worldNamesComboBox.addActionListener(this);
 		content.add(worldNamesComboBox, new GridBagConstraints(0, 2, 2, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
@@ -83,8 +83,8 @@ public class EventDialog extends JFrame implements ActionListener {
 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-		selectedEvent = (String) eventNamesEntries.get(0).getItem().getKey();
-		selectedWorld = (Long) worldNamesEntries.get(0).getItem().getKey();
+		selectedEvent = (String) ((CodeTableItem) eventNamesEntries.get(0)).getItem().getKey();
+		selectedWorld = (Long) ((CodeTableItem) worldNamesEntries.get(0)).getItem().getKey();
 		updateTitle();
 		
 		setAlwaysOnTop(true);
@@ -128,7 +128,6 @@ public class EventDialog extends JFrame implements ActionListener {
 		case FAIL:
 			eventStatusLabel.setBackground(Color.RED);
 			break;
-
 		default:
 			break;
 		}

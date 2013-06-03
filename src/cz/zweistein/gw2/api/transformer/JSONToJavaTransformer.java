@@ -327,9 +327,26 @@ public class JSONToJavaTransformer {
 	}
 
 	private ColorHue transfromColorHue(JSONObject colorHueObj) {
-		return new ColorHue(Long.valueOf((String) colorHueObj.get("brightness")), Long.valueOf((String) colorHueObj.get("contrast")),
-				Long.valueOf((String) colorHueObj.get("hue")), Long.valueOf((String) colorHueObj.get("saturation")), Long.valueOf((String) colorHueObj
-						.get("lightness")));
+		if (colorHueObj != null) {
+			return new ColorHue(
+				parseDouble(colorHueObj.get("brightness")),
+				parseDouble(colorHueObj.get("contrast")),
+				parseDouble(colorHueObj.get("hue")),
+				parseDouble(colorHueObj.get("saturation")),
+				parseDouble(colorHueObj.get("lightness")));
+		} else {
+			return null;
+		}
+	}
+	
+	private Double parseDouble(Object obj) {
+		if (obj instanceof Double) {
+			return (Double) obj;
+		} else if (obj instanceof Long) {
+			return Double.valueOf(obj.toString());
+		} else {
+			throw new IllegalArgumentException(obj.toString());
+		}
 	}
 
 	public Guild transfromGuildDetail(JSONObject obj) {
