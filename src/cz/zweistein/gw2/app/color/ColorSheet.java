@@ -1,4 +1,4 @@
-package cz.zweistein.gw2.app;
+package cz.zweistein.gw2.app.color;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
