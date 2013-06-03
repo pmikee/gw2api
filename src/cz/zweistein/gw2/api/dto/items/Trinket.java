@@ -2,11 +2,11 @@ package cz.zweistein.gw2.api.dto.items;
 
 import java.util.List;
 
-import cz.zweistein.gw2.api.dto.enums.TrinketType;
+import cz.zweistein.gw2.api.dto.enums.ItemType;
 
 public class Trinket {
 
-	private TrinketType type;
+	private ItemType type;
 
 	private List<InfusionSlot> infusionSlots;
 	
@@ -14,7 +14,7 @@ public class Trinket {
 	
 	private Long suffixItemId;
 
-	public Trinket(TrinketType type, List<InfusionSlot> infusionSlots, InfixUpgrade infixUpgrade, Long suffixItemId) {
+	public Trinket(ItemType type, List<InfusionSlot> infusionSlots, InfixUpgrade infixUpgrade, Long suffixItemId) {
 		super();
 		this.type = type;
 		this.infusionSlots = infusionSlots;
@@ -34,7 +34,7 @@ public class Trinket {
 		return suffixItemId;
 	}
 
-	public TrinketType getType() {
+	public ItemType getType() {
 		return type;
 	}
 

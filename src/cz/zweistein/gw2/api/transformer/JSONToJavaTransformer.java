@@ -34,7 +34,6 @@ import cz.zweistein.gw2.api.dto.enums.ItemType;
 import cz.zweistein.gw2.api.dto.enums.Rarity;
 import cz.zweistein.gw2.api.dto.enums.Restriction;
 import cz.zweistein.gw2.api.dto.enums.ToolType;
-import cz.zweistein.gw2.api.dto.enums.TrinketType;
 import cz.zweistein.gw2.api.dto.enums.UpgradeComponentFlag;
 import cz.zweistein.gw2.api.dto.enums.UpgradeComponentType;
 import cz.zweistein.gw2.api.dto.enums.WeightClass;
@@ -177,7 +176,7 @@ public class JSONToJavaTransformer {
 			InfixUpgrade infixUpgrade = parseInfixUpgrade(trinketObj);
 			List<InfusionSlot> infusionSlots = parseInfusionSlots(trinketObj);
 
-			trinket = new Trinket(TrinketType.resolve((String) trinketObj.get("type")), infusionSlots, infixUpgrade, parseGracefullyLong(trinketObj,
+			trinket = new Trinket(ItemType.resolve((String) trinketObj.get("type")), infusionSlots, infixUpgrade, parseGracefullyLong(trinketObj,
 					"suffix_item_id"));
 		}
 
