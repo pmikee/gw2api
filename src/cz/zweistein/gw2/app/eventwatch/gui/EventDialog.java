@@ -55,7 +55,7 @@ public class EventDialog extends JFrame implements ActionListener {
 		updateEventState();
 
 		
-		List eventNamesEntries = new ArrayList();
+		List<CodeTableItem> eventNamesEntries = new ArrayList<CodeTableItem>();
 		for (Entry<String, String> item : eventNames.entrySet()) {
 			eventNamesEntries.add(new CodeTableItem(item));
 		}
@@ -66,7 +66,7 @@ public class EventDialog extends JFrame implements ActionListener {
 		eventNamesComboBox.addActionListener(this);
 		content.add(eventNamesComboBox, new GridBagConstraints(0, 1, 2, 1, 1, 1, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
 		
-		List worldNamesEntries = new ArrayList();
+		List<CodeTableItem> worldNamesEntries = new ArrayList<CodeTableItem>();
 		for (Entry<Long, String> item : worldNames.entrySet()) {
 			worldNamesEntries.add(new CodeTableItem(item));
 		}

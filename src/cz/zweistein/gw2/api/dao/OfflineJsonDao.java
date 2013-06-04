@@ -35,7 +35,11 @@ public class OfflineJsonDao implements JsonDao {
 			maps = loadJsonArrayFile("maps.json");
 			worlds = loadJsonArrayFile("worlds.json");
 			wvwObjectives = loadJsonArrayFile("wvwobjectives.json");
-		} catch (Exception e) {
+		} catch (FileNotFoundException e) {
+			throw new RemoteException(e.toString(), e);
+		} catch (IOException e) {
+			throw new RemoteException(e.toString(), e);
+		} catch (ParseException e) {
 			throw new RemoteException(e.toString(), e);
 		}
 	}

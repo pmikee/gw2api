@@ -79,8 +79,6 @@ public class GearScore {
 			infix = item.getUpgradeComponent().getInfixUpgrade();
 			switch (item.getUpgradeComponent().getType()) {
 			case GEM:
-				slotWeight = 25;
-				break;
 			case RUNE:
 				slotWeight = 25;
 				break;
@@ -118,6 +116,7 @@ public class GearScore {
 			maxStat = 45;
 			break;
 		case SHOULDERS:
+		case BOOTS:
 			maxStat = 34;
 			break;
 		case COAT:
@@ -127,16 +126,11 @@ public class GearScore {
 			maxStat = 34;
 			break;
 		case LEGGINGS:
+		case RING:
 			maxStat = 67;
-			break;
-		case BOOTS:
-			maxStat = 34;
 			break;
 		case AMULET:
 			maxStat = 90;
-			break;
-		case RING:
-			maxStat = 67;
 			break;
 		case ACCESSORY:
 		case EARRING:
@@ -177,8 +171,6 @@ public class GearScore {
 	private static double getRarityCoeficient(Rarity rarity) {
 
 		switch (rarity) {
-		case BASIC:
-			return 1d;
 		case FINE:
 			return 1.25d;
 		case MASTERWORK:
@@ -186,11 +178,11 @@ public class GearScore {
 		case RARE:
 			return 1.45d;
 		case EXOTIC:
+		case LEGENDARY:
 			return 1.65d;
 		case ASCENDED:
 			return 1.75d;
-		case LEGENDARY:
-			return 1.65d;
+		case BASIC:
 		default:
 			return 1d;
 		}

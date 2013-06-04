@@ -28,6 +28,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.xml.bind.DatatypeConverter;
 
@@ -252,14 +254,15 @@ public class GW2API {
 		return (Long) obj.get("build_id");
 	}
 
+	@SuppressWarnings("unchecked")
 	public Map<Long, Color> getColors() throws RemoteException {
 		JSONObject obj = dao.getColors();
 
 		JSONObject colorsObj = (JSONObject) obj.get("colors");
 
 		Map<Long, Color> colors = new HashMap<Long, Color>();
-		for (Object key : colorsObj.keySet()) {
-			colors.put(Long.valueOf((String) key), transformer.transformColor((JSONObject) colorsObj.get(key)));
+		for (Entry<Object, Object> entry : (Set<Entry<Object, Object>>) colorsObj.entrySet()) {
+			colors.put(Long.valueOf((String) entry.getKey()), transformer.transformColor((JSONObject) entry.getValue()));
 		}
 
 		return colors;

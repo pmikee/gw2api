@@ -11,14 +11,21 @@ public class ColorHue {
 	private Double saturation;
 	
 	private Double lightness;
-
-	public ColorHue(Double brightness, Double contrast, Double hue, Double saturation, Double lightness) {
+	
+	private RGB rgb;
+	
+	public ColorHue(Double brightness, Double contrast, Double hue, Double saturation, Double lightness, RGB rgb) {
 		super();
 		this.brightness = brightness;
 		this.contrast = contrast;
 		this.hue = hue;
 		this.saturation = saturation;
 		this.lightness = lightness;
+		this.rgb = rgb;
+	}
+
+	public RGB getRgb() {
+		return rgb;
 	}
 
 	public Double getBrightness() {
@@ -43,8 +50,7 @@ public class ColorHue {
 
 	@Override
 	public String toString() {
-		return "ColorHue [brightness=" + this.brightness + ", contrast=" + this.contrast + ", hue=" + this.hue + ", saturation=" + this.saturation
-				+ ", lightness=" + this.lightness + "]";
+		return "ColorHue [brightness=" + brightness + ", contrast=" + contrast + ", hue=" + hue + ", saturation=" + saturation + ", lightness=" + lightness + ", rgb=" + rgb + "]";
 	}
 
 }

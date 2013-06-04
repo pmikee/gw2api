@@ -12,13 +12,20 @@ public class Color {
 	
 	private ColorHue leatherColor;
 	
-	public Color(String name, ColorHue defaultColor, ColorHue metalColor, ColorHue clothColor, ColorHue leatherColor) {
+	private RGB baseRgb;
+	
+	public Color(String name, ColorHue defaultColor, ColorHue metalColor, ColorHue clothColor, ColorHue leatherColor, RGB baseRgb) {
 		super();
 		this.name = name;
 		this.defaultColor = defaultColor;
 		this.metalColor = metalColor;
 		this.clothColor = clothColor;
 		this.leatherColor = leatherColor;
+		this.baseRgb = baseRgb;
+	}
+	
+	public RGB getBaseRgb() {
+		return baseRgb;
 	}
 
 	public String getName() {
@@ -43,8 +50,7 @@ public class Color {
 
 	@Override
 	public String toString() {
-		return "Color [name=" + this.name + ", defaultColor=" + this.defaultColor + ", metalColor=" + this.metalColor + ", clothColor=" + this.clothColor
-				+ ", leatherColor=" + this.leatherColor + "]";
+		return "Color [name=" + name + ", defaultColor=" + defaultColor + ", metalColor=" + metalColor + ", clothColor=" + clothColor + ", leatherColor=" + leatherColor + ", baseRgb=" + baseRgb + "]";
 	}
 
 }
