@@ -1,14 +1,12 @@
 package cz.zweistein.gw2.api.util;
 
-import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.util.HashMap;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-
-import org.junit.Assert;
 
 @RunWith(JUnit4.class)
 public class UtilitiesTest {
@@ -20,6 +18,7 @@ public class UtilitiesTest {
 			Utilities.buildQuerryString(null, null);
 			Assert.fail("action is null");
 		} catch (Exception e) {
+			Assert.assertEquals(NullPointerException.class, e.getClass());
 		}
 
 		Assert.assertEquals("https://api.guildwars2.com/v1/", Utilities.buildQuerryString("", null));
