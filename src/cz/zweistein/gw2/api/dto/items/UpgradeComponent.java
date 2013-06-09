@@ -16,15 +16,19 @@ public class UpgradeComponent {
 	
 	private String suffix;
 
-	private List<InfusionSlotFlag> infusionUpgradeFlags; //FIXME
+	private List<InfusionSlotFlag> infusionUpgradeFlags;
+	
+	private List<String> bonuses;
 
-	public UpgradeComponent(UpgradeComponentType type, List<UpgradeComponentFlag> flags, InfixUpgrade infixUpgrade, String suffix, List<InfusionSlotFlag> infusionUpgradeFlags) {
+	public UpgradeComponent(UpgradeComponentType type, List<UpgradeComponentFlag> flags, InfixUpgrade infixUpgrade, String suffix,
+			List<InfusionSlotFlag> infusionUpgradeFlags, List<String> bonuses) {
 		super();
 		this.type = type;
 		this.flags = flags;
 		this.infixUpgrade = infixUpgrade;
 		this.suffix = suffix;
 		this.infusionUpgradeFlags = infusionUpgradeFlags;
+		this.bonuses = bonuses;
 	}
 
 	public UpgradeComponentType getType() {
@@ -47,9 +51,15 @@ public class UpgradeComponent {
 		return infusionUpgradeFlags;
 	}
 
+	public List<String> getBonuses() {
+		return bonuses;
+	}
+
 	@Override
 	public String toString() {
-		return "UpgradeComponent [type=" + type + ", flags=" + flags + ", infixUpgrade=" + infixUpgrade + ", suffix=" + suffix + ", infusionUpgradeFlags=" + infusionUpgradeFlags + "]";
+		return "UpgradeComponent [type=" + this.type + ", flags=" + this.flags + ", infixUpgrade=" + this.infixUpgrade + ", suffix=" + this.suffix
+				+ ", infusionUpgradeFlags=" + this.infusionUpgradeFlags + ", bonuses=" + this.bonuses + "]";
 	}
+
 
 }

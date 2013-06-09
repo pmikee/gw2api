@@ -153,7 +153,7 @@ public class WvWExplorerModel {
 					List<WvWObjective> newObjectives = newMap.getObjectives();
 					for (WvWObjective oldObjective : oldObjectives) {
 						for (WvWObjective newObjective : newObjectives) {
-							if (oldObjective.getObjectiveId() == newObjective.getObjectiveId()) {
+							if (oldObjective.getObjectiveId().equals(newObjective.getObjectiveId())) {
 								if (!oldObjective.getOwner().equals(newObjective.getOwner()) && newObjective.getOwner() == homeSide && watchedObjectives.contains(oldObjective.getObjectiveId())) {
 									sound.captured();
 									gui.updateLog(WvWNames.map.get(oldMap.getType()) + " " + objectiveNames.get(oldObjective.getObjectiveId()) + " (" + WvWNames.objective.get(oldObjective.getObjectiveId()) + ") Captured from " + sides.get(oldObjective.getOwner()));
