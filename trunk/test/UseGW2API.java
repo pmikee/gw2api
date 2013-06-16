@@ -22,6 +22,8 @@ public class UseGW2API {
 		GW2API api = new GW2API();
 //		api.setDao(new OfflineJsonDao());
 		
+		System.out.println(api.getEvents(null, null, null));
+		
 //		System.out.println(api.getGuildDetails("B8DE9611-67DC-4A07-87AD-366F9A63C3EC", null));
 		
 //		System.out.println(api.getWvWMatches());
@@ -61,11 +63,11 @@ public class UseGW2API {
 //		}
 	
 		
-		List<Long> items = api.getItems();
-		for (Long id : items) {
-			api.getItemDetails(id, null);
-			System.out.println(id + " " + api.getItemDetails(id, null));
-		}
+//		List<Long> items = api.getItems();
+//		for (Long id : items) {
+//			api.getItemDetails(id, null);
+//			System.out.println(id + " " + api.getItemDetails(id, null));
+//		}
 		
 	}
 
