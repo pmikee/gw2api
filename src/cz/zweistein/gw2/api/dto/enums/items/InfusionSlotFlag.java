@@ -1,4 +1,4 @@
-package cz.zweistein.gw2.api.dto.enums;
+package cz.zweistein.gw2.api.dto.enums.items;
 
 public enum InfusionSlotFlag {
 	

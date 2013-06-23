@@ -2,7 +2,7 @@ package cz.zweistein.gw2.api.dto.items;
 
 import java.util.List;
 
-import cz.zweistein.gw2.api.dto.enums.ItemType;
+import cz.zweistein.gw2.api.dto.enums.items.ItemType;
 
 public class Trinket {
 

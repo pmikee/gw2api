@@ -1,6 +1,6 @@
 package cz.zweistein.gw2.api.dto.items;
 
-import cz.zweistein.gw2.api.dto.enums.ContainerType;
+import cz.zweistein.gw2.api.dto.enums.items.ContainerType;
 
 public class Container {
 	

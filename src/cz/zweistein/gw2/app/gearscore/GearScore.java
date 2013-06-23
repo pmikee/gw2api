@@ -5,9 +5,9 @@ import java.util.Locale;
 
 import cz.zweistein.gw2.api.GW2API;
 import cz.zweistein.gw2.api.dao.OfflineJsonDao;
-import cz.zweistein.gw2.api.dto.enums.ItemClass;
-import cz.zweistein.gw2.api.dto.enums.ItemType;
-import cz.zweistein.gw2.api.dto.enums.Rarity;
+import cz.zweistein.gw2.api.dto.enums.items.ItemClass;
+import cz.zweistein.gw2.api.dto.enums.items.ItemType;
+import cz.zweistein.gw2.api.dto.enums.items.Rarity;
 import cz.zweistein.gw2.api.dto.items.InfixUpgrade;
 import cz.zweistein.gw2.api.dto.items.Item;
 import cz.zweistein.gw2.api.util.SupportedLanguage;

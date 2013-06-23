@@ -4,7 +4,7 @@ import java.util.List;
 
 import cz.zweistein.gw2.api.dto.enums.CraftingDiscipline;
 import cz.zweistein.gw2.api.dto.enums.CraftingFlag;
-import cz.zweistein.gw2.api.dto.enums.ItemType;
+import cz.zweistein.gw2.api.dto.enums.items.ItemType;
 
 public class Recipe {
 

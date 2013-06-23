@@ -5,6 +5,7 @@ import java.util.List;
 import org.json.simple.parser.ParseException;
 
 import cz.zweistein.gw2.api.GW2API;
+import cz.zweistein.gw2.api.GW2APIUtilities;
 import cz.zweistein.gw2.api.auth.OAuth2Client;
 import cz.zweistein.gw2.api.dao.OfflineJsonDao;
 import cz.zweistein.gw2.api.dto.Recipe;
@@ -23,7 +24,9 @@ public class UseGW2API {
 		
 //		api.setDao(new OfflineJsonDao());
 		
-		System.out.println(api.getContinents(SupportedLanguage.FRENCH));
+//		System.out.println(api.getMapDetail(18L, GW2APIUtilities.getSystemLanguage()));
+		
+//		System.out.println(api.getContinents(SupportedLanguage.FRENCH));
 	
 //		System.out.println(api.getEventDetail("896CF9BF-2265-40A8-95E8-7CDDE08E0700", null));
 		

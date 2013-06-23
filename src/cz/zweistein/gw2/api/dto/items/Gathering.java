@@ -1,6 +1,6 @@
 package cz.zweistein.gw2.api.dto.items;
 
-import cz.zweistein.gw2.api.dto.enums.GatheringType;
+import cz.zweistein.gw2.api.dto.enums.items.GatheringType;
 
 public class Gathering {
 

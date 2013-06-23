@@ -1,9 +1,6 @@
 package cz.zweistein.gw2.api;
 
-import java.rmi.RemoteException;
-
 import org.junit.Assert;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -16,38 +13,24 @@ public class GW2APITest {
 	@Test
 	public void getItemChatCode() {
 
-		try {
-			GW2API api = new GW2API();
+		Assert.assertEquals("[&AgEEkAAA]", GW2APIUtilities.getItemChatCode(36868l));
 
-			Assert.assertEquals("[&AgEEkAAA]", api.getItemChatCode(36868l));
-
-			Assert.assertEquals("[&AgEAAAAA]", api.getItemChatCode(null));
-
-		} catch (RemoteException e) {
-			Assert.fail(e.toString());
-		}
+		Assert.assertEquals("[&AgEAAAAA]", GW2APIUtilities.getItemChatCode(null));
 
 	}
 
 	@Test
 	public void getRealm() {
 
-		try {
-			GW2API api = new GW2API();
+		Assert.assertEquals(Realm.EU, GW2APIUtilities.getRealm(2001L));
 
-			Assert.assertEquals(Realm.EU, api.getRealm(2001L));
+		Assert.assertEquals(Realm.NA, GW2APIUtilities.getRealm(1013L));
 
-			Assert.assertEquals(Realm.NA, api.getRealm(1013L));
+		Assert.assertEquals(Realm.UNKNOWN, GW2APIUtilities.getRealm(9013L));
 
-			Assert.assertEquals(Realm.UNKNOWN, api.getRealm(9013L));
+		Assert.assertEquals(Realm.UNKNOWN, GW2APIUtilities.getRealm(0L));
 
-			Assert.assertEquals(Realm.UNKNOWN, api.getRealm(0L));
-
-			Assert.assertEquals(Realm.UNKNOWN, api.getRealm(null));
-
-		} catch (RemoteException e) {
-			Assert.fail(e.toString());
-		}
+		Assert.assertEquals(Realm.UNKNOWN, GW2APIUtilities.getRealm(null));
 
 	}
 

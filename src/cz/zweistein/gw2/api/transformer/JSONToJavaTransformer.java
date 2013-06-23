@@ -6,6 +6,7 @@ import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import cz.zweistein.gw2.api.dto.AreaMap;
 import cz.zweistein.gw2.api.dto.Color;
 import cz.zweistein.gw2.api.dto.ColorHue;
 import cz.zweistein.gw2.api.dto.Continent;
@@ -14,8 +15,8 @@ import cz.zweistein.gw2.api.dto.EventLocation;
 import cz.zweistein.gw2.api.dto.Guild;
 import cz.zweistein.gw2.api.dto.GuildEmblem;
 import cz.zweistein.gw2.api.dto.Ingredient;
+import cz.zweistein.gw2.api.dto.MapRectangle;
 import cz.zweistein.gw2.api.dto.Point2D;
-import cz.zweistein.gw2.api.dto.Point3D;
 import cz.zweistein.gw2.api.dto.RGB;
 import cz.zweistein.gw2.api.dto.Recipe;
 import cz.zweistein.gw2.api.dto.Scores;
@@ -23,32 +24,32 @@ import cz.zweistein.gw2.api.dto.WvWMap;
 import cz.zweistein.gw2.api.dto.WvWMatchDetail;
 import cz.zweistein.gw2.api.dto.WvWObjective;
 import cz.zweistein.gw2.api.dto.ZRange;
-import cz.zweistein.gw2.api.dto.enums.AttributeType;
-import cz.zweistein.gw2.api.dto.enums.BagModifier;
-import cz.zweistein.gw2.api.dto.enums.ConsumableType;
-import cz.zweistein.gw2.api.dto.enums.ContainerType;
 import cz.zweistein.gw2.api.dto.enums.CraftingDiscipline;
 import cz.zweistein.gw2.api.dto.enums.CraftingFlag;
-import cz.zweistein.gw2.api.dto.enums.DamageType;
 import cz.zweistein.gw2.api.dto.enums.EventFlag;
 import cz.zweistein.gw2.api.dto.enums.GameType;
-import cz.zweistein.gw2.api.dto.enums.GatheringType;
-import cz.zweistein.gw2.api.dto.enums.GizmoType;
 import cz.zweistein.gw2.api.dto.enums.GuildEmblemFlag;
-import cz.zweistein.gw2.api.dto.enums.InfusionSlotFlag;
-import cz.zweistein.gw2.api.dto.enums.ItemClass;
-import cz.zweistein.gw2.api.dto.enums.ItemFlag;
-import cz.zweistein.gw2.api.dto.enums.ItemType;
 import cz.zweistein.gw2.api.dto.enums.LocationType;
-import cz.zweistein.gw2.api.dto.enums.Rarity;
 import cz.zweistein.gw2.api.dto.enums.Restriction;
-import cz.zweistein.gw2.api.dto.enums.ToolType;
-import cz.zweistein.gw2.api.dto.enums.UnlockType;
-import cz.zweistein.gw2.api.dto.enums.UpgradeComponentFlag;
-import cz.zweistein.gw2.api.dto.enums.UpgradeComponentType;
-import cz.zweistein.gw2.api.dto.enums.WeightClass;
 import cz.zweistein.gw2.api.dto.enums.WvWMapType;
 import cz.zweistein.gw2.api.dto.enums.WvWSide;
+import cz.zweistein.gw2.api.dto.enums.items.AttributeType;
+import cz.zweistein.gw2.api.dto.enums.items.BagModifier;
+import cz.zweistein.gw2.api.dto.enums.items.ConsumableType;
+import cz.zweistein.gw2.api.dto.enums.items.ContainerType;
+import cz.zweistein.gw2.api.dto.enums.items.DamageType;
+import cz.zweistein.gw2.api.dto.enums.items.GatheringType;
+import cz.zweistein.gw2.api.dto.enums.items.GizmoType;
+import cz.zweistein.gw2.api.dto.enums.items.InfusionSlotFlag;
+import cz.zweistein.gw2.api.dto.enums.items.ItemClass;
+import cz.zweistein.gw2.api.dto.enums.items.ItemFlag;
+import cz.zweistein.gw2.api.dto.enums.items.ItemType;
+import cz.zweistein.gw2.api.dto.enums.items.Rarity;
+import cz.zweistein.gw2.api.dto.enums.items.ToolType;
+import cz.zweistein.gw2.api.dto.enums.items.UnlockType;
+import cz.zweistein.gw2.api.dto.enums.items.UpgradeComponentFlag;
+import cz.zweistein.gw2.api.dto.enums.items.UpgradeComponentType;
+import cz.zweistein.gw2.api.dto.enums.items.WeightClass;
 import cz.zweistein.gw2.api.dto.items.Armor;
 import cz.zweistein.gw2.api.dto.items.Attribute;
 import cz.zweistein.gw2.api.dto.items.Back;
@@ -69,24 +70,14 @@ import cz.zweistein.gw2.api.util.SupportedLanguage;
 
 public class JSONToJavaTransformer {
 
+	private JSONToJavaTransformerUtils utils = new JSONToJavaTransformerUtils();
+
 	public String translateLang(SupportedLanguage lang) {
 		if (lang == null) {
 			return null;
 		} else {
 			return lang.getCode();
 		}
-	}
-
-	private Long parseGracefullyLong(JSONObject obj, String key) {
-		Long result = null;
-
-		Object value = obj.get(key);
-
-		if (value != null && !"".equals(value)) {
-			result = Long.parseLong((String) value);
-		}
-
-		return result;
 	}
 
 	private InfixUpgrade parseInfixUpgrade(JSONObject obj) {
@@ -128,7 +119,7 @@ public class JSONToJavaTransformer {
 				infusionFlags.add(InfusionSlotFlag.resolve(infusionFlag));
 			}
 
-			infusionSlots.add(new InfusionSlot(infusionFlags, parseGracefullyLong(infusionSlotObj, "item_id")));
+			infusionSlots.add(new InfusionSlot(infusionFlags, utils.parseGracefullyLong(infusionSlotObj, "item_id")));
 
 		}
 		return infusionSlots;
@@ -186,7 +177,7 @@ public class JSONToJavaTransformer {
 			InfixUpgrade infixUpgrade = parseInfixUpgrade(trinketObj);
 			List<InfusionSlot> infusionSlots = parseInfusionSlots(trinketObj);
 
-			trinket = new Trinket(ItemType.resolve((String) trinketObj.get("type")), infusionSlots, infixUpgrade, parseGracefullyLong(trinketObj,
+			trinket = new Trinket(ItemType.resolve((String) trinketObj.get("type")), infusionSlots, infixUpgrade, utils.parseGracefullyLong(trinketObj,
 					"suffix_item_id"));
 		}
 
@@ -234,7 +225,7 @@ public class JSONToJavaTransformer {
 				}
 			}
 
-			consumable = new Consumable(consumableType, (String) consumableObj.get("description"), parseGracefullyLong(consumableObj, "duration_ms"),
+			consumable = new Consumable(consumableType, (String) consumableObj.get("description"), utils.parseGracefullyLong(consumableObj, "duration_ms"),
 					unlockType, colorId, recipeId);
 		}
 
@@ -303,8 +294,8 @@ public class JSONToJavaTransformer {
 
 		return new Item(Long.parseLong((String) obj.get("item_id")), (String) obj.get("name"), (String) obj.get("description"), Long.parseLong((String) obj
 				.get("level")), Rarity.resolve((String) obj.get("rarity")), Long.parseLong((String) obj.get("vendor_value")), gameTypes, flags, restrictions,
-				parseGracefullyLong(obj, "suffix_item_id"), itemClass, armor, weapon, bag, container, consumable, trinket, upgradeComponent, back, gathering,
-				gizmo, tool);
+				utils.parseGracefullyLong(obj, "suffix_item_id"), itemClass, armor, weapon, bag, container, consumable, trinket, upgradeComponent, back,
+				gathering, gizmo, tool);
 
 	}
 
@@ -377,8 +368,8 @@ public class JSONToJavaTransformer {
 
 			RGB rgb = transformRGB((JSONArray) colorHueObj.get("rgb"));
 
-			return new ColorHue(parseDouble(colorHueObj.get("brightness")), parseDouble(colorHueObj.get("contrast")), parseDouble(colorHueObj.get("hue")),
-					parseDouble(colorHueObj.get("saturation")), parseDouble(colorHueObj.get("lightness")), rgb);
+			return new ColorHue(utils.parseDouble(colorHueObj.get("brightness")), utils.parseDouble(colorHueObj.get("contrast")), utils.parseDouble(colorHueObj
+					.get("hue")), utils.parseDouble(colorHueObj.get("saturation")), utils.parseDouble(colorHueObj.get("lightness")), rgb);
 		} else {
 			return null;
 		}
@@ -386,18 +377,6 @@ public class JSONToJavaTransformer {
 
 	private RGB transformRGB(JSONArray rgbObj) {
 		return new RGB((Long) rgbObj.get(0), (Long) rgbObj.get(1), (Long) rgbObj.get(2));
-	}
-
-	private Double parseDouble(Object obj) {
-		if (obj == null) {
-			return null;
-		} else if (obj instanceof Double) {
-			return (Double) obj;
-		} else if (obj instanceof Long) {
-			return Double.valueOf(obj.toString());
-		} else {
-			throw new IllegalArgumentException(obj.toString());
-		}
 	}
 
 	public Guild transformGuildDetail(JSONObject obj) {
@@ -436,40 +415,39 @@ public class JSONToJavaTransformer {
 			JSONArray pointsObj = (JSONArray) locationObj.get("points");
 
 			for (Object pointO : pointsObj) {
-				points.add(parsePoint2D((JSONArray) pointO));
+				points.add(utils.parsePoint2D((JSONArray) pointO));
 			}
 
 			JSONArray zRangeObj = (JSONArray) locationObj.get("z_range");
 
-			zRange = new ZRange(parseDouble(zRangeObj.get(0)), parseDouble(zRangeObj.get(1)));
+			zRange = new ZRange(utils.parseDouble(zRangeObj.get(0)), utils.parseDouble(zRangeObj.get(1)));
 
 		}
 
-		EventLocation location = new EventLocation(parsePoint3D((JSONArray) locationObj.get("center")), parseDouble(locationObj.get("rotation")),
-				parseDouble(locationObj.get("radius")), parseDouble(locationObj.get("height")), zRange, points, type);
+		EventLocation location = new EventLocation(utils.parsePoint3D((JSONArray) locationObj.get("center")), utils.parseDouble(locationObj.get("rotation")),
+				utils.parseDouble(locationObj.get("radius")), utils.parseDouble(locationObj.get("height")), zRange, points, type);
 
 		EventDetail eventDetail = new EventDetail(flags, (Long) eventObj.get("map_id"), (Long) eventObj.get("level"), location, (String) eventObj.get("name"));
 
 		return eventDetail;
 	}
 
-	private Point3D parsePoint3D(JSONArray point) {
-		return new Point3D(parseDouble(point.get(0)), parseDouble(point.get(1)), parseDouble(point.get(2)));
-	}
-
-	private Point2D parsePoint2D(JSONArray point) {
-		return new Point2D(parseDouble(point.get(0)), parseDouble(point.get(1)));
-	}
-
 	public Continent transformContinent(JSONObject continentObj) {
-		JSONArray floorsObj = (JSONArray) continentObj.get("floors");
-		List<Long> floors = new ArrayList<Long>(floorsObj.size());
-		for (Object floorO : floorsObj) {
-			floors.add((Long) floorO);
-		}
+		List<Long> floors = utils.parseLongList((JSONArray) continentObj.get("floors"));
 
-		return new Continent((String) continentObj.get("name"), parsePoint2D((JSONArray) continentObj.get("continent_dims")),
+		return new Continent((String) continentObj.get("name"), utils.parsePoint2D((JSONArray) continentObj.get("continent_dims")),
 				(Long) continentObj.get("min_zoom"), (Long) continentObj.get("max_zoom"), floors);
+	}
+
+	public AreaMap transformAreaMap(JSONObject mapObj) {
+		System.out.println(mapObj);
+
+		List<Long> floors = utils.parseLongList((JSONArray) mapObj.get("floors"));
+		MapRectangle continentRectangle = utils.parseRectangle((JSONArray) mapObj.get("continent_rect"));
+		MapRectangle mapRectangle = utils.parseRectangle((JSONArray) mapObj.get("map_rect"));
+		return new AreaMap((String) mapObj.get("continent_name"), (Long) mapObj.get("continent_id"), (String) mapObj.get("region_name"),
+				(Long) mapObj.get("region_id"), (String) mapObj.get("map_name"), (Long) mapObj.get("min_level"), (Long) mapObj.get("max_level"), mapRectangle,
+				continentRectangle, floors, (Long) mapObj.get("default_floor"));
 	}
 
 }

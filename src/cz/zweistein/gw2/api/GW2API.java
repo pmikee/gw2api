@@ -33,12 +33,12 @@ import java.util.Set;
 
 import javax.xml.bind.DatatypeConverter;
 
-import org.apache.commons.codec.binary.Base64;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import cz.zweistein.gw2.api.dao.JsonDao;
 import cz.zweistein.gw2.api.dao.OnlineJsonDao;
+import cz.zweistein.gw2.api.dto.AreaMap;
 import cz.zweistein.gw2.api.dto.Color;
 import cz.zweistein.gw2.api.dto.Continent;
 import cz.zweistein.gw2.api.dto.Event;
@@ -50,7 +50,6 @@ import cz.zweistein.gw2.api.dto.WvWMatchDetail;
 import cz.zweistein.gw2.api.dto.enums.EventState;
 import cz.zweistein.gw2.api.dto.items.Item;
 import cz.zweistein.gw2.api.transformer.JSONToJavaTransformer;
-import cz.zweistein.gw2.api.util.Realm;
 import cz.zweistein.gw2.api.util.SupportedLanguage;
 
 public class GW2API {
@@ -87,52 +86,6 @@ public class GW2API {
 	public List<Long> getRecipes() throws RemoteException {
 		JSONObject obj = dao.getRecipes();
 		return (List<Long>) obj.get("recipes");
-	}
-
-	/**
-	 * Return realm of giver world of wvw match
-	 * 
-	 * @param worldId
-	 * @return
-	 */
-	public Realm getRealm(Long worldId) {
-		if (worldId == null) {
-			return Realm.UNKNOWN;
-		} else {
-			String worldString = Long.toString(worldId);
-			if (worldString.startsWith("1")) {
-				return Realm.NA;
-			} else if (worldString.startsWith("2")) {
-				return Realm.EU;
-			} else {
-				return Realm.UNKNOWN;
-			}
-		}
-	}
-
-	public String getItemChatCode(Long itemId) {
-		StringBuilder result = new StringBuilder();
-
-		result.append("[&");
-
-		byte[] bytes = new byte[6];
-
-		bytes[0] = 0x02;
-		bytes[1] = 0x01;
-
-		if (itemId != null) {
-			bytes[2] = (byte) (itemId % 256);
-			bytes[3] = (byte) (itemId / 256);
-		}
-
-		bytes[4] = 0x00;
-		bytes[5] = 0x00;
-
-		result.append(Base64.encodeBase64String(bytes));
-
-		result.append("]");
-
-		return result.toString();
 	}
 
 	public Map<String, String> getEventNames(SupportedLanguage lang) throws RemoteException {
@@ -269,35 +222,49 @@ public class GW2API {
 
 		return colors;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public Map<String, EventDetail> getEventDetail(String eventId, SupportedLanguage lang) throws RemoteException {
 		JSONObject obj = dao.getEventDetail(eventId, transformer.translateLang(lang));
-		
+
 		Map<String, EventDetail> map = new HashMap<String, EventDetail>();
-		
+
 		JSONObject eventsObj = (JSONObject) obj.get("events");
-		
+
 		for (String key : (Set<String>) eventsObj.keySet()) {
 			JSONObject eventObj = (JSONObject) eventsObj.get(key);
 			map.put(key, transformer.transformEventDetail(eventObj));
 		}
-		
+
 		return map;
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public Map<Long, Continent> getContinents(SupportedLanguage lang)  throws RemoteException {
+	public Map<Long, Continent> getContinents(SupportedLanguage lang) throws RemoteException {
 		JSONObject continentsObj = (JSONObject) dao.getContinents(transformer.translateLang(lang)).get("continents");
-		
-		Map<Long, Continent> continents = new HashMap<Long, Continent> ();
-		
+
+		Map<Long, Continent> continents = new HashMap<Long, Continent>();
+
 		for (String key : (Set<String>) continentsObj.keySet()) {
 			JSONObject eventObj = (JSONObject) continentsObj.get(key);
 			continents.put(Long.parseLong(key), transformer.transformContinent(eventObj));
 		}
-		
+
 		return continents;
+	}
+
+	@SuppressWarnings("unchecked")
+	public Map<Long, AreaMap> getMapDetail(Long mapId, SupportedLanguage lang) throws RemoteException {
+		JSONObject mapsObj = (JSONObject) dao.getMapDetail(mapId, transformer.translateLang(lang)).get("maps");
+
+		Map<Long, AreaMap> maps = new HashMap<Long, AreaMap>();
+		
+		for (String key : (Set<String>) mapsObj.keySet()) {
+			JSONObject mapObj = (JSONObject) mapsObj.get(key);
+			maps.put(Long.parseLong(key), transformer.transformAreaMap(mapObj));
+		}
+
+		return maps;
 	}
 
 }
