@@ -54,7 +54,6 @@ public class EventDialog extends JFrame implements ActionListener {
 		Collections.sort(eventNamesEntries, new CodeTableEntryComparator());
 
 		eventNamesComboBox = new JComboBox(eventNamesEntries.toArray(new CodeTableItem[eventNamesEntries.size()]));
-		eventNamesComboBox.setRenderer(new CodeTableRenderer());
 		eventNamesComboBox.addActionListener(this);
 		content.add(eventNamesComboBox, new GridBagConstraints(0, 1, 2, 1, 1, 1, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
 				new Insets(0, 0, 0, 0), 0, 0));
@@ -66,7 +65,6 @@ public class EventDialog extends JFrame implements ActionListener {
 		Collections.sort(worldNamesEntries, new CodeTableEntryComparator());
 
 		worldNamesComboBox = new JComboBox(worldNamesEntries.toArray(new CodeTableItem[worldNamesEntries.size()]));
-		worldNamesComboBox.setRenderer(new CodeTableRenderer());
 		worldNamesComboBox.addActionListener(this);
 		content.add(worldNamesComboBox, new GridBagConstraints(0, 2, 2, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0,
 				0), 0, 0));
