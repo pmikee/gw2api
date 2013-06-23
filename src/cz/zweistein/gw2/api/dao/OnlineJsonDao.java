@@ -303,4 +303,13 @@ public class OnlineJsonDao implements JsonDao {
 		return getJSONObject(Utilities.buildQuerryURL("maps.json", params));
 	}
 
+	@Override
+	public JSONObject getMapFloor(Long continentId, Long floor, String lang) throws RemoteException {
+		ParametersMap params = new ParametersMap();
+		params.putIfNotNull("continent_id", continentId);
+		params.putIfNotNull("floor", floor);
+		params.putIfNotNull("lang", lang);
+		return getJSONObject(Utilities.buildQuerryURL("map_floor.json", params));
+	}
+
 }

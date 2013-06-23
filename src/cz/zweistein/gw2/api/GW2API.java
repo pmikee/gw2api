@@ -44,6 +44,7 @@ import cz.zweistein.gw2.api.dto.Continent;
 import cz.zweistein.gw2.api.dto.Event;
 import cz.zweistein.gw2.api.dto.EventDetail;
 import cz.zweistein.gw2.api.dto.Guild;
+import cz.zweistein.gw2.api.dto.MapFloor;
 import cz.zweistein.gw2.api.dto.Recipe;
 import cz.zweistein.gw2.api.dto.WvWMatch;
 import cz.zweistein.gw2.api.dto.WvWMatchDetail;
@@ -265,6 +266,11 @@ public class GW2API {
 		}
 
 		return maps;
+	}
+
+	public MapFloor getMapFloor(Long continentId, Long floor, SupportedLanguage lang) throws RemoteException {
+		JSONObject mapFloorObj = dao.getMapFloor(continentId, floor, transformer.translateLang(lang));
+		return transformer.transformMapFloor(mapFloorObj);
 	}
 
 }

@@ -1,7 +1,10 @@
 package cz.zweistein.gw2.api.transformer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -14,12 +17,19 @@ import cz.zweistein.gw2.api.dto.EventDetail;
 import cz.zweistein.gw2.api.dto.EventLocation;
 import cz.zweistein.gw2.api.dto.Guild;
 import cz.zweistein.gw2.api.dto.GuildEmblem;
+import cz.zweistein.gw2.api.dto.Heart;
 import cz.zweistein.gw2.api.dto.Ingredient;
+import cz.zweistein.gw2.api.dto.MapAreaFloor;
+import cz.zweistein.gw2.api.dto.MapAreaSector;
+import cz.zweistein.gw2.api.dto.MapFloor;
 import cz.zweistein.gw2.api.dto.MapRectangle;
+import cz.zweistein.gw2.api.dto.MapRegion;
 import cz.zweistein.gw2.api.dto.Point2D;
+import cz.zweistein.gw2.api.dto.PointOfInterest;
 import cz.zweistein.gw2.api.dto.RGB;
 import cz.zweistein.gw2.api.dto.Recipe;
 import cz.zweistein.gw2.api.dto.Scores;
+import cz.zweistein.gw2.api.dto.SkillChallenge;
 import cz.zweistein.gw2.api.dto.WvWMap;
 import cz.zweistein.gw2.api.dto.WvWMatchDetail;
 import cz.zweistein.gw2.api.dto.WvWObjective;
@@ -30,6 +40,7 @@ import cz.zweistein.gw2.api.dto.enums.EventFlag;
 import cz.zweistein.gw2.api.dto.enums.GameType;
 import cz.zweistein.gw2.api.dto.enums.GuildEmblemFlag;
 import cz.zweistein.gw2.api.dto.enums.LocationType;
+import cz.zweistein.gw2.api.dto.enums.PoIType;
 import cz.zweistein.gw2.api.dto.enums.Restriction;
 import cz.zweistein.gw2.api.dto.enums.WvWMapType;
 import cz.zweistein.gw2.api.dto.enums.WvWSide;
@@ -450,4 +461,63 @@ public class JSONToJavaTransformer {
 				continentRectangle, floors, (Long) mapObj.get("default_floor"));
 	}
 
+	public MapFloor transformMapFloor(JSONObject mapFloorObj) {
+
+		JSONObject regionsObj = (JSONObject) mapFloorObj.get("regions");
+
+		Map<Long, MapRegion> regions = new HashMap<Long, MapRegion>();
+
+		@SuppressWarnings("unchecked")
+		Set<String> regionKeys = (Set<String>) regionsObj.keySet();
+		for (String regionKey : regionKeys) {
+			JSONObject regionObj = (JSONObject) regionsObj.get(regionKey);
+			Map<Long, MapAreaFloor> maps = new HashMap<Long, MapAreaFloor>();
+			JSONObject mapsObj = (JSONObject) regionObj.get("maps");
+			@SuppressWarnings("unchecked")
+			Set<String> mapKeys = (Set<String>) mapsObj.keySet();
+			for (String mapKey : mapKeys) {
+				JSONObject mapObj = (JSONObject) mapsObj.get(mapKey);
+				MapRectangle continentRectangle = utils.parseRectangle((JSONArray) mapObj.get("continent_rect"));
+				MapRectangle mapRectangle = utils.parseRectangle((JSONArray) mapObj.get("map_rect"));
+
+				JSONArray skillChallengesObj = (JSONArray) mapObj.get("skill_challenges");
+				List<SkillChallenge> skillChallenges = new ArrayList<SkillChallenge>(skillChallengesObj.size());
+				for (Object skillChallengesO : skillChallengesObj) {
+					skillChallenges.add(new SkillChallenge(utils.parsePoint2D((JSONArray) ((JSONObject) skillChallengesO).get("coord"))));
+				}
+
+				JSONArray poisObj = (JSONArray) mapObj.get("points_of_interest");
+				List<PointOfInterest> pois = new ArrayList<PointOfInterest>(poisObj.size());
+				for (Object poiO : poisObj) {
+					JSONObject poiObj = (JSONObject) poiO;
+					pois.add(new PointOfInterest(utils.parsePoint2D((JSONArray) poiObj.get("coord")), (String) poiObj.get("name"), (Long) poiObj.get("floor"),
+							(Long) poiObj.get("poi_id"), PoIType.resolve((String) poiObj.get("type"))));
+				}
+
+				JSONArray tasksObj = (JSONArray) mapObj.get("tasks");
+				List<Heart> tasks = new ArrayList<Heart>(tasksObj.size());
+				for (Object tasksO : tasksObj) {
+					JSONObject taskObj = (JSONObject) tasksO;
+					tasks.add(new Heart(utils.parsePoint2D((JSONArray) taskObj.get("coord")), (Long) taskObj.get("level"), (String) taskObj.get("objective"),
+							(Long) taskObj.get("task_id")));
+				}
+
+				JSONArray sectorsObj = (JSONArray) mapObj.get("sectors");
+				List<MapAreaSector> sectors = new ArrayList<MapAreaSector>(sectorsObj.size());
+				for (Object sectorO : sectorsObj) {
+					JSONObject sectorObj = (JSONObject) sectorO;
+					sectors.add(new MapAreaSector(utils.parsePoint2D((JSONArray) sectorObj.get("coord")), (Long) sectorObj.get("level"), (String) sectorObj
+							.get("name"), (Long) sectorObj.get("sector_id")));
+				}
+
+				maps.put(Long.parseLong(mapKey), new MapAreaFloor((String) mapObj.get("name"), (Long) mapObj.get("min_level"), (Long) mapObj.get("max_level"),
+						mapRectangle, continentRectangle, (Long) mapObj.get("default_floor"), skillChallenges, pois, tasks, sectors));
+			}
+
+			regions.put(Long.parseLong(regionKey), new MapRegion((String) regionObj.get("name"), utils.parsePoint2D((JSONArray) regionObj.get("label_coord")),
+					maps));
+		}
+
+		return new MapFloor(utils.parsePoint2D((JSONArray) mapFloorObj.get("texture_dims")), regions);
+	}
 }
