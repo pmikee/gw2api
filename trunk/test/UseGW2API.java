@@ -1,6 +1,8 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.json.simple.parser.ParseException;
 
@@ -8,6 +10,7 @@ import cz.zweistein.gw2.api.GW2API;
 import cz.zweistein.gw2.api.GW2APIUtilities;
 import cz.zweistein.gw2.api.auth.OAuth2Client;
 import cz.zweistein.gw2.api.dao.OfflineJsonDao;
+import cz.zweistein.gw2.api.dto.Continent;
 import cz.zweistein.gw2.api.dto.Recipe;
 import cz.zweistein.gw2.api.dto.WvWMap;
 import cz.zweistein.gw2.api.dto.WvWMatch;
@@ -23,6 +26,13 @@ public class UseGW2API {
 		GW2API api = new GW2API();
 		
 //		api.setDao(new OfflineJsonDao());
+		
+		Map<Long, Continent> continents = api.getContinents(SupportedLanguage.FRENCH);
+		for (Entry<Long, Continent> continent : continents.entrySet()) {
+			for (Long floor : continent.getValue().getFloors()) {
+				System.out.println(api.getMapFloor(continent.getKey(), floor, GW2APIUtilities.getSystemLanguage()));
+			}
+		}
 		
 //		System.out.println(api.getMapDetail(18L, GW2APIUtilities.getSystemLanguage()));
 		
