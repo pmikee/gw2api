@@ -295,4 +295,12 @@ public class OnlineJsonDao implements JsonDao {
 		return getJSONObject(Utilities.buildQuerryURL("continents.json", params));
 	}
 
+	@Override
+	public JSONObject getMapDetail(Long mapId, String lang) throws RemoteException {
+		ParametersMap params = new ParametersMap();
+		params.putIfNotNull("map_id", mapId);
+		params.putIfNotNull("lang", lang);
+		return getJSONObject(Utilities.buildQuerryURL("maps.json", params));
+	}
+
 }

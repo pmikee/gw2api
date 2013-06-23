@@ -2,9 +2,9 @@ package cz.zweistein.gw2.api.dto.items;
 
 import java.util.List;
 
-import cz.zweistein.gw2.api.dto.enums.InfusionSlotFlag;
-import cz.zweistein.gw2.api.dto.enums.UpgradeComponentFlag;
-import cz.zweistein.gw2.api.dto.enums.UpgradeComponentType;
+import cz.zweistein.gw2.api.dto.enums.items.InfusionSlotFlag;
+import cz.zweistein.gw2.api.dto.enums.items.UpgradeComponentFlag;
+import cz.zweistein.gw2.api.dto.enums.items.UpgradeComponentType;
 
 public class UpgradeComponent {
 	

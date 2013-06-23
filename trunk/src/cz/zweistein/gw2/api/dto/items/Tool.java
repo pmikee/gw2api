@@ -1,6 +1,6 @@
 package cz.zweistein.gw2.api.dto.items;
 
-import cz.zweistein.gw2.api.dto.enums.ToolType;
+import cz.zweistein.gw2.api.dto.enums.items.ToolType;
 
 public class Tool {
 	

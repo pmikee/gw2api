@@ -3,10 +3,10 @@ package cz.zweistein.gw2.api.dto.items;
 import java.util.List;
 
 import cz.zweistein.gw2.api.dto.enums.GameType;
-import cz.zweistein.gw2.api.dto.enums.ItemClass;
-import cz.zweistein.gw2.api.dto.enums.ItemFlag;
-import cz.zweistein.gw2.api.dto.enums.Rarity;
 import cz.zweistein.gw2.api.dto.enums.Restriction;
+import cz.zweistein.gw2.api.dto.enums.items.ItemClass;
+import cz.zweistein.gw2.api.dto.enums.items.ItemFlag;
+import cz.zweistein.gw2.api.dto.enums.items.Rarity;
 
 public class Item {
 

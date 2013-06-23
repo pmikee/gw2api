@@ -2,7 +2,7 @@ package cz.zweistein.gw2.api.dto.items;
 
 import java.util.List;
 
-import cz.zweistein.gw2.api.dto.enums.InfusionSlotFlag;
+import cz.zweistein.gw2.api.dto.enums.items.InfusionSlotFlag;
 
 public class InfusionSlot {
 	

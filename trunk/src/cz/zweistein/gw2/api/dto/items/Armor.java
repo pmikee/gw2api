@@ -2,8 +2,8 @@ package cz.zweistein.gw2.api.dto.items;
 
 import java.util.List;
 
-import cz.zweistein.gw2.api.dto.enums.ItemType;
-import cz.zweistein.gw2.api.dto.enums.WeightClass;
+import cz.zweistein.gw2.api.dto.enums.items.ItemType;
+import cz.zweistein.gw2.api.dto.enums.items.WeightClass;
 
 public class Armor {
 	

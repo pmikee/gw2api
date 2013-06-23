@@ -1,7 +1,7 @@
 package cz.zweistein.gw2.api.dto.items;
 
-import cz.zweistein.gw2.api.dto.enums.ConsumableType;
-import cz.zweistein.gw2.api.dto.enums.UnlockType;
+import cz.zweistein.gw2.api.dto.enums.items.ConsumableType;
+import cz.zweistein.gw2.api.dto.enums.items.UnlockType;
 
 public class Consumable {
 	
