@@ -138,4 +138,9 @@ public class OfflineJsonDao implements JsonDao {
 		return colors;
 	}
 
+	@Override
+	public JSONObject getEventDetail(String eventId, String translateLang) throws RemoteException {
+		throw new UnsupportedOperationException();
+	}
+
 }

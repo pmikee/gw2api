@@ -41,6 +41,7 @@ import cz.zweistein.gw2.api.dao.JsonDao;
 import cz.zweistein.gw2.api.dao.OnlineJsonDao;
 import cz.zweistein.gw2.api.dto.Color;
 import cz.zweistein.gw2.api.dto.Event;
+import cz.zweistein.gw2.api.dto.EventDetail;
 import cz.zweistein.gw2.api.dto.Guild;
 import cz.zweistein.gw2.api.dto.Recipe;
 import cz.zweistein.gw2.api.dto.WvWMatch;
@@ -266,6 +267,22 @@ public class GW2API {
 		}
 
 		return colors;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Map<String, EventDetail> getEventDetail(String eventId, SupportedLanguage lang) throws RemoteException {
+		JSONObject obj = dao.getEventDetail(eventId, transformer.translateLang(lang));
+		
+		Map<String, EventDetail> map = new HashMap<String, EventDetail>();
+		
+		JSONObject eventsObj = (JSONObject) obj.get("events");
+		
+		for (String key : (Set<String>) eventsObj.keySet()) {
+			JSONObject eventObj = (JSONObject) eventsObj.get(key);
+			map.put(key, transformer.transformEventDetail(eventObj));
+		}
+		
+		return map;
 	}
 
 }
