@@ -37,4 +37,6 @@ public interface JsonDao {
 
 	public abstract JSONObject getEventDetail(String eventId, String translateLang) throws RemoteException;
 
+	public abstract JSONObject getContinents(String translateLang) throws RemoteException;
+
 }

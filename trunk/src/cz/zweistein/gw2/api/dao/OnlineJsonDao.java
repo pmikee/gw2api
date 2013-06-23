@@ -288,4 +288,11 @@ public class OnlineJsonDao implements JsonDao {
 		return getJSONObject(Utilities.buildQuerryURL("event_details.json", params));
 	}
 
+	@Override
+	public JSONObject getContinents(String lang) throws RemoteException {
+		ParametersMap params = new ParametersMap();
+		params.putIfNotNull("lang", lang);
+		return getJSONObject(Utilities.buildQuerryURL("continents.json", params));
+	}
+
 }

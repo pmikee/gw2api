@@ -22,9 +22,10 @@ public class UseGW2API {
 		GW2API api = new GW2API();
 		
 //		api.setDao(new OfflineJsonDao());
-	
-		System.out.println(api.getEventDetail(null, null));
 		
+		System.out.println(api.getContinents(SupportedLanguage.FRENCH));
+	
+//		System.out.println(api.getEventDetail("896CF9BF-2265-40A8-95E8-7CDDE08E0700", null));
 		
 //		System.out.println(api.getEvents(null, null, null));
 		

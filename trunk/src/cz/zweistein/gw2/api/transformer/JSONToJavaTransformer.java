@@ -8,6 +8,7 @@ import org.json.simple.JSONObject;
 
 import cz.zweistein.gw2.api.dto.Color;
 import cz.zweistein.gw2.api.dto.ColorHue;
+import cz.zweistein.gw2.api.dto.Continent;
 import cz.zweistein.gw2.api.dto.EventDetail;
 import cz.zweistein.gw2.api.dto.EventLocation;
 import cz.zweistein.gw2.api.dto.Guild;
@@ -133,7 +134,7 @@ public class JSONToJavaTransformer {
 		return infusionSlots;
 	}
 
-	public Item transfromItem(JSONObject obj) {
+	public Item transformItem(JSONObject obj) {
 
 		JSONArray gameTypesObj = (JSONArray) obj.get("game_types");
 		List<GameType> gameTypes = new ArrayList<GameType>(gameTypesObj.size());
@@ -307,7 +308,7 @@ public class JSONToJavaTransformer {
 
 	}
 
-	public Recipe transfromRecipe(JSONObject obj) {
+	public Recipe transformRecipe(JSONObject obj) {
 		JSONArray ingredientsObj = (JSONArray) obj.get("ingredients");
 
 		List<Ingredient> ingredients = new ArrayList<Ingredient>(ingredientsObj.size());
@@ -363,18 +364,18 @@ public class JSONToJavaTransformer {
 	}
 
 	public Color transformColor(JSONObject colorsObj) {
-		ColorHue defaultColor = transfromColorHue((JSONObject) colorsObj.get("default"));
-		ColorHue metalColor = transfromColorHue((JSONObject) colorsObj.get("metal"));
-		ColorHue clothColor = transfromColorHue((JSONObject) colorsObj.get("cloth"));
-		ColorHue leatherColor = transfromColorHue((JSONObject) colorsObj.get("leather"));
-		RGB rgb = transfromRGB((JSONArray) colorsObj.get("base_rgb"));
+		ColorHue defaultColor = transformColorHue((JSONObject) colorsObj.get("default"));
+		ColorHue metalColor = transformColorHue((JSONObject) colorsObj.get("metal"));
+		ColorHue clothColor = transformColorHue((JSONObject) colorsObj.get("cloth"));
+		ColorHue leatherColor = transformColorHue((JSONObject) colorsObj.get("leather"));
+		RGB rgb = transformRGB((JSONArray) colorsObj.get("base_rgb"));
 		return new Color((String) colorsObj.get("name"), defaultColor, metalColor, clothColor, leatherColor, rgb);
 	}
 
-	private ColorHue transfromColorHue(JSONObject colorHueObj) {
+	private ColorHue transformColorHue(JSONObject colorHueObj) {
 		if (colorHueObj != null) {
 
-			RGB rgb = transfromRGB((JSONArray) colorHueObj.get("rgb"));
+			RGB rgb = transformRGB((JSONArray) colorHueObj.get("rgb"));
 
 			return new ColorHue(parseDouble(colorHueObj.get("brightness")), parseDouble(colorHueObj.get("contrast")), parseDouble(colorHueObj.get("hue")),
 					parseDouble(colorHueObj.get("saturation")), parseDouble(colorHueObj.get("lightness")), rgb);
@@ -383,7 +384,7 @@ public class JSONToJavaTransformer {
 		}
 	}
 
-	private RGB transfromRGB(JSONArray rgbObj) {
+	private RGB transformRGB(JSONArray rgbObj) {
 		return new RGB((Long) rgbObj.get(0), (Long) rgbObj.get(1), (Long) rgbObj.get(2));
 	}
 
@@ -399,7 +400,7 @@ public class JSONToJavaTransformer {
 		}
 	}
 
-	public Guild transfromGuildDetail(JSONObject obj) {
+	public Guild transformGuildDetail(JSONObject obj) {
 		JSONObject emblemObj = (JSONObject) obj.get("emblem");
 
 		GuildEmblem emblem = null;
@@ -419,8 +420,6 @@ public class JSONToJavaTransformer {
 	}
 
 	public EventDetail transformEventDetail(JSONObject eventObj) {
-		System.out.println(eventObj);
-
 		JSONArray flagsObj = (JSONArray) eventObj.get("flags");
 		List<EventFlag> flags = new ArrayList<EventFlag>(flagsObj.size());
 		for (Object flagO : flagsObj) {
@@ -460,6 +459,17 @@ public class JSONToJavaTransformer {
 
 	private Point2D parsePoint2D(JSONArray point) {
 		return new Point2D(parseDouble(point.get(0)), parseDouble(point.get(1)));
+	}
+
+	public Continent transformContinent(JSONObject continentObj) {
+		JSONArray floorsObj = (JSONArray) continentObj.get("floors");
+		List<Long> floors = new ArrayList<Long>(floorsObj.size());
+		for (Object floorO : floorsObj) {
+			floors.add((Long) floorO);
+		}
+
+		return new Continent((String) continentObj.get("name"), parsePoint2D((JSONArray) continentObj.get("continent_dims")),
+				(Long) continentObj.get("min_zoom"), (Long) continentObj.get("max_zoom"), floors);
 	}
 
 }

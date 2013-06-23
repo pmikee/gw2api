@@ -40,6 +40,7 @@ import org.json.simple.JSONObject;
 import cz.zweistein.gw2.api.dao.JsonDao;
 import cz.zweistein.gw2.api.dao.OnlineJsonDao;
 import cz.zweistein.gw2.api.dto.Color;
+import cz.zweistein.gw2.api.dto.Continent;
 import cz.zweistein.gw2.api.dto.Event;
 import cz.zweistein.gw2.api.dto.EventDetail;
 import cz.zweistein.gw2.api.dto.Guild;
@@ -234,19 +235,19 @@ public class GW2API {
 	public Recipe getRecipeDetails(Long id, SupportedLanguage lang) throws RemoteException {
 		JSONObject obj = dao.getRecipeDetails(id, transformer.translateLang(lang));
 
-		return transformer.transfromRecipe(obj);
+		return transformer.transformRecipe(obj);
 	}
 
 	public Item getItemDetails(Long id, SupportedLanguage lang) throws RemoteException {
 		JSONObject obj = dao.getItemDetails(id, transformer.translateLang(lang));
 
-		return transformer.transfromItem(obj);
+		return transformer.transformItem(obj);
 	}
 
 	public Guild getGuildDetails(String guildID, String guildName) throws RemoteException {
 		JSONObject obj = dao.getGuildDetails(guildID, guildName);
 
-		return transformer.transfromGuildDetail(obj);
+		return transformer.transformGuildDetail(obj);
 	}
 
 	public Long getBuild() throws RemoteException {
@@ -283,6 +284,20 @@ public class GW2API {
 		}
 		
 		return map;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Map<Long, Continent> getContinents(SupportedLanguage lang)  throws RemoteException {
+		JSONObject continentsObj = (JSONObject) dao.getContinents(transformer.translateLang(lang)).get("continents");
+		
+		Map<Long, Continent> continents = new HashMap<Long, Continent> ();
+		
+		for (String key : (Set<String>) continentsObj.keySet()) {
+			JSONObject eventObj = (JSONObject) continentsObj.get(key);
+			continents.put(Long.parseLong(key), transformer.transformContinent(eventObj));
+		}
+		
+		return continents;
 	}
 
 }
