@@ -35,4 +35,6 @@ public interface JsonDao {
 
 	public abstract JSONObject getColors() throws RemoteException;
 
+	public abstract JSONObject getEventDetail(String eventId, String translateLang) throws RemoteException;
+
 }

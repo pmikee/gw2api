@@ -8,15 +8,20 @@ import org.json.simple.JSONObject;
 
 import cz.zweistein.gw2.api.dto.Color;
 import cz.zweistein.gw2.api.dto.ColorHue;
+import cz.zweistein.gw2.api.dto.EventDetail;
+import cz.zweistein.gw2.api.dto.EventLocation;
 import cz.zweistein.gw2.api.dto.Guild;
 import cz.zweistein.gw2.api.dto.GuildEmblem;
 import cz.zweistein.gw2.api.dto.Ingredient;
+import cz.zweistein.gw2.api.dto.Point2D;
+import cz.zweistein.gw2.api.dto.Point3D;
 import cz.zweistein.gw2.api.dto.RGB;
 import cz.zweistein.gw2.api.dto.Recipe;
 import cz.zweistein.gw2.api.dto.Scores;
 import cz.zweistein.gw2.api.dto.WvWMap;
 import cz.zweistein.gw2.api.dto.WvWMatchDetail;
 import cz.zweistein.gw2.api.dto.WvWObjective;
+import cz.zweistein.gw2.api.dto.ZRange;
 import cz.zweistein.gw2.api.dto.enums.AttributeType;
 import cz.zweistein.gw2.api.dto.enums.BagModifier;
 import cz.zweistein.gw2.api.dto.enums.ConsumableType;
@@ -24,6 +29,7 @@ import cz.zweistein.gw2.api.dto.enums.ContainerType;
 import cz.zweistein.gw2.api.dto.enums.CraftingDiscipline;
 import cz.zweistein.gw2.api.dto.enums.CraftingFlag;
 import cz.zweistein.gw2.api.dto.enums.DamageType;
+import cz.zweistein.gw2.api.dto.enums.EventFlag;
 import cz.zweistein.gw2.api.dto.enums.GameType;
 import cz.zweistein.gw2.api.dto.enums.GatheringType;
 import cz.zweistein.gw2.api.dto.enums.GizmoType;
@@ -32,6 +38,7 @@ import cz.zweistein.gw2.api.dto.enums.InfusionSlotFlag;
 import cz.zweistein.gw2.api.dto.enums.ItemClass;
 import cz.zweistein.gw2.api.dto.enums.ItemFlag;
 import cz.zweistein.gw2.api.dto.enums.ItemType;
+import cz.zweistein.gw2.api.dto.enums.LocationType;
 import cz.zweistein.gw2.api.dto.enums.Rarity;
 import cz.zweistein.gw2.api.dto.enums.Restriction;
 import cz.zweistein.gw2.api.dto.enums.ToolType;
@@ -381,7 +388,9 @@ public class JSONToJavaTransformer {
 	}
 
 	private Double parseDouble(Object obj) {
-		if (obj instanceof Double) {
+		if (obj == null) {
+			return null;
+		} else if (obj instanceof Double) {
 			return (Double) obj;
 		} else if (obj instanceof Long) {
 			return Double.valueOf(obj.toString());
@@ -407,6 +416,50 @@ public class JSONToJavaTransformer {
 		}
 
 		return new Guild((String) obj.get("guild_id"), (String) obj.get("tag"), (String) obj.get("guild_name"), emblem);
+	}
+
+	public EventDetail transformEventDetail(JSONObject eventObj) {
+		System.out.println(eventObj);
+
+		JSONArray flagsObj = (JSONArray) eventObj.get("flags");
+		List<EventFlag> flags = new ArrayList<EventFlag>(flagsObj.size());
+		for (Object flagO : flagsObj) {
+			flags.add(EventFlag.resolve((String) flagO));
+		}
+
+		JSONObject locationObj = (JSONObject) eventObj.get("location");
+		LocationType type = LocationType.resolve((String) locationObj.get("type"));
+
+		ZRange zRange = null;
+		List<Point2D> points = new ArrayList<Point2D>();
+		if (LocationType.POLY.equals(type)) {
+
+			JSONArray pointsObj = (JSONArray) locationObj.get("points");
+
+			for (Object pointO : pointsObj) {
+				points.add(parsePoint2D((JSONArray) pointO));
+			}
+
+			JSONArray zRangeObj = (JSONArray) locationObj.get("z_range");
+
+			zRange = new ZRange(parseDouble(zRangeObj.get(0)), parseDouble(zRangeObj.get(1)));
+
+		}
+
+		EventLocation location = new EventLocation(parsePoint3D((JSONArray) locationObj.get("center")), parseDouble(locationObj.get("rotation")),
+				parseDouble(locationObj.get("radius")), parseDouble(locationObj.get("height")), zRange, points, type);
+
+		EventDetail eventDetail = new EventDetail(flags, (Long) eventObj.get("map_id"), (Long) eventObj.get("level"), location, (String) eventObj.get("name"));
+
+		return eventDetail;
+	}
+
+	private Point3D parsePoint3D(JSONArray point) {
+		return new Point3D(parseDouble(point.get(0)), parseDouble(point.get(1)), parseDouble(point.get(2)));
+	}
+
+	private Point2D parsePoint2D(JSONArray point) {
+		return new Point2D(parseDouble(point.get(0)), parseDouble(point.get(1)));
 	}
 
 }

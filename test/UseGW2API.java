@@ -20,9 +20,13 @@ public class UseGW2API {
 	public static void main(String[] args) throws InterruptedException, FileNotFoundException, IOException, ParseException {
 		
 		GW2API api = new GW2API();
-//		api.setDao(new OfflineJsonDao());
 		
-		System.out.println(api.getEvents(null, null, null));
+//		api.setDao(new OfflineJsonDao());
+	
+		System.out.println(api.getEventDetail(null, null));
+		
+		
+//		System.out.println(api.getEvents(null, null, null));
 		
 //		System.out.println(api.getGuildDetails("B8DE9611-67DC-4A07-87AD-366F9A63C3EC", null));
 		
