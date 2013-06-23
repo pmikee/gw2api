@@ -143,4 +143,9 @@ public class OfflineJsonDao implements JsonDao {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
+	public JSONObject getContinents(String translateLang) throws RemoteException {
+		throw new UnsupportedOperationException();
+	}
+
 }
