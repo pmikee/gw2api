@@ -99,7 +99,38 @@ public class Main {
 				a = pointOfInterestA;
 			}
 		}
-		System.out.println(a.getName() + " is Most remote waypoint.");
+
+		System.out.println(a.getName() + " is most remote waypoint from points of interest.");
+
+		List<PointOfInterest> all = new ArrayList<PointOfInterest>();
+
+		for (Entry<Long, MapRegion> entry : regions.entrySet()) {
+			for (Entry<Long, MapAreaFloor> map : entry.getValue().getMaps().entrySet()) {
+				for (PointOfInterest poi : map.getValue().getPois()) {
+					all.add(poi);
+				}
+
+			}
+		}
+
+		maxDistance = 0;
+
+		for (PointOfInterest pointOfInterestA : wps) {
+			double distance = Double.MAX_VALUE;
+			for (PointOfInterest pointOfInterestB : all) {
+				if (distance > distance(pointOfInterestA, pointOfInterestB)
+						&& distance(pointOfInterestA, pointOfInterestB) > 0) {
+					distance = distance(pointOfInterestA, pointOfInterestB);
+				}
+			}
+
+			if (maxDistance < distance) {
+				maxDistance = distance;
+				a = pointOfInterestA;
+			}
+		}
+
+		System.out.println(a.getName() + " is most remote waypoint.");
 
 	}
 
@@ -118,6 +149,5 @@ public class Main {
 	}
 
 }
-
 
 }}}
